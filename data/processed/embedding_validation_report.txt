@@ -1,0 +1,25 @@
+==================================================
+PatentIQ - Embedding Validation Report
+==================================================
+
+Total Embeddings  : 115625
+Metadata Records  : 115625
+Dataset Records   : 115625
+
+Test Execution Summary:
+--------------------------------------------------
+[PASS] Count Check
+      Embeddings: 115625, Dataset: 115625, Metadata: 115625
+[PASS] Dimension Check
+      Embeddings shape: (115625, 384)
+[PASS] Nan Check
+      Found 0 NaN values
+[PASS] Inf Check
+      Found 0 Infinite values
+[PASS] Norms Check
+      Found 0 vectors with invalid L2 norms (average norm: 1.000000)
+[PASS] Similarity Check
+      Cosine similarity over 50 sample pairs: min=0.0476, max=0.6510, mean=0.3523
+--------------------------------------------------
+Overall Status: PASSED
+==================================================
