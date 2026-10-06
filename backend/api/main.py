@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
-from backend.api.routes import health, search, novelty, analyze, knowledge
+from backend.api.routes import health, search, novelty, analyze, knowledge, copilot
 
 # Configure API logging
 logging.basicConfig(
@@ -35,6 +35,7 @@ app.include_router(search.router, prefix="/api", tags=["Retrieval Search"])
 app.include_router(novelty.router, prefix="/api", tags=["Novelty Assessment"])
 app.include_router(analyze.router, prefix="/api", tags=["Full Intelligence Analysis"])
 app.include_router(knowledge.router, prefix="/api/knowledge", tags=["Live Knowledge Expansion"])
+app.include_router(copilot.router, prefix="/api", tags=["AI Research Copilot"])
 
 # Setup static files directory mapping for frontend client
 # Use absolute paths relative to this file to handle uvicorn launched from subdirectories

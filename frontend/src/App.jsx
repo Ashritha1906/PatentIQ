@@ -5,6 +5,7 @@ import Results from './pages/Results';
 import Knowledge from './pages/Knowledge';
 import Docs from './pages/Docs';
 import SettingsPage from './pages/SettingsPage';
+import Copilot from './pages/Copilot';
 import { checkSystemHealth, analyzeIdea } from './services/api';
 
 function App() {
@@ -125,6 +126,7 @@ function App() {
   const navItems = [
     { id: 'home', label: 'Home Overview', icon: '🏠' },
     { id: 'workspace', label: 'Research Workspace', icon: '💻' },
+    { id: 'copilot', label: 'AI Research Copilot', icon: '🤖' },
     { id: 'results', label: 'Intelligence Center', icon: '📊' },
     { id: 'knowledge', label: 'Knowledge Ingestion', icon: '🧠' },
     { id: 'docs', label: 'Documentation', icon: '📖' },
@@ -248,6 +250,9 @@ function App() {
         {/* Routed views */}
         {activeTab === 'home' && (
           <Home onNavigate={setActiveTab} />
+        )}
+        {activeTab === 'copilot' && (
+          <Copilot />
         )}
         {activeTab === 'workspace' && (
           <Workspace 

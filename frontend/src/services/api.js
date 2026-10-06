@@ -90,3 +90,51 @@ export async function analyzeIdea({ ideaText, topK = 5, domainFilter = null, app
   
   return await response.json();
 }
+
+export async function chatCopilot({ message, sessionId = null, sourceMode = 'hybrid', topK = 5 }) {
+  const payload = {
+    message,
+    session_id: sessionId || null,
+    source_mode: sourceMode || 'hybrid',
+    top_k: topK || 5
+  };
+
+  const response = await fetch(`${API_BASE}/copilot/chat`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    let errMsg = `Server returned status: ${response.status}`;
+    try {
+      const errorJson = await response.json();
+      if (errorJson && errorJson.detail) {
+        errMsg = errorJson.detail;
+      }
+    } catch (_) {}
+    throw new Error(errMsg);
+  }
+
+  return await response.json();
+}
+
+export async function getCopilotSession(sessionId) {
+  const response = await fetch(`${API_BASE}/copilot/session/${sessionId}`, {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' }
+  });
+  if (!response.ok) return null;
+  return await response.json();
+}
+
+export async function deleteCopilotSession(sessionId) {
+  const response = await fetch(`${API_BASE}/copilot/session/${sessionId}`, {
+    method: 'DELETE',
+    headers: { 'Accept': 'application/json' }
+  });
+  return response.ok;
+}
