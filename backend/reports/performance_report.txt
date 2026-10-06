@@ -1,0 +1,23 @@
+==================================================
+PatentIQ - Semantic Search Performance Report
+==================================================
+
+Hardware Environment: Device Used (PyTorch) = CPU
+
+Throughput & Latency:
+  Average Latency (Top-5 search)  : 31.34 ms
+  Average Throughput              : 31.91 queries/sec
+  Min Query Latency               : 27.47 ms
+  Max Query Latency               : 40.82 ms
+
+ChromaDB Storage:
+  ChromaDB Folder Size on Disk    : 453.92 MB
+  Vector Index Count              : 115,625
+
+Memory Footprint:
+  Warmup Initialization Memory    : 772.76 MB
+  Peak Execution Memory (RAM)     : 777.61 MB
+
+Search Scalability Projections:
+  Expected latency at 1M patents  : 47.01 ms (Logarithmic scaling with HNSW index)
+==================================================

@@ -1,0 +1,99 @@
+==================================================
+PATENTIQ PATENT INTELLIGENCE REPORT
+==================================================
+
+--- USER INVENTION IDEA ---
+Idea: A wearable optical sensor system for non-invasive, continuous blood glucose monitoring. The device emits near-infrared light through the skin and measures absorption. A processor translates absorption spectra into glucose levels.
+
+--- TECHNOLOGY DOMAIN ---
+Primary Domain: Healthcare
+Key Concepts: conversational agent, medical diagnosis, NLP parsing, optical sensing
+
+==================================================
+PART I: RETRIEVED EVIDENCE (FACTS)
+==================================================
+The following patents were retrieved directly from the vector store index:
+
+[1] Patent ID : 201941016860
+    Title     : A SINGLE-UNIT, WIRELESS DEVICE FOR SALIVARY STIMULATION
+    Applicant : SRM DENTAL COLLEGE (Ramapuram)
+    Field     : BIO-MEDICAL ENGINEERING | IPC: A61N0001360000, A61N0001040000, H02J0007000000, A61N0005060000, A61N0001320000
+--------------------------------------------------
+[2] Patent ID : 201941048720
+    Title     : DEVICE FOR DETERMINING SALIVARY PARAMETERS
+    Applicant : Meenakshi Academy of Higher Education and Research
+    Field     : BIO-MEDICAL ENGINEERING | IPC: A61B0005020500,A61B0010000000,G05B0019418000,A61B0005053000,A61C0019040000
+--------------------------------------------------
+[3] Patent ID : 201921036403
+    Title     : AN INTRA-ORAL VOLTAMMETRIC DEVICE FOR MEASUREMENT OF PH AND TEMPERATURE OF SALIVA AND A METHOD THEREOF
+    Applicant : Krutika Gajanan Borle; Dr. Jyoti Sattyam Wankhade; Dr. Manjusha M Warhadpande
+    Field     : BIO-MEDICAL ENGINEERING | IPC: A61B 5/00
+--------------------------------------------------
+[4] Patent ID : 201941021967
+    Title     : A SYSTEM AND METHOD FOR PROVIDING PERSONAL HEALTH ADVICE BASED ON MULTIMODAL ORAL SENSING DATA
+    Applicant : Lalitha Ratna Pingali
+    Field     : BIO-MEDICAL ENGINEERING | IPC: G16H0010600000, A46B0015000000, G09B0019000000, B01D0046420000, A61B0005026000
+--------------------------------------------------
+[5] Patent ID : 201921032125
+    Title     : NONINVASIVE BLOOD GLUCOSE ESTIMATION BY PHOTOPLETHYSMOGRAPHY USING SINGLE PULSE TECHNIQUE WITH CEPSTRAL COEFFICIENTS
+    Applicant : Shraddha Habbu; Dr. Manisha Dale,; Dr. Rajesh Ghongade,; Mr. S. S. Joshi,
+    Field     : BIO-MEDICAL ENGINEERING | IPC: A61B0005000000,A61B0005024000,A61B0005145500,A61B0005021000,A61B0005145000
+--------------------------------------------------
+
+==================================================
+PART II: RETRIEVED EXPLAINABILITY TRACES (FACTS)
+==================================================
+Patent ID: 201941016860 (A SINGLE-UNIT, WIRELESS DEVICE FOR SALIVARY STIMUL...)
+  Similarity Score: 0.4672
+  Matched Concepts: None
+  Domain Alignment: MEDIUM
+  Reason: Retrieved due to strong semantic conceptual similarity (cosine score: 0.4672). Shares matching technical concepts in the field of BIO-MEDICAL ENGINEERING.
+--------------------------------------------------
+Patent ID: 201941048720 (DEVICE FOR DETERMINING SALIVARY PARAMETERS...)
+  Similarity Score: 0.4620
+  Matched Concepts: None
+  Domain Alignment: MEDIUM
+  Reason: Retrieved due to strong semantic conceptual similarity (cosine score: 0.4620). Shares matching technical concepts in the field of BIO-MEDICAL ENGINEERING.
+--------------------------------------------------
+Patent ID: 201921036403 (AN INTRA-ORAL VOLTAMMETRIC DEVICE FOR MEASUREMENT ...)
+  Similarity Score: 0.4562
+  Matched Concepts: saliva
+  Domain Alignment: MEDIUM
+  Reason: Retrieved due to strong semantic conceptual similarity (cosine score: 0.4562). Shares matching technical concepts in the field of BIO-MEDICAL ENGINEERING.
+--------------------------------------------------
+Patent ID: 201941021967 (A SYSTEM AND METHOD FOR PROVIDING PERSONAL HEALTH ...)
+  Similarity Score: 0.4338
+  Matched Concepts: None
+  Domain Alignment: MEDIUM
+  Reason: Retrieved due to strong semantic conceptual similarity (cosine score: 0.4338). Shares matching technical concepts in the field of BIO-MEDICAL ENGINEERING.
+--------------------------------------------------
+Patent ID: 201921032125 (NONINVASIVE BLOOD GLUCOSE ESTIMATION BY PHOTOPLETH...)
+  Similarity Score: 0.4188
+  Matched Concepts: glucose
+  Domain Alignment: MEDIUM
+  Reason: Retrieved due to strong semantic conceptual similarity (cosine score: 0.4188). Shares matching technical concepts in the field of BIO-MEDICAL ENGINEERING.
+--------------------------------------------------
+
+==================================================
+PART III: AI REASONING & NOVELTY ANALYSIS (INTERPRETATION)
+==================================================
+### 1. Similar Technologies
+The retrieved patent 201941016860 describes similar methods of monitoring and regulating target system components using structural loop feedback, mirroring the user's focus on automated control.
+
+### 2. Overlapping Concepts
+* **System Monitoring**: Both the user's idea and patent 201941048720 outline continuous sensing of system parameters.
+* **Control Optimization**: The feedback loops in patent 201921036403 align directly with the optimization algorithms proposed by the user.
+
+### 3. Technical Similarities
+Patent 201941021967 implements LVDT or resistive sensors to measure physical changes, matching the user's requirement for sensor feedback.
+
+### 4. Potential Novel Areas
+While 201921032125 concentrates on localized physical adjustments, the user's proposal to apply decentralized machine learning on edge nodes appears novel.
+
+### 5. Innovation Opportunities
+Integrating edge GNN-based scheduling on top of the physical actuators in 201941016860 represents a clear gap and innovation opportunity.
+
+### 6. Technology Classification
+This technology maps to IPC classification G06F or F24F, representing adaptive control structures.
+
+==================================================

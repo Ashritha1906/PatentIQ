@@ -1,0 +1,315 @@
+==================================================
+PatentIQ - Phase 4.5 Intelligence Evaluation Report
+==================================================
+
+Total Successful Runs  : 50 / 50
+Aggregate Novelty Score : 39.58 / 100 (Stability/StdDev: 1.81)
+Average Concept Count  : 4.0 per run (Accuracy: 100.0%)
+Average Gaps Detected  : 4.7 per run (Consistency: 100.0%)
+Average Evidence Score : 50.66 / 100 (Ranking Delta: 5.94)
+Context Reduction      : 86.44%
+Hallucination Rate     : 0.00%
+
+Individual Run Metrics Log:
+--------------------------------------------------
+ID: AI_1
+  Novelty Score: 44 (Some Distinguishing Features) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 4 | Latency: 10379.8ms
+  Rank Mean: 47.1 | Delta: 5.9 | Similarity: 0.4884
+  Hallucination: NO | Compression: 88.0%
+--------------------------------------------------
+ID: AI_2
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 279.5ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: AI_3
+  Novelty Score: 44 (Some Distinguishing Features) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 4 | Latency: 269.3ms
+  Rank Mean: 47.1 | Delta: 5.9 | Similarity: 0.4884
+  Hallucination: NO | Compression: 88.0%
+--------------------------------------------------
+ID: AI_4
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 250.7ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: AI_5
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 249.3ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: HC_1
+  Novelty Score: 44 (Some Distinguishing Features) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 4 | Latency: 267.0ms
+  Rank Mean: 47.1 | Delta: 5.9 | Similarity: 0.4884
+  Hallucination: NO | Compression: 88.0%
+--------------------------------------------------
+ID: HC_2
+  Novelty Score: 44 (Some Distinguishing Features) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 4 | Latency: 250.5ms
+  Rank Mean: 47.1 | Delta: 5.9 | Similarity: 0.4884
+  Hallucination: NO | Compression: 88.0%
+--------------------------------------------------
+ID: HC_3
+  Novelty Score: 44 (Some Distinguishing Features) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 4 | Latency: 262.1ms
+  Rank Mean: 47.1 | Delta: 5.9 | Similarity: 0.4884
+  Hallucination: NO | Compression: 88.0%
+--------------------------------------------------
+ID: HC_4
+  Novelty Score: 44 (Some Distinguishing Features) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 4 | Latency: 265.2ms
+  Rank Mean: 47.1 | Delta: 5.9 | Similarity: 0.4884
+  Hallucination: NO | Compression: 88.0%
+--------------------------------------------------
+ID: HC_5
+  Novelty Score: 44 (Some Distinguishing Features) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 4 | Latency: 253.5ms
+  Rank Mean: 47.1 | Delta: 5.9 | Similarity: 0.4884
+  Hallucination: NO | Compression: 88.0%
+--------------------------------------------------
+ID: BT_1
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 244.3ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: BT_2
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 251.5ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: BT_3
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 252.8ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: BT_4
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 248.5ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: BT_5
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 246.5ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: CM_1
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 244.8ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: CM_2
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 245.6ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: CM_3
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 246.9ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: CM_4
+  Novelty Score: 38 (Moderate Overlap) | Uniqueness: 42.9%
+  Concepts: 4 | Gaps: 4 | Latency: 348.2ms
+  Rank Mean: 48.9 | Delta: 4.5 | Similarity: 0.4742
+  Hallucination: NO | Compression: 85.0%
+--------------------------------------------------
+ID: CM_5
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 260.0ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: CS_1
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 252.8ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: CS_2
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 247.3ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: CS_3
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 246.1ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: CS_4
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 241.8ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: CS_5
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 249.1ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: EL_1
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 243.6ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: EL_2
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 252.8ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: EL_3
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 241.6ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: EL_4
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 250.9ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: EL_5
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 254.7ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: ME_1
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 247.8ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: ME_2
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 241.8ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: ME_3
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 253.0ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: ME_4
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 246.4ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: ME_5
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 245.5ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: EN_1
+  Novelty Score: 38 (Moderate Overlap) | Uniqueness: 42.9%
+  Concepts: 4 | Gaps: 4 | Latency: 333.4ms
+  Rank Mean: 48.9 | Delta: 4.5 | Similarity: 0.4742
+  Hallucination: NO | Compression: 85.0%
+--------------------------------------------------
+ID: EN_2
+  Novelty Score: 38 (Moderate Overlap) | Uniqueness: 42.9%
+  Concepts: 4 | Gaps: 4 | Latency: 342.0ms
+  Rank Mean: 48.9 | Delta: 4.5 | Similarity: 0.4742
+  Hallucination: NO | Compression: 85.0%
+--------------------------------------------------
+ID: EN_3
+  Novelty Score: 38 (Moderate Overlap) | Uniqueness: 42.9%
+  Concepts: 4 | Gaps: 4 | Latency: 335.0ms
+  Rank Mean: 48.9 | Delta: 4.5 | Similarity: 0.4742
+  Hallucination: NO | Compression: 85.0%
+--------------------------------------------------
+ID: EN_4
+  Novelty Score: 38 (Moderate Overlap) | Uniqueness: 42.9%
+  Concepts: 4 | Gaps: 4 | Latency: 330.1ms
+  Rank Mean: 48.9 | Delta: 4.5 | Similarity: 0.4742
+  Hallucination: NO | Compression: 85.0%
+--------------------------------------------------
+ID: EN_5
+  Novelty Score: 38 (Moderate Overlap) | Uniqueness: 42.9%
+  Concepts: 4 | Gaps: 4 | Latency: 349.8ms
+  Rank Mean: 48.9 | Delta: 4.5 | Similarity: 0.4742
+  Hallucination: NO | Compression: 85.0%
+--------------------------------------------------
+ID: AT_1
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 249.3ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: AT_2
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 253.5ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: AT_3
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 261.6ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: AT_4
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 249.2ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: AT_5
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 241.5ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: CY_1
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 259.2ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: CY_2
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 252.9ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: CY_3
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 259.9ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: CY_4
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 243.5ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+ID: CY_5
+  Novelty Score: 39 (Moderate Overlap) | Uniqueness: 66.7%
+  Concepts: 4 | Gaps: 5 | Latency: 251.1ms
+  Rank Mean: 51.6 | Delta: 6.2 | Similarity: 0.5703
+  Hallucination: NO | Compression: 86.4%
+--------------------------------------------------
+==================================================

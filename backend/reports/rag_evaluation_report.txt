@@ -1,0 +1,81 @@
+==================================================
+PatentIQ - Phase 4 RAG Evaluation Report
+==================================================
+
+Total Successful Runs  : 10 / 10
+Overall RAG Score      : 78.38 / 100
+RAG System Decision    : NO-GO
+
+Key Performance Metrics Summary:
+--------------------------------------------------
+  1. Average Latency (End-to-End) : 1491.42 ms
+  2. Mean Context Similarity      : 0.4933
+  3. Context Compression Ratio    : -14.50%
+  4. Hallucination Rate           : 0.00%
+  5. Context Evidence Citation    : 100.00%
+  6. Section Consistency Score    : 100.00%
+--------------------------------------------------
+
+Individual Run Metrics Log:
+--------------------------------------------------
+ID: AI_1
+  Similarity: 0.4693 | Latency: 11934.2ms
+  Compression: -13.0% | Cite Rate: 100.0%
+  Hallucination: NO (Hallucinated IDs: [])
+  Consistency: 100.0%
+--------------------------------------------------
+ID: HC_1
+  Similarity: 0.4476 | Latency: 241.0ms
+  Compression: 16.9% | Cite Rate: 100.0%
+  Hallucination: NO (Hallucinated IDs: [])
+  Consistency: 100.0%
+--------------------------------------------------
+ID: BT_1
+  Similarity: 0.5558 | Latency: 218.8ms
+  Compression: -5.3% | Cite Rate: 100.0%
+  Hallucination: NO (Hallucinated IDs: [])
+  Consistency: 100.0%
+--------------------------------------------------
+ID: CM_1
+  Similarity: 0.5250 | Latency: 398.7ms
+  Compression: -12.0% | Cite Rate: 100.0%
+  Hallucination: NO (Hallucinated IDs: [])
+  Consistency: 100.0%
+--------------------------------------------------
+ID: CS_1
+  Similarity: 0.4285 | Latency: 310.1ms
+  Compression: -46.3% | Cite Rate: 100.0%
+  Hallucination: NO (Hallucinated IDs: [])
+  Consistency: 100.0%
+--------------------------------------------------
+ID: EL_1
+  Similarity: 0.4693 | Latency: 120.5ms
+  Compression: -13.0% | Cite Rate: 100.0%
+  Hallucination: NO (Hallucinated IDs: [])
+  Consistency: 100.0%
+--------------------------------------------------
+ID: ME_1
+  Similarity: 0.5061 | Latency: 589.5ms
+  Compression: -47.1% | Cite Rate: 100.0%
+  Hallucination: NO (Hallucinated IDs: [])
+  Consistency: 100.0%
+--------------------------------------------------
+ID: EN_1
+  Similarity: 0.5946 | Latency: 325.6ms
+  Compression: -2.8% | Cite Rate: 100.0%
+  Hallucination: NO (Hallucinated IDs: [])
+  Consistency: 100.0%
+--------------------------------------------------
+ID: AT_1
+  Similarity: 0.4568 | Latency: 482.3ms
+  Compression: -0.7% | Cite Rate: 100.0%
+  Hallucination: NO (Hallucinated IDs: [])
+  Consistency: 100.0%
+--------------------------------------------------
+ID: CY_1
+  Similarity: 0.4801 | Latency: 293.3ms
+  Compression: -21.6% | Cite Rate: 100.0%
+  Hallucination: NO (Hallucinated IDs: [])
+  Consistency: 100.0%
+--------------------------------------------------
+==================================================

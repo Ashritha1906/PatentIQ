@@ -1,0 +1,194 @@
+==================================================
+PatentIQ - Retrieval Quality Evaluation Report
+==================================================
+
+Tested Queries Detail:
+--------------------------------------------------
+Query: 'AI healthcare chatbot'
+  Latency: 40.82 ms
+  Similarity Range: min=0.5910, max=0.6296, mean=0.6112
+  Retrieval Relevance: HIGH
+  Top 3 Results:
+    1. A COMPUTER IMPLEMENTED CHATBOT SYSTEM AND A METHOD... (0.630)
+    2. A CHATBOT SYSTEM USING ASYNCHRONOUS DIALOG STATE M... (0.624)
+    3. A NOVEL MULTIMEDIA MOBILE CHATBOT SYSTEM... (0.607)
+--------------------------------------------------
+Query: 'Machine learning recommendation system'
+  Latency: 29.12 ms
+  Similarity Range: min=0.5663, max=0.5932, mean=0.5771
+  Retrieval Relevance: HIGH
+  Top 3 Results:
+    1. METHOD AND APPARATUS FOR PROVIDING MACHINE LEARNIN... (0.593)
+    2. METHOD AND SYSTEM FOR PROVIDING PERSONALIZED RECOM... (0.585)
+    3. METHODS AND SYSTEMS FOR OPTIMIZING CONFIGURATION O... (0.572)
+--------------------------------------------------
+Query: 'Battery optimization and management system'
+  Latency: 36.25 ms
+  Similarity Range: min=0.5945, max=0.6217, mean=0.6091
+  Retrieval Relevance: HIGH
+  Top 3 Results:
+    1. BATTERY MANAGEMENT SYSTEM AND METHOD FOR OPTIMIZIN... (0.622)
+    2. BATTERY MANAGEMENT SYSTEM FOR ELECTRIC VEHICLES... (0.616)
+    3. BATTERY MANAGEMENT SYSTEMS AND METHODS... (0.608)
+--------------------------------------------------
+Query: 'Wireless communication network resource allocation'
+  Latency: 28.63 ms
+  Similarity Range: min=0.6801, max=0.7349, mean=0.6986
+  Retrieval Relevance: HIGH
+  Top 3 Results:
+    1. METHOD FOR PERFORMING RESOURCE ALLOCATION IN A WIR... (0.735)
+    2. PERIODIC RESOURCE ALLOCATION IN A WIRELESS NETWORK... (0.701)
+    3. APPARATUS AND METHOD FOR RESOURCE ALLOCATION IN WI... (0.692)
+--------------------------------------------------
+Query: 'Computer vision image processing neural network'
+  Latency: 33.25 ms
+  Similarity Range: min=0.5527, max=0.5735, mean=0.5594
+  Retrieval Relevance: HIGH
+  Top 3 Results:
+    1. METHOD AND SYSTEM FOR TRAINING ARTIFICIAL NEURAL N... (0.574)
+    2. IMAGE PROCESSING METHOD AND SYSTEM... (0.560)
+    3. IMAGE PROCESSING SYSTEM, IMAGE PROCESSING APPARATU... (0.557)
+--------------------------------------------------
+Query: 'Drug formulation for cancer treatment'
+  Latency: 33.70 ms
+  Similarity Range: min=0.6283, max=0.6543, mean=0.6391
+  Retrieval Relevance: HIGH
+  Top 3 Results:
+    1. NOVEL FORMULATION FOR CANCER... (0.654)
+    2. AQUASOME FORMULATIONS FOR CANCER THERAPY... (0.639)
+    3. COMPOUNDS FOR USE IN THE TREATMENT OF CANCER... (0.638)
+--------------------------------------------------
+Query: 'Medical imaging diagnostics system'
+  Latency: 29.89 ms
+  Similarity Range: min=0.6093, max=0.6450, mean=0.6248
+  Retrieval Relevance: HIGH
+  Top 3 Results:
+    1. IMAGING SYSTEM WITH REPORTING FUNCTION AND METHOD ... (0.645)
+    2. A MEDICAL IMAGING SYSTEM FOR ANALYZING A 4-D DATA ... (0.633)
+    3. METHOD AND SYSTEM FOR IMAGING PATIENTS WITH A PERS... (0.627)
+--------------------------------------------------
+Query: 'Cloud computing platform distributed database'
+  Latency: 33.26 ms
+  Similarity Range: min=0.5333, max=0.5738, mean=0.5519
+  Retrieval Relevance: HIGH
+  Top 3 Results:
+    1. A DISTRIBUTED VIRTUAL STORAGE CLOUD ARCHITECTURE A... (0.574)
+    2. SYSTEM AND METHOD FOR IMPLEMENTING ON DEMAND CLOUD... (0.553)
+    3. METHOD AND SYSTEM FOR ACHIEVING PARALLEL SCALABILI... (0.553)
+--------------------------------------------------
+Query: 'Network security firewall cryptography'
+  Latency: 31.74 ms
+  Similarity Range: min=0.5354, max=0.5630, mean=0.5466
+  Retrieval Relevance: HIGH
+  Top 3 Results:
+    1. METHOD FOR PROTECTING A PACKET-BASED NETWORK FROM ... (0.563)
+    2. NETWORK SECURITY SYSTEM AND METHOD... (0.550)
+    3. SYSTEM AND METHOD FOR PROVIDING A SECURE NETWORK O... (0.547)
+--------------------------------------------------
+Query: 'Speech recognition voice command processing'
+  Latency: 27.50 ms
+  Similarity Range: min=0.5850, max=0.6565, mean=0.6192
+  Retrieval Relevance: HIGH
+  Top 3 Results:
+    1. PROCESSING VOICE COMMANDS BASED ON DEVICE TOPOLOGY... (0.656)
+    2. METHOD AND ELECTRONIC DEVICE FOR MANAGING VOICE CO... (0.638)
+    3. SYSTEM AND METHOD OF OPERATING OPEN ENDED INTERACT... (0.622)
+--------------------------------------------------
+Query: 'Automotive braking system control method'
+  Latency: 29.18 ms
+  Similarity Range: min=0.6632, max=0.7085, mean=0.6820
+  Retrieval Relevance: HIGH
+  Top 3 Results:
+    1. SYSTEM AND METHOD FOR ENHANCING CONTROLABILITY OF ... (0.708)
+    2. METHOD OF CONTROLLING A BRAKING SYSTEM... (0.691)
+    3. BRAKING SYSTEM AND METHOD FOR CONTROLLING BRAKING ... (0.683)
+--------------------------------------------------
+Query: 'Solar cell photovoltaic energy conversion'
+  Latency: 32.72 ms
+  Similarity Range: min=0.5582, max=0.6225, mean=0.5821
+  Retrieval Relevance: HIGH
+  Top 3 Results:
+    1. SOLAR ENERGY CONVERSION ARTICLES AND METHODS OF MA... (0.622)
+    2. PHOTOVOLTAIC CELL HAVING A HIGH CONVERSION EFFICIE... (0.594)
+    3. POWER CONVERSION SYSTEM AND METHOD PROVIDING MAXIM... (0.569)
+--------------------------------------------------
+Query: 'Biotechnology gene editing sequencing'
+  Latency: 29.22 ms
+  Similarity Range: min=0.5744, max=0.6140, mean=0.5954
+  Retrieval Relevance: HIGH
+  Top 3 Results:
+    1. SYSTEM AND METHOD FOR EDITING AND MANIPULATING DNA... (0.614)
+    2. OPTIMIZED STRATEGY FOR EXON SKIPPING MODIFICATIONS... (0.611)
+    3. METHOD AND SYSTEM FOR CRISPR-BASED LIBRARY PREPARA... (0.599)
+--------------------------------------------------
+Query: 'Traditional herbal composition medical prepare'
+  Latency: 27.86 ms
+  Similarity Range: min=0.6739, max=0.7040, mean=0.6888
+  Retrieval Relevance: HIGH
+  Top 3 Results:
+    1. HERBAL COMPOSITION FOR THE TREATMENT AND MANAGEMEN... (0.704)
+    2. HERBAL COMPOSITIONS FOR TREATMENT OR PREVENTION OF... (0.703)
+    3. HERBAL COMPOSITIONS FOR TREATMENT OR PREVENTION OF... (0.684)
+--------------------------------------------------
+Query: 'Metallurgical alloy manufacturing process'
+  Latency: 32.93 ms
+  Similarity Range: min=0.5805, max=0.6196, mean=0.5917
+  Retrieval Relevance: HIGH
+  Top 3 Results:
+    1. METALLURGICAL POWDER COMPOSITION AND METHOD OF PRO... (0.620)
+    2. A MANUFACTURING PROCESS OF HOT PRESS FORMED ALUMIN... (0.589)
+    3. METHOD FOR MANUFACTURING A STEEL PART INCLUDING TH... (0.587)
+--------------------------------------------------
+Query: 'Textile yarn weaving apparatus'
+  Latency: 27.47 ms
+  Similarity Range: min=0.6862, max=0.7032, mean=0.6962
+  Retrieval Relevance: HIGH
+  Top 3 Results:
+    1. YARN, ESPECIALLY A THREAD OR AN EMBROIDERY THREAD ... (0.703)
+    2. DRAWING AND SPINNING APPARATUS AND METHOD OF MIXED... (0.698)
+    3. A NOVEL METHOD OF DEVELOPMENT OF A VERY THICK YARN... (0.698)
+--------------------------------------------------
+Query: 'Civil structural engineering concrete building'
+  Latency: 27.59 ms
+  Similarity Range: min=0.5637, max=0.5950, mean=0.5861
+  Retrieval Relevance: HIGH
+  Top 3 Results:
+    1. MULTI-STORY BUILDINGS FROM PREFABRICATED CONCRETE ... (0.595)
+    2. IMPROVEMENTS IN METHOD AND SYSTEM FOR IN-SITU CONS... (0.593)
+    3. METHOD AND SYSTEM FOR SEMI IN-SITU CONSTRUCTION OF... (0.592)
+--------------------------------------------------
+Query: 'Microbiology fermentation enzyme production'
+  Latency: 31.65 ms
+  Similarity Range: min=0.6170, max=0.6675, mean=0.6436
+  Retrieval Relevance: HIGH
+  Top 3 Results:
+    1. PROCESSES OF PRODUCING FERMENTATION PRODUCTS... (0.667)
+    2. PROCESSES OF PRODUCING FERMENTATION PRODUCTS... (0.664)
+    3. FERMENTATIVE PRODUCTION OF ETHANOL FROM GLUCOSE, G... (0.641)
+--------------------------------------------------
+Query: 'Food preservation packing packaging container'
+  Latency: 34.46 ms
+  Similarity Range: min=0.6323, max=0.6658, mean=0.6417
+  Retrieval Relevance: HIGH
+  Top 3 Results:
+    1. CONTAINER FOR HERMETICALLY SEALED STORAGE OF PRODU... (0.666)
+    2. METHOD AND AND APPARATUS FOR PACKAGING A LIQUID FO... (0.643)
+    3. PACKAGING INSERT FOR SAFE STORAGE OF PLANT PRODUCE... (0.635)
+--------------------------------------------------
+Query: 'Agrochemical herbicide pesticide compound'
+  Latency: 29.54 ms
+  Similarity Range: min=0.6539, max=0.6725, mean=0.6605
+  Retrieval Relevance: MEDIUM
+  Top 3 Results:
+    1. MONOTERPENOID/PHENYLPROPANOID-CONTAINING COMPOUNDS... (0.673)
+    2. COMPOSITION FOR IMPROVING THE EFFICACY OF HERBICID... (0.661)
+    3. PESTICIDE COMPOSITIONS INCLUDING POLYMERIC ADJUVAN... (0.661)
+--------------------------------------------------
+
+Summary Statistics:
+  Total Queries Evaluated     : 20
+  Average Similarity Score    : 0.6203
+  Min Similarity Score        : 0.5333
+  Max Similarity Score        : 0.7349
+  Relevance Distribution      : High=19, Medium=1, Low=0
+==================================================

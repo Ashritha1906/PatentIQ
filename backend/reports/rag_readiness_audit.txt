@@ -1,0 +1,198 @@
+==================================================
+PatentIQ - RAG Readiness Audit Report
+==================================================
+
+RAG Readiness Score: 90.74 / 100
+RAG Readiness Decision: YES
+
+Scoring Component Breakdown:
+  1. Semantic Relevance (30% weight) : 100.00 / 100
+  2. Length Consistency (30% weight) : 100.00 / 100
+  3. Domain Alignment   (20% weight) : 80.00 / 100
+  4. Result Diversity   (10% weight) : 100.00 / 100
+  5. Latency Score      (10% weight) : 47.43 / 100
+
+Failure Analysis Checklist:
+  Total Anomalous/Weak Queries Detected: 30
+--------------------------------------------------
+Query ID: AI_1 | Category: AI
+  Text: Deep learning system for real-time classification of dermoscopic skin lesion ima...
+  Long Relevance: 0.4673 | Jaccard Overlap: 0.6667
+  Failure Diagnosis: Semantic drift
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: AI_2 | Category: AI
+  Text: Transformer-based language model for automated summary generation of legal contr...
+  Long Relevance: 0.4567 | Jaccard Overlap: 0.1111
+  Failure Diagnosis: Semantic drift
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: AI_3 | Category: AI
+  Text: Generative adversarial network for synthetic MRI scan synthesis to train medical...
+  Long Relevance: 0.4432 | Jaccard Overlap: 0.2500
+  Failure Diagnosis: Semantic drift
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: AI_4 | Category: AI
+  Text: Reinforcement learning agent for dynamic traffic signal coordination in urban gr...
+  Long Relevance: 0.5279 | Jaccard Overlap: 0.2500
+  Failure Diagnosis: Semantic drift
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: AI_5 | Category: AI
+  Text: Anomalous user behavior detection in cloud networks using graph neural networks....
+  Long Relevance: 0.5074 | Jaccard Overlap: 0.2500
+  Failure Diagnosis: Semantic drift
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: HC_2 | Category: Healthcare
+  Text: Smart pill bottle with integrated weight sensors for automated adherence trackin...
+  Long Relevance: 0.5657 | Jaccard Overlap: 0.2500
+  Failure Diagnosis: Semantic drift
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: HC_5 | Category: Healthcare
+  Text: Microfluidic lab-on-a-chip for rapid multi-pathogen detection from saliva sample...
+  Long Relevance: 0.5514 | Jaccard Overlap: 0.2500
+  Failure Diagnosis: Context dilution
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: BT_1 | Category: Biotechnology
+  Text: CRISPR-Cas9 gene editing delivery vehicle using lipid nanoparticles for liver ta...
+  Long Relevance: 0.5217 | Jaccard Overlap: 0.0000
+  Failure Diagnosis: Context dilution
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: BT_2 | Category: Biotechnology
+  Text: Bioreactor with automated pH and dissolved oxygen control for monoclonal antibod...
+  Long Relevance: 0.5375 | Jaccard Overlap: 0.0000
+  Failure Diagnosis: Semantic drift
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: BT_4 | Category: Biotechnology
+  Text: Biosensor based on functionalized gold nanoparticles for detecting pesticide res...
+  Long Relevance: 0.5500 | Jaccard Overlap: 0.2500
+  Failure Diagnosis: Context dilution
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: BT_5 | Category: Biotechnology
+  Text: Synthetic promoter construct for high-level expression of recombinant proteins i...
+  Long Relevance: 0.5027 | Jaccard Overlap: 0.1111
+  Failure Diagnosis: Context dilution
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: CM_3 | Category: Communication
+  Text: Low-density parity-check code decoder architecture for high-speed fiber-optic li...
+  Long Relevance: 0.5578 | Jaccard Overlap: 0.2500
+  Failure Diagnosis: Context dilution
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: CS_1 | Category: Computer Science
+  Text: Distributed key-value database system with adaptive replication based on query h...
+  Long Relevance: 0.4728 | Jaccard Overlap: 0.2500
+  Failure Diagnosis: Semantic drift
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: CS_2 | Category: Computer Science
+  Text: Compiler optimization method for register allocation using graph coloring heuris...
+  Long Relevance: 0.4498 | Jaccard Overlap: 0.4286
+  Failure Diagnosis: Semantic drift
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: CS_5 | Category: Computer Science
+  Text: Data compression method using adaptive Huffman coding on streaming sensor data....
+  Long Relevance: 0.5554 | Jaccard Overlap: 0.2500
+  Failure Diagnosis: Semantic drift
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: EL_1 | Category: Electronics
+  Text: Low-power analog-to-digital converter architecture using successive approximatio...
+  Long Relevance: 0.5508 | Jaccard Overlap: 0.1111
+  Failure Diagnosis: Context dilution
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: EL_2 | Category: Electronics
+  Text: Phase-locked loop synthesizer circuit with digital loop filter for low jitter....
+  Long Relevance: 0.6215 | Jaccard Overlap: 0.1111
+  Failure Diagnosis: Context dilution
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: ME_1 | Category: Mechanical Engineering
+  Text: Planetary gear transmission system with load sharing pin configuration....
+  Long Relevance: 0.6311 | Jaccard Overlap: 0.2500
+  Failure Diagnosis: Context dilution
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: ME_2 | Category: Mechanical Engineering
+  Text: Pneumatic cylinder actuator with integrated linear position sensor....
+  Long Relevance: 0.5682 | Jaccard Overlap: 0.2500
+  Failure Diagnosis: Context dilution
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: ME_3 | Category: Mechanical Engineering
+  Text: Hydraulic control valve with proportional solenoid and spool position feedback....
+  Long Relevance: 0.5800 | Jaccard Overlap: 0.0000
+  Failure Diagnosis: Context dilution
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: EN_1 | Category: Energy
+  Text: Lithium-ion battery electrolyte composition containing fluorinated carbonate sol...
+  Long Relevance: 0.5731 | Jaccard Overlap: 0.2500
+  Failure Diagnosis: Semantic drift
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: EN_2 | Category: Energy
+  Text: Maximum power point tracking algorithm for wind turbine generators using hill cl...
+  Long Relevance: 0.5509 | Jaccard Overlap: 0.1111
+  Failure Diagnosis: Semantic drift
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: EN_4 | Category: Energy
+  Text: Flywheel energy storage system with magnetic bearings and vacuum housing....
+  Long Relevance: 0.4963 | Jaccard Overlap: 0.4286
+  Failure Diagnosis: Context dilution
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: AT_1 | Category: Automotive
+  Text: Electronic stability control system for hybrid vehicles using individual wheel t...
+  Long Relevance: 0.5449 | Jaccard Overlap: 0.1111
+  Failure Diagnosis: Context dilution
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: AT_2 | Category: Automotive
+  Text: Active suspension actuator using electromagnetic linear motor....
+  Long Relevance: 0.5540 | Jaccard Overlap: 0.1111
+  Failure Diagnosis: Context dilution
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: AT_4 | Category: Automotive
+  Text: Dual-clutch transmission control system with adaptive slip synchronization....
+  Long Relevance: 0.5963 | Jaccard Overlap: 0.0000
+  Failure Diagnosis: Context dilution
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: AT_5 | Category: Automotive
+  Text: Regenerative braking control method for electric vehicles based on deceleration ...
+  Long Relevance: 0.6528 | Jaccard Overlap: 0.2500
+  Failure Diagnosis: Semantic drift
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: CY_3 | Category: Cybersecurity
+  Text: Automated vulnerability scanner for web applications using dynamic fuzzing....
+  Long Relevance: 0.4554 | Jaccard Overlap: 0.4286
+  Failure Diagnosis: Semantic drift
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: CY_4 | Category: Cybersecurity
+  Text: Secure multi-factor authentication method using dynamic QR code challenge....
+  Long Relevance: 0.6059 | Jaccard Overlap: 0.2500
+  Failure Diagnosis: Semantic drift
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+Query ID: CY_5 | Category: Cybersecurity
+  Text: Zero-trust network access control system using continuous risk scoring....
+  Long Relevance: 0.5122 | Jaccard Overlap: 0.1111
+  Failure Diagnosis: Context dilution
+  Explanation: Long-form technical jargon diluted the key semantic concept, leading to attention shifts.
+
+==================================================

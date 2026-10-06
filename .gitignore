@@ -1,0 +1,41 @@
+﻿# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+
+# Environment variables & API credentials (CRITICAL)
+.env
+.env.*
+!.env.example
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Large binaries, raw datasets & embeddings (> 100MB exceeds GitHub push limit)
+data/vectordb/
+data/processed/*.npy
+data/processed/*.parquet
+data/cache/
+data/raw/
+PatentIQ Dataset/
+
+# Node & Frontend dependencies
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Test & temporary artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+*.tmp

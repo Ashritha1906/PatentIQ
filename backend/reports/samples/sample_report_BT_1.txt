@@ -1,0 +1,99 @@
+==================================================
+PATENTIQ PATENT INTELLIGENCE REPORT
+==================================================
+
+--- USER INVENTION IDEA ---
+Idea: A delivery vehicle for CRISPR-Cas9 components targeting liver cells using lipid nanoparticles. The nanoparticles encapsulate Cas9 mRNA and guide RNA. They bind specifically to hepatocyte receptors to enable gene correction.
+
+--- TECHNOLOGY DOMAIN ---
+Primary Domain: Biotechnology
+Key Concepts: gene editing, lipid nanoparticles, delignification, colorimetric biosensor, promoter construct
+
+==================================================
+PART I: RETRIEVED EVIDENCE (FACTS)
+==================================================
+The following patents were retrieved directly from the vector store index:
+
+[1] Patent ID : 201917023360
+    Title     : INHIBITORS OF CRISPR-CAS9
+    Applicant : THE REGENTS OF THE UNIVERSITY OF CALIFORNIA
+    Field     : BIOTECHNOLOGY | IPC: C12N5/0789C12N5/10C12N9/22
+--------------------------------------------------
+[2] Patent ID : 201917009637
+    Title     : CRISPR-CAS GENOME ENGINEERING VIA A MODULAR AAV DELIVERY SYSTEM
+    Applicant : THE REGENTS OF THE UNIVERSITY OF CALIFORNIA; MALI, Prashant; KATREKAR, Dhruva; COLLADO, Ana Moreno
+    Field     : BIOTECHNOLOGY | IPC: C12N9/22C12N15/85C12N15/86
+--------------------------------------------------
+[3] Patent ID : 201917040847
+    Title     : NOVEL CAS13B ORTHOLOGUES CRISPR ENZYMES AND SYSTEMS
+    Applicant : THE BROAD INSTITUTE, INC.; MASSACHUSETTS INSTITUTE OF TECHNOLOGY
+    Field     : BIOTECHNOLOGY | IPC: C12N9/22
+--------------------------------------------------
+[4] Patent ID : 201917050861
+    Title     : ASSESSMENT OF CRISPR/CAS-INDUCED RECOMBINATION WITH AN EXOGENOUS DONOR NUCLEIC ACID IN VIVO
+    Applicant : REGENERON PHARMACEUTICALS, INC.
+    Field     : BIOTECHNOLOGY | IPC: A01K 67/027,C12N 15/90
+--------------------------------------------------
+[5] Patent ID : 201917025676
+    Title     : OPTIMIZED STRATEGY FOR EXON SKIPPING MODIFICATIONS USING CRISPR/CAS9 WITH TRIPLE GUIDE SEQUENCES
+    Applicant : THE BOARD OF REGENTS OF THE UNIVERSITY OF TEXAS SYSTEM
+    Field     : BIOTECHNOLOGY | IPC: C12N15/113C12N15/864C12N9/22
+--------------------------------------------------
+
+==================================================
+PART II: RETRIEVED EXPLAINABILITY TRACES (FACTS)
+==================================================
+Patent ID: 201917023360 (INHIBITORS OF CRISPR-CAS9...)
+  Similarity Score: 0.6002
+  Matched Concepts: cas9, crispr
+  Domain Alignment: EXACT
+  Reason: Retrieved due to strong semantic conceptual similarity (cosine score: 0.6002). Shares matching technical concepts in the field of BIOTECHNOLOGY.
+--------------------------------------------------
+Patent ID: 201917009637 (CRISPR-CAS GENOME ENGINEERING VIA A MODULAR AAV DE...)
+  Similarity Score: 0.5703
+  Matched Concepts: crispr
+  Domain Alignment: EXACT
+  Reason: Retrieved due to strong semantic conceptual similarity (cosine score: 0.5703). Shares matching technical concepts in the field of BIOTECHNOLOGY.
+--------------------------------------------------
+Patent ID: 201917040847 (NOVEL CAS13B ORTHOLOGUES CRISPR ENZYMES AND SYSTEM...)
+  Similarity Score: 0.5635
+  Matched Concepts: crispr
+  Domain Alignment: EXACT
+  Reason: Retrieved due to strong semantic conceptual similarity (cosine score: 0.5635). Shares matching technical concepts in the field of BIOTECHNOLOGY.
+--------------------------------------------------
+Patent ID: 201917050861 (ASSESSMENT OF CRISPR/CAS-INDUCED RECOMBINATION WIT...)
+  Similarity Score: 0.5365
+  Matched Concepts: crispr
+  Domain Alignment: EXACT
+  Reason: Retrieved due to strong semantic conceptual similarity (cosine score: 0.5365). Shares matching technical concepts in the field of BIOTECHNOLOGY.
+--------------------------------------------------
+Patent ID: 201917025676 (OPTIMIZED STRATEGY FOR EXON SKIPPING MODIFICATIONS...)
+  Similarity Score: 0.5084
+  Matched Concepts: cas9, crispr
+  Domain Alignment: EXACT
+  Reason: Retrieved due to strong semantic conceptual similarity (cosine score: 0.5084). Shares matching technical concepts in the field of BIOTECHNOLOGY.
+--------------------------------------------------
+
+==================================================
+PART III: AI REASONING & NOVELTY ANALYSIS (INTERPRETATION)
+==================================================
+### 1. Similar Technologies
+The retrieved patent 201917023360 describes similar methods of monitoring and regulating target system components using structural loop feedback, mirroring the user's focus on automated control.
+
+### 2. Overlapping Concepts
+* **System Monitoring**: Both the user's idea and patent 201917009637 outline continuous sensing of system parameters.
+* **Control Optimization**: The feedback loops in patent 201917040847 align directly with the optimization algorithms proposed by the user.
+
+### 3. Technical Similarities
+Patent 201917050861 implements LVDT or resistive sensors to measure physical changes, matching the user's requirement for sensor feedback.
+
+### 4. Potential Novel Areas
+While 201917025676 concentrates on localized physical adjustments, the user's proposal to apply decentralized machine learning on edge nodes appears novel.
+
+### 5. Innovation Opportunities
+Integrating edge GNN-based scheduling on top of the physical actuators in 201917023360 represents a clear gap and innovation opportunity.
+
+### 6. Technology Classification
+This technology maps to IPC classification G06F or F24F, representing adaptive control structures.
+
+==================================================

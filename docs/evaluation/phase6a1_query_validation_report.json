@@ -1,0 +1,974 @@
+[
+  {
+    "id": 1,
+    "title": "Diabetic Retinopathy Detection",
+    "query": "Find patents related to automated detection and classification of diabetic retinopathy from retinal fundus images using computer vision and deep learning, including convolutional neural networks, image preprocessing, lesion detection, feature extraction, and severity grading.",
+    "latency_ms": 17983.8,
+    "novelty_score": 40,
+    "novelty_band": "Moderate Overlap",
+    "top_5_patents": [
+      {
+        "rank": 1,
+        "publication_number": "201927048569",
+        "title": "SYSTEM AND METHOD FOR AUTOMATED FUNDUSCOPIC IMAGE ANALYSIS",
+        "hybrid_score": 0.8091,
+        "semantic_score": 1.0,
+        "keyword_score": 0.4545,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology",
+          "Classified under candidate IPC: A61B 3/14"
+        ]
+      },
+      {
+        "rank": 2,
+        "publication_number": "201941040242",
+        "title": "DEEP LEARNING BASED RETINAL MICROVASCULAR MEASUREMENT OF EYE",
+        "hybrid_score": 0.7918,
+        "semantic_score": 0.9245,
+        "keyword_score": 0.5455,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology",
+          "Title directly matches concept: 'Deep learning'"
+        ]
+      },
+      {
+        "rank": 3,
+        "publication_number": "201921042381",
+        "title": "A SCHEMA TO PREDICT MULTI-CLASS DIABETIC RETINOPATHY",
+        "hybrid_score": 0.7498,
+        "semantic_score": 0.8598,
+        "keyword_score": 0.5455,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology",
+          "Title directly matches concept: 'Diabetic retinopathy'"
+        ]
+      },
+      {
+        "rank": 4,
+        "publication_number": "201941048032",
+        "title": "DETECTION OF DIABETIC RETINOPATHY USING DISCRIMINANT LINEAR MODEL",
+        "hybrid_score": 0.7471,
+        "semantic_score": 0.8556,
+        "keyword_score": 0.5455,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology",
+          "Title directly matches concept: 'Diabetic retinopathy'"
+        ]
+      },
+      {
+        "rank": 5,
+        "publication_number": "201911029805",
+        "title": "DIABETIC RETINOPATHY PREDICTION DEVICE SYSTEM AND METHOD THEREOF",
+        "hybrid_score": 0.6724,
+        "semantic_score": 0.7896,
+        "keyword_score": 0.4545,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology",
+          "Title directly matches concept: 'Diabetic retinopathy'"
+        ]
+      }
+    ],
+    "concept_coverages": [
+      {
+        "concept": "automated detection",
+        "coverage_score": 10.5,
+        "coverage_band": "Minimally Represented",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "diabetic retinopathy",
+        "coverage_score": 81.0,
+        "coverage_band": "Strongly Represented",
+        "exact_phrase": true,
+        "semantic_presence": true,
+        "equivalents": [
+          "diabetic retinopathy"
+        ]
+      },
+      {
+        "concept": "retinal fundus images",
+        "coverage_score": 0.0,
+        "coverage_band": "No Meaningful Evidence",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "computer vision",
+        "coverage_score": 10.5,
+        "coverage_band": "Minimally Represented",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "deep learning",
+        "coverage_score": 61.0,
+        "coverage_band": "Moderately Represented",
+        "exact_phrase": true,
+        "semantic_presence": true,
+        "equivalents": [
+          "deep learn",
+          "deep learning"
+        ]
+      },
+      {
+        "concept": "convolutional neural networks",
+        "coverage_score": 0.0,
+        "coverage_band": "No Meaningful Evidence",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "image preprocessing",
+        "coverage_score": 10.5,
+        "coverage_band": "Minimally Represented",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "lesion detection",
+        "coverage_score": 10.5,
+        "coverage_band": "Minimally Represented",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "feature extraction",
+        "coverage_score": 0.0,
+        "coverage_band": "No Meaningful Evidence",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "severity grading",
+        "coverage_score": 0.0,
+        "coverage_band": "No Meaningful Evidence",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      }
+    ],
+    "whitespaces": [
+      {
+        "concept": "automated detection",
+        "representation_status": "Weakly Represented",
+        "coverage_score": 10.5,
+        "is_combination": false,
+        "explanation": "Concept 'automated detection' has minimal representation (coverage score: 10/100). Only peripheral keyword fragments found."
+      },
+      {
+        "concept": "retinal fundus images",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": false,
+        "explanation": "No meaningful evidence was identified for concept 'retinal fundus images' across the retrieved prior art (coverage score: 0/100). Both literal phrase and semantic equivalents are unmentioned."
+      },
+      {
+        "concept": "computer vision",
+        "representation_status": "Weakly Represented",
+        "coverage_score": 10.5,
+        "is_combination": false,
+        "explanation": "Concept 'computer vision' has minimal representation (coverage score: 10/100). Only peripheral keyword fragments found."
+      },
+      {
+        "concept": "convolutional neural networks",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": false,
+        "explanation": "No meaningful evidence was identified for concept 'convolutional neural networks' across the retrieved prior art (coverage score: 0/100). Both literal phrase and semantic equivalents are unmentioned."
+      },
+      {
+        "concept": "image preprocessing",
+        "representation_status": "Weakly Represented",
+        "coverage_score": 10.5,
+        "is_combination": false,
+        "explanation": "Concept 'image preprocessing' has minimal representation (coverage score: 10/100). Only peripheral keyword fragments found."
+      },
+      {
+        "concept": "lesion detection",
+        "representation_status": "Weakly Represented",
+        "coverage_score": 10.5,
+        "is_combination": false,
+        "explanation": "Concept 'lesion detection' has minimal representation (coverage score: 10/100). Only peripheral keyword fragments found."
+      },
+      {
+        "concept": "feature extraction",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": false,
+        "explanation": "No meaningful evidence was identified for concept 'feature extraction' across the retrieved prior art (coverage score: 0/100). Both literal phrase and semantic equivalents are unmentioned."
+      },
+      {
+        "concept": "severity grading",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": false,
+        "explanation": "No meaningful evidence was identified for concept 'severity grading' across the retrieved prior art (coverage score: 0/100). Both literal phrase and semantic equivalents are unmentioned."
+      },
+      {
+        "concept": "System Combination: automated detection + diabetic retinopathy + retinal fundus image (+7 more)",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": true,
+        "explanation": "Combination-Level Whitespace: While individual concepts show separate presence, their unified combination co-occurs in only 0 patent(s) (combination coverage: 0/100). The specific end-to-end integration represents a notable innovation whitespace."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Forest Wildfire Detection",
+    "query": "Find patents related to AI-based forest wildfire detection and early prediction using satellite imagery, remote sensing data, meteorological information, temperature, humidity, wind patterns, vegetation indices, and machine learning models.",
+    "latency_ms": 32297.4,
+    "novelty_score": 46,
+    "novelty_band": "Some Distinguishing Features",
+    "top_5_patents": [
+      {
+        "rank": 1,
+        "publication_number": "201921003375",
+        "title": "A SYSTEM TO DETECT AND MANAGE FOREST FIRE USING A SENSOR ASSEMBLY AND UNMANNED AERIAL DEVICE",
+        "hybrid_score": 0.6573,
+        "semantic_score": 0.8765,
+        "keyword_score": 0.25,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology"
+        ]
+      },
+      {
+        "rank": 2,
+        "publication_number": "201941051953",
+        "title": "SYSTEM AND METHOD BASED ON UNMANNED AERIAL VEHICLE TO DETECT FOREST FIRE",
+        "hybrid_score": 0.65,
+        "semantic_score": 1.0,
+        "keyword_score": 0.0,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology"
+        ]
+      },
+      {
+        "rank": 3,
+        "publication_number": "201911050739",
+        "title": "AN IOT BASED SYSTEM FOR FOREST FIRE DETECTION AND SURVEILLANCE",
+        "hybrid_score": 0.528,
+        "semantic_score": 0.8123,
+        "keyword_score": 0.0,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology"
+        ]
+      },
+      {
+        "rank": 4,
+        "publication_number": "201941012155",
+        "title": "AN OPTIMIZED MACHINE LEARNING MODEL FOR LOWER HEIGHT WIND MEASURING HARDWARE MAST TO FORECAST WIND",
+        "hybrid_score": 0.4837,
+        "semantic_score": 0.2056,
+        "keyword_score": 1.0,
+        "ranking_reasons": [
+          "General technical alignment",
+          "Title directly matches concept: 'Machine Learning'",
+          "Classified under candidate IPC: G01C"
+        ]
+      },
+      {
+        "rank": 5,
+        "publication_number": "201941044536",
+        "title": "IOT BASED FOREST FIRE DETECTION AND PREDICTION USING NODEMCU",
+        "hybrid_score": 0.473,
+        "semantic_score": 0.7277,
+        "keyword_score": 0.0,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology"
+        ]
+      }
+    ],
+    "concept_coverages": [
+      {
+        "concept": "forest wildfire detection",
+        "coverage_score": 14.0,
+        "coverage_band": "Minimally Represented",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "early prediction",
+        "coverage_score": 10.5,
+        "coverage_band": "Minimally Represented",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "satellite imagery",
+        "coverage_score": 0.0,
+        "coverage_band": "No Meaningful Evidence",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "remote sensing data",
+        "coverage_score": 0.0,
+        "coverage_band": "No Meaningful Evidence",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "meteorological information",
+        "coverage_score": 0.0,
+        "coverage_band": "No Meaningful Evidence",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "vegetation indices",
+        "coverage_score": 0.0,
+        "coverage_band": "No Meaningful Evidence",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "machine learning models",
+        "coverage_score": 55.0,
+        "coverage_band": "Moderately Represented",
+        "exact_phrase": false,
+        "semantic_presence": true,
+        "equivalents": [
+          "learning model",
+          "machine learn",
+          "machine learning",
+          "machine learning model"
+        ]
+      }
+    ],
+    "whitespaces": [
+      {
+        "concept": "forest wildfire detection",
+        "representation_status": "Weakly Represented",
+        "coverage_score": 14.0,
+        "is_combination": false,
+        "explanation": "Concept 'forest wildfire detection' has minimal representation (coverage score: 14/100). Only peripheral keyword fragments found."
+      },
+      {
+        "concept": "early prediction",
+        "representation_status": "Weakly Represented",
+        "coverage_score": 10.5,
+        "is_combination": false,
+        "explanation": "Concept 'early prediction' has minimal representation (coverage score: 10/100). Only peripheral keyword fragments found."
+      },
+      {
+        "concept": "satellite imagery",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": false,
+        "explanation": "No meaningful evidence was identified for concept 'satellite imagery' across the retrieved prior art (coverage score: 0/100). Both literal phrase and semantic equivalents are unmentioned."
+      },
+      {
+        "concept": "remote sensing data",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": false,
+        "explanation": "No meaningful evidence was identified for concept 'remote sensing data' across the retrieved prior art (coverage score: 0/100). Both literal phrase and semantic equivalents are unmentioned."
+      },
+      {
+        "concept": "meteorological information",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": false,
+        "explanation": "No meaningful evidence was identified for concept 'meteorological information' across the retrieved prior art (coverage score: 0/100). Both literal phrase and semantic equivalents are unmentioned."
+      },
+      {
+        "concept": "vegetation indices",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": false,
+        "explanation": "No meaningful evidence was identified for concept 'vegetation indices' across the retrieved prior art (coverage score: 0/100). Both literal phrase and semantic equivalents are unmentioned."
+      },
+      {
+        "concept": "System Combination: forest wildfire dete + early prediction + satellite imagery (+4 more)",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": true,
+        "explanation": "Combination-Level Whitespace: While individual concepts show separate presence, their unified combination co-occurs in only 0 patent(s) (combination coverage: 0/100). The specific end-to-end integration represents a notable innovation whitespace."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Autonomous Vehicle Pedestrian Collision Avoidance",
+    "query": "Find patents related to autonomous vehicle pedestrian detection and collision avoidance using computer vision, camera and sensor data, deep learning object detection, real-time pedestrian tracking, distance estimation, trajectory prediction, and automated braking.",
+    "latency_ms": 11347.2,
+    "novelty_score": 38,
+    "novelty_band": "Moderate Overlap",
+    "top_5_patents": [
+      {
+        "rank": 1,
+        "publication_number": "201947032124",
+        "title": "AUTONOMOUS VEHICLE CONTROL SYSTEMS WITH COLLISION DETECTION AND RESPONSE CAPABILITIES",
+        "hybrid_score": 0.8688,
+        "semantic_score": 1.0,
+        "keyword_score": 0.625,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology",
+          "Title directly matches concept: 'autonomous vehicle'"
+        ]
+      },
+      {
+        "rank": 2,
+        "publication_number": "201947052786",
+        "title": "HARDWARE AND SOFTWARE MECHANISMS ON AUTONOMOUS VEHICLE FOR PEDESTRIAN SAFETY",
+        "hybrid_score": 0.8563,
+        "semantic_score": 0.9809,
+        "keyword_score": 0.625,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology",
+          "Title directly matches concept: 'autonomous vehicle'"
+        ]
+      },
+      {
+        "rank": 3,
+        "publication_number": "201941008321",
+        "title": "METHOD FOR AUTONOMOUS PARKING OF A VEHICLE, AND ANAUTONOMOUS VEHICLE THEREOF",
+        "hybrid_score": 0.7804,
+        "semantic_score": 0.6622,
+        "keyword_score": 1.0,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology",
+          "Title directly matches concept: 'autonomous vehicle'",
+          "Classified under candidate IPC: G08G"
+        ]
+      },
+      {
+        "rank": 4,
+        "publication_number": "201911030146",
+        "title": "A VEHICLE COLLISION AVOIDANCE SYSTEM",
+        "hybrid_score": 0.683,
+        "semantic_score": 0.7142,
+        "keyword_score": 0.625,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology",
+          "Title directly matches concept: 'collision avoidance'"
+        ]
+      },
+      {
+        "rank": 5,
+        "publication_number": "201941012012",
+        "title": "A METHOD AND DEVICE FOR NAVIGATING AN AUTONOMOUS VEHICLE",
+        "hybrid_score": 0.6233,
+        "semantic_score": 0.4204,
+        "keyword_score": 1.0,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology",
+          "Title directly matches concept: 'autonomous vehicle'",
+          "Classified under candidate IPC: G05D"
+        ]
+      }
+    ],
+    "concept_coverages": [
+      {
+        "concept": "autonomous vehicle",
+        "coverage_score": 91.0,
+        "coverage_band": "Strongly Represented",
+        "exact_phrase": true,
+        "semantic_presence": true,
+        "equivalents": [
+          "autonomous vehicle",
+          "collision avoidance"
+        ]
+      },
+      {
+        "concept": "pedestrian detection",
+        "coverage_score": 10.5,
+        "coverage_band": "Minimally Represented",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "collision avoidance",
+        "coverage_score": 61.0,
+        "coverage_band": "Moderately Represented",
+        "exact_phrase": true,
+        "semantic_presence": true,
+        "equivalents": [
+          "collision avoidance"
+        ]
+      },
+      {
+        "concept": "computer vision",
+        "coverage_score": 10.5,
+        "coverage_band": "Minimally Represented",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "pedestrian tracking",
+        "coverage_score": 10.5,
+        "coverage_band": "Minimally Represented",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "distance estimation",
+        "coverage_score": 0.0,
+        "coverage_band": "No Meaningful Evidence",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "trajectory prediction",
+        "coverage_score": 0.0,
+        "coverage_band": "No Meaningful Evidence",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "automated braking",
+        "coverage_score": 0.0,
+        "coverage_band": "No Meaningful Evidence",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      }
+    ],
+    "whitespaces": [
+      {
+        "concept": "pedestrian detection",
+        "representation_status": "Weakly Represented",
+        "coverage_score": 10.5,
+        "is_combination": false,
+        "explanation": "Concept 'pedestrian detection' has minimal representation (coverage score: 10/100). Only peripheral keyword fragments found."
+      },
+      {
+        "concept": "computer vision",
+        "representation_status": "Weakly Represented",
+        "coverage_score": 10.5,
+        "is_combination": false,
+        "explanation": "Concept 'computer vision' has minimal representation (coverage score: 10/100). Only peripheral keyword fragments found."
+      },
+      {
+        "concept": "pedestrian tracking",
+        "representation_status": "Weakly Represented",
+        "coverage_score": 10.5,
+        "is_combination": false,
+        "explanation": "Concept 'pedestrian tracking' has minimal representation (coverage score: 10/100). Only peripheral keyword fragments found."
+      },
+      {
+        "concept": "distance estimation",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": false,
+        "explanation": "No meaningful evidence was identified for concept 'distance estimation' across the retrieved prior art (coverage score: 0/100). Both literal phrase and semantic equivalents are unmentioned."
+      },
+      {
+        "concept": "trajectory prediction",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": false,
+        "explanation": "No meaningful evidence was identified for concept 'trajectory prediction' across the retrieved prior art (coverage score: 0/100). Both literal phrase and semantic equivalents are unmentioned."
+      },
+      {
+        "concept": "automated braking",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": false,
+        "explanation": "No meaningful evidence was identified for concept 'automated braking' across the retrieved prior art (coverage score: 0/100). Both literal phrase and semantic equivalents are unmentioned."
+      },
+      {
+        "concept": "System Combination: autonomous vehicle + pedestrian detection + collision avoidance (+5 more)",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": true,
+        "explanation": "Combination-Level Whitespace: While individual concepts show separate presence, their unified combination co-occurs in only 0 patent(s) (combination coverage: 0/100). The specific end-to-end integration represents a notable innovation whitespace."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "LLM Legal Document Analysis",
+    "query": "Find patents related to using large language models and natural language processing for automated legal document analysis, including contract understanding, legal clause extraction, document summarization, legal question answering, semantic search, retrieval-augmented generation, and identification of risks or obligations.",
+    "latency_ms": 12182.1,
+    "novelty_score": 46,
+    "novelty_band": "Some Distinguishing Features",
+    "top_5_patents": [
+      {
+        "rank": 1,
+        "publication_number": "201921015282",
+        "title": "SYSTEMS AND METHODS TO ACCESS RELEVANT LEGAL ELECTRONIC DOCUMENTS USING SEARCH PHRASES",
+        "hybrid_score": 0.65,
+        "semantic_score": 1.0,
+        "keyword_score": 0.0,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology"
+        ]
+      },
+      {
+        "rank": 2,
+        "publication_number": "201941032081",
+        "title": "A SYSTEM AND METHOD FOR TEXT SUMMARIZATION AND DATA EXTRACTION",
+        "hybrid_score": 0.5524,
+        "semantic_score": 0.3113,
+        "keyword_score": 1.0,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology"
+        ]
+      },
+      {
+        "rank": 3,
+        "publication_number": "201941053791",
+        "title": "SYSTEM, METHOD AND DEVICE FOR AUTOMATIC TEXT SUMMARIZATION",
+        "hybrid_score": 0.3772,
+        "semantic_score": 0.0418,
+        "keyword_score": 1.0,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology"
+        ]
+      },
+      {
+        "rank": 4,
+        "publication_number": "201941014262",
+        "title": "METHOD AND SYSTEM FOR INTERPRETING NATURAL LANGUAGE (NL) THROUGH A DISTRIBUTED COMPUTING-SYSTEM",
+        "hybrid_score": 0.3361,
+        "semantic_score": 0.517,
+        "keyword_score": 0.0,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology"
+        ]
+      },
+      {
+        "rank": 5,
+        "publication_number": "201921043365",
+        "title": "AUTOMATED SYSTEMS AND METHODS FOR TEXTUAL EXTRACTION OF RELEVANT DATA ELEMENTS FROM AN ELECTRONIC CLINICAL DOCUMENT",
+        "hybrid_score": 0.3233,
+        "semantic_score": 0.4974,
+        "keyword_score": 0.0,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology"
+        ]
+      }
+    ],
+    "concept_coverages": [
+      {
+        "concept": "large language models",
+        "coverage_score": 0.0,
+        "coverage_band": "No Meaningful Evidence",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "natural language processing",
+        "coverage_score": 55.0,
+        "coverage_band": "Moderately Represented",
+        "exact_phrase": false,
+        "semantic_presence": true,
+        "equivalents": [
+          "natural language"
+        ]
+      },
+      {
+        "concept": "legal document analysis",
+        "coverage_score": 14.0,
+        "coverage_band": "Minimally Represented",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "contract understanding",
+        "coverage_score": 0.0,
+        "coverage_band": "No Meaningful Evidence",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "legal clause extraction",
+        "coverage_score": 0.0,
+        "coverage_band": "No Meaningful Evidence",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "document summarization",
+        "coverage_score": 10.5,
+        "coverage_band": "Minimally Represented",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "retrieval-augmented generation",
+        "coverage_score": 0.0,
+        "coverage_band": "No Meaningful Evidence",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "risks or obligations",
+        "coverage_score": 0.0,
+        "coverage_band": "No Meaningful Evidence",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      }
+    ],
+    "whitespaces": [
+      {
+        "concept": "large language models",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": false,
+        "explanation": "No meaningful evidence was identified for concept 'large language models' across the retrieved prior art (coverage score: 0/100). Both literal phrase and semantic equivalents are unmentioned."
+      },
+      {
+        "concept": "legal document analysis",
+        "representation_status": "Weakly Represented",
+        "coverage_score": 14.0,
+        "is_combination": false,
+        "explanation": "Concept 'legal document analysis' has minimal representation (coverage score: 14/100). Only peripheral keyword fragments found."
+      },
+      {
+        "concept": "contract understanding",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": false,
+        "explanation": "No meaningful evidence was identified for concept 'contract understanding' across the retrieved prior art (coverage score: 0/100). Both literal phrase and semantic equivalents are unmentioned."
+      },
+      {
+        "concept": "legal clause extraction",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": false,
+        "explanation": "No meaningful evidence was identified for concept 'legal clause extraction' across the retrieved prior art (coverage score: 0/100). Both literal phrase and semantic equivalents are unmentioned."
+      },
+      {
+        "concept": "document summarization",
+        "representation_status": "Weakly Represented",
+        "coverage_score": 10.5,
+        "is_combination": false,
+        "explanation": "Concept 'document summarization' has minimal representation (coverage score: 10/100). Only peripheral keyword fragments found."
+      },
+      {
+        "concept": "retrieval-augmented generation",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": false,
+        "explanation": "No meaningful evidence was identified for concept 'retrieval-augmented generation' across the retrieved prior art (coverage score: 0/100). Both literal phrase and semantic equivalents are unmentioned."
+      },
+      {
+        "concept": "risks or obligations",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": false,
+        "explanation": "No meaningful evidence was identified for concept 'risks or obligations' across the retrieved prior art (coverage score: 0/100). Both literal phrase and semantic equivalents are unmentioned."
+      },
+      {
+        "concept": "System Combination: large language model + natural language pro + legal document analy (+5 more)",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": true,
+        "explanation": "Combination-Level Whitespace: While individual concepts show separate presence, their unified combination co-occurs in only 0 patent(s) (combination coverage: 0/100). The specific end-to-end integration represents a notable innovation whitespace."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Intelligent Traffic Management",
+    "query": "Find patents related to intelligent traffic management systems that use real-time traffic data, GPS or map data, road sensors, cameras, historical traffic patterns, and machine learning to predict congestion, estimate travel conditions, identify traffic incidents, and dynamically recommend optimized or safer routes.",
+    "latency_ms": 9627.8,
+    "novelty_score": 46,
+    "novelty_band": "Some Distinguishing Features",
+    "top_5_patents": [
+      {
+        "rank": 1,
+        "publication_number": "201911049033",
+        "title": "A SYSTEM FOR TRAFFIC CONTROL BASED ON MACHINE LEARNING AND ARTIFICIAL INTELLIGENCE",
+        "hybrid_score": 0.9569,
+        "semantic_score": 0.9337,
+        "keyword_score": 1.0,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology",
+          "Title directly matches concept: 'Machine learning'",
+          "Classified under candidate IPC: G08G"
+        ]
+      },
+      {
+        "rank": 2,
+        "publication_number": "201911046863",
+        "title": "A SMART TRAFFIC MANAGEMENT SYSTEM FOR URBAN AREAS",
+        "hybrid_score": 0.8046,
+        "semantic_score": 0.9686,
+        "keyword_score": 0.5,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology",
+          "Classified under candidate IPC: G08G"
+        ]
+      },
+      {
+        "rank": 3,
+        "publication_number": "201941000494",
+        "title": "INTELLIGENT TRAFFIC ANALYSIS PLATFORM BASED ON TRAJECTORY BIG DATA",
+        "hybrid_score": 0.755,
+        "semantic_score": 1.0,
+        "keyword_score": 0.3,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology",
+          "Classified under candidate IPC: G08G"
+        ]
+      },
+      {
+        "rank": 4,
+        "publication_number": "201911046972",
+        "title": "COMPUTER IMPLEMENTED METHOD FOR URBAN TRAFFIC MANAGEMENT USING MACHINE LEARNING",
+        "hybrid_score": 0.7175,
+        "semantic_score": 0.673,
+        "keyword_score": 0.8,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology",
+          "Title directly matches concept: 'Machine learning'",
+          "Classified under candidate IPC: G08G"
+        ]
+      },
+      {
+        "rank": 5,
+        "publication_number": "201941046492",
+        "title": "MACHINE LEARNING BASED SYSTEM FOR TRAFFIC CONGESTION MANAGEMENT USING INTERNET OF THINGS SENSORS",
+        "hybrid_score": 0.6281,
+        "semantic_score": 0.6433,
+        "keyword_score": 0.6,
+        "ranking_reasons": [
+          "Moderate conceptual similarity to core technology",
+          "Title directly matches concept: 'Machine learning'"
+        ]
+      }
+    ],
+    "concept_coverages": [
+      {
+        "concept": "intelligent traffic management",
+        "coverage_score": 75.0,
+        "coverage_band": "Moderately Represented",
+        "exact_phrase": false,
+        "semantic_presence": true,
+        "equivalents": [
+          "intelligent traffic",
+          "traffic management"
+        ]
+      },
+      {
+        "concept": "real-time traffic data",
+        "coverage_score": 10.5,
+        "coverage_band": "Minimally Represented",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "road sensors",
+        "coverage_score": 10.5,
+        "coverage_band": "Minimally Represented",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "historical traffic patterns",
+        "coverage_score": 0.0,
+        "coverage_band": "No Meaningful Evidence",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "predict congestion",
+        "coverage_score": 10.5,
+        "coverage_band": "Minimally Represented",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "traffic incidents",
+        "coverage_score": 10.5,
+        "coverage_band": "Minimally Represented",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      },
+      {
+        "concept": "recommend optimized routes",
+        "coverage_score": 0.0,
+        "coverage_band": "No Meaningful Evidence",
+        "exact_phrase": false,
+        "semantic_presence": false,
+        "equivalents": []
+      }
+    ],
+    "whitespaces": [
+      {
+        "concept": "real-time traffic data",
+        "representation_status": "Weakly Represented",
+        "coverage_score": 10.5,
+        "is_combination": false,
+        "explanation": "Concept 'real-time traffic data' has minimal representation (coverage score: 10/100). Only peripheral keyword fragments found."
+      },
+      {
+        "concept": "road sensors",
+        "representation_status": "Weakly Represented",
+        "coverage_score": 10.5,
+        "is_combination": false,
+        "explanation": "Concept 'road sensors' has minimal representation (coverage score: 10/100). Only peripheral keyword fragments found."
+      },
+      {
+        "concept": "historical traffic patterns",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": false,
+        "explanation": "No meaningful evidence was identified for concept 'historical traffic patterns' across the retrieved prior art (coverage score: 0/100). Both literal phrase and semantic equivalents are unmentioned."
+      },
+      {
+        "concept": "predict congestion",
+        "representation_status": "Weakly Represented",
+        "coverage_score": 10.5,
+        "is_combination": false,
+        "explanation": "Concept 'predict congestion' has minimal representation (coverage score: 10/100). Only peripheral keyword fragments found."
+      },
+      {
+        "concept": "traffic incidents",
+        "representation_status": "Weakly Represented",
+        "coverage_score": 10.5,
+        "is_combination": false,
+        "explanation": "Concept 'traffic incidents' has minimal representation (coverage score: 10/100). Only peripheral keyword fragments found."
+      },
+      {
+        "concept": "recommend optimized routes",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": false,
+        "explanation": "No meaningful evidence was identified for concept 'recommend optimized routes' across the retrieved prior art (coverage score: 0/100). Both literal phrase and semantic equivalents are unmentioned."
+      },
+      {
+        "concept": "System Combination: intelligent traffic  + real-time traffic da + road sensors (+4 more)",
+        "representation_status": "Missing",
+        "coverage_score": 0.0,
+        "is_combination": true,
+        "explanation": "Combination-Level Whitespace: While individual concepts show separate presence, their unified combination co-occurs in only 0 patent(s) (combination coverage: 0/100). The specific end-to-end integration represents a notable innovation whitespace."
+      }
+    ]
+  }
+]

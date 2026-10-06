@@ -1,0 +1,40 @@
+--------------------------------
+PatentIQ Lens API Access Audit
+--------------------------------
+
+Date/time tested: 2026-08-30 23:28:23 +05:30
+
+Credential found: YES
+
+Credential loaded: YES (LENS_API_KEY)
+
+Configured endpoint: https://api.lens.org/patent/search
+
+Authentication method: Bearer Token (Authorization: Bearer <LENS_API_KEY>)
+
+HTTP status: 401
+
+API request successful: NO
+
+Token status: INVALID, EXPIRED, or UNAUTHORIZED (API returns 401 "Unable to authorize user to this resource" for both the loaded credential and a dummy/garbage key)
+
+Patent API access status: INACTIVE / ACCESS DENIED
+
+Trial/subscription status: INACTIVE or EXPIRED (The account lacks active permission/entitlement to search via the Patent API)
+
+Conclusion:
+The live connection test to the Lens Patent API failed with HTTP 401. Since the API returns the exact same 401 error message ("Unable to authorize user to this resource.") for both the configured key and an intentionally invalid garbage key, we cannot programmatically differentiate between an expired/invalid token and an active token that lacks a subscription. However, in either case, the Patent API is currently unavailable for use with the configured credential.
+
+Recommended next action:
+Please verify the account status and credentials directly on the official Lens website:
+1. Open https://www.lens.org/ and log into your account.
+2. Click on your profile avatar in the upper right corner and navigate to your "User Profile".
+3. Select the "API & Data" tab (or go directly to the API dashboard if available).
+4. Review the following details:
+   - Account Plan: Check if your access plan (e.g., Trial, Academic, Custom) is active and has not expired.
+   - Entitlements: Ensure your plan explicitly grants access to the "Patent Search API" (and not just scholarly or aggregation endpoints).
+   - Token Validity: Check if the token listed in the dashboard is active and has not expired.
+   - Token Match: Verify that the token string in your workspace .env file (LENS_API_KEY) matches the active token displayed in your dashboard.
+5. If the trial/access has expired, follow the on-screen instructions on The Lens dashboard to request a subscription renewal, academic access, or contact subscriptions@lens.org.
+
+--------------------------------

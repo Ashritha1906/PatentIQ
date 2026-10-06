@@ -1,0 +1,266 @@
+{
+  "total_queries": 25,
+  "metrics": {
+    "baseline_precision_at_5": 0.904,
+    "nl_hybrid_precision_at_5": 0.888,
+    "precision_at_5_improvement_pct": -1.77,
+    "baseline_mrr": 0.98,
+    "nl_hybrid_mrr": 0.9533,
+    "mrr_improvement_pct": -2.72,
+    "planning_latency_ms": 0.61,
+    "retrieval_latency_ms": 93.88,
+    "total_latency_ms": 94.49
+  },
+  "per_query_results": [
+    {
+      "id": 1,
+      "domain": "Biomedical / AI",
+      "base_p5": 1.0,
+      "nl_p5": 1.0,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 1286.2,
+      "nl_total_ms": 105.0
+    },
+    {
+      "id": 2,
+      "domain": "Healthcare / AI",
+      "base_p5": 0.8,
+      "nl_p5": 1.0,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 67.1,
+      "nl_total_ms": 92.2
+    },
+    {
+      "id": 3,
+      "domain": "Energy Storage",
+      "base_p5": 1.0,
+      "nl_p5": 1.0,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 62.4,
+      "nl_total_ms": 83.4
+    },
+    {
+      "id": 4,
+      "domain": "Telecommunications",
+      "base_p5": 1.0,
+      "nl_p5": 0.8,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 63.0,
+      "nl_total_ms": 90.0
+    },
+    {
+      "id": 5,
+      "domain": "Autonomous Vehicles",
+      "base_p5": 1.0,
+      "nl_p5": 1.0,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 55.6,
+      "nl_total_ms": 78.0
+    },
+    {
+      "id": 6,
+      "domain": "Natural Language Processing",
+      "base_p5": 0.6,
+      "nl_p5": 0.6,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 59.5,
+      "nl_total_ms": 123.7
+    },
+    {
+      "id": 7,
+      "domain": "Robotics",
+      "base_p5": 0.8,
+      "nl_p5": 1.0,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 61.3,
+      "nl_total_ms": 96.1
+    },
+    {
+      "id": 8,
+      "domain": "Semiconductors",
+      "base_p5": 0.2,
+      "nl_p5": 0.6,
+      "base_mrr": 0.5,
+      "nl_mrr": 0.5,
+      "base_lat_ms": 75.1,
+      "nl_total_ms": 146.4
+    },
+    {
+      "id": 9,
+      "domain": "Medical Devices",
+      "base_p5": 1.0,
+      "nl_p5": 1.0,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 97.0,
+      "nl_total_ms": 93.0
+    },
+    {
+      "id": 10,
+      "domain": "Cybersecurity",
+      "base_p5": 1.0,
+      "nl_p5": 1.0,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 73.4,
+      "nl_total_ms": 80.9
+    },
+    {
+      "id": 11,
+      "domain": "Biotechnology",
+      "base_p5": 1.0,
+      "nl_p5": 1.0,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 63.3,
+      "nl_total_ms": 100.2
+    },
+    {
+      "id": 12,
+      "domain": "Distributed Systems",
+      "base_p5": 1.0,
+      "nl_p5": 1.0,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 67.4,
+      "nl_total_ms": 86.9
+    },
+    {
+      "id": 13,
+      "domain": "Aerospace",
+      "base_p5": 1.0,
+      "nl_p5": 0.6,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 103.1,
+      "nl_total_ms": 112.2
+    },
+    {
+      "id": 14,
+      "domain": "Solar Energy",
+      "base_p5": 1.0,
+      "nl_p5": 1.0,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 84.9,
+      "nl_total_ms": 80.2
+    },
+    {
+      "id": 15,
+      "domain": "Robotics / AI",
+      "base_p5": 1.0,
+      "nl_p5": 0.8,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 71.0,
+      "nl_total_ms": 65.6
+    },
+    {
+      "id": 16,
+      "domain": "Environmental Engineering",
+      "base_p5": 1.0,
+      "nl_p5": 1.0,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 59.8,
+      "nl_total_ms": 96.5
+    },
+    {
+      "id": 17,
+      "domain": "Audio Electronics",
+      "base_p5": 1.0,
+      "nl_p5": 0.6,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 80.1,
+      "nl_total_ms": 97.0
+    },
+    {
+      "id": 18,
+      "domain": "Industrial Vision",
+      "base_p5": 0.8,
+      "nl_p5": 1.0,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 62.9,
+      "nl_total_ms": 233.5
+    },
+    {
+      "id": 19,
+      "domain": "Materials Science",
+      "base_p5": 1.0,
+      "nl_p5": 1.0,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 77.0,
+      "nl_total_ms": 91.0
+    },
+    {
+      "id": 20,
+      "domain": "IoT Networking",
+      "base_p5": 1.0,
+      "nl_p5": 1.0,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 53.1,
+      "nl_total_ms": 72.8
+    },
+    {
+      "id": 21,
+      "domain": "Cryogenics",
+      "base_p5": 1.0,
+      "nl_p5": 1.0,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 55.6,
+      "nl_total_ms": 71.9
+    },
+    {
+      "id": 22,
+      "domain": "Hydrogen Energy",
+      "base_p5": 1.0,
+      "nl_p5": 1.0,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 47.7,
+      "nl_total_ms": 69.9
+    },
+    {
+      "id": 23,
+      "domain": "Automotive Electronics",
+      "base_p5": 0.8,
+      "nl_p5": 1.0,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 51.6,
+      "nl_total_ms": 64.5
+    },
+    {
+      "id": 24,
+      "domain": "Polymer Materials",
+      "base_p5": 1.0,
+      "nl_p5": 1.0,
+      "base_mrr": 1.0,
+      "nl_mrr": 1.0,
+      "base_lat_ms": 50.0,
+      "nl_total_ms": 61.3
+    },
+    {
+      "id": 25,
+      "domain": "Cheminformatics",
+      "base_p5": 0.6,
+      "nl_p5": 0.2,
+      "base_mrr": 1.0,
+      "nl_mrr": 0.3333333333333333,
+      "base_lat_ms": 49.3,
+      "nl_total_ms": 70.0
+    }
+  ]
+}

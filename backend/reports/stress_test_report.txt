@@ -1,0 +1,42 @@
+==================================================
+PatentIQ - Retrieval Stress Test Report
+==================================================
+
+Performance and Metric Breakdown by Query Length:
+--------------------------------------------------
+Query Profile: SHORT
+  Average Latency        : 50.79 ms
+  Average Similarity     : 0.5579
+  Domain Match Rate      : 80.00%
+  Intradoc Similarity    : 0.6810
+
+Query Profile: MEDIUM
+  Average Latency        : 34.15 ms
+  Average Similarity     : 0.5674
+  Domain Match Rate      : 76.00%
+  Intradoc Similarity    : 0.6859
+
+Query Profile: LONG
+  Average Latency        : 52.57 ms
+  Average Similarity     : 0.5556
+  Domain Match Rate      : 80.00%
+  Intradoc Similarity    : 0.6677
+
+Query Length Consistency (Jaccard Overlap):
+--------------------------------------------------
+Comparison: SHORT VS MEDIUM
+  Jaccard Overlap @ Top-5  : 0.4325
+  Jaccard Overlap @ Top-10 : 0.4540
+  Jaccard Overlap @ Top-20 : 0.4591
+
+Comparison: SHORT VS LONG
+  Jaccard Overlap @ Top-5  : 0.3478
+  Jaccard Overlap @ Top-10 : 0.3718
+  Jaccard Overlap @ Top-20 : 0.3683
+
+Comparison: MEDIUM VS LONG
+  Jaccard Overlap @ Top-5  : 0.4267
+  Jaccard Overlap @ Top-10 : 0.4759
+  Jaccard Overlap @ Top-20 : 0.4536
+
+==================================================

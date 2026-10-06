@@ -1,0 +1,14 @@
+==================================================
+Real Service E2E Test Report (Gemini + ChromaDB)
+==================================================
+Total Invention Ideas Run : 20
+Successful Requests       : 10
+Failed Requests           : 10
+Mock Fallbacks (429/quota): 0
+Real Live Success Rate    : 50.00%
+Overall Success Rate      : 50.00%
+Schema Consistency Rate   : 50.00%
+Average Latency           : 45.46 seconds
+Minimum Latency           : 2.02 seconds
+Maximum Latency           : 311.26 seconds
+==================================================

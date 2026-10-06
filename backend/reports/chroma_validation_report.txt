@@ -1,0 +1,18 @@
+==================================================
+PatentIQ - ChromaDB Validation Report
+==================================================
+
+Collection Name      : patentiq_patents
+Total Stored Count   : 115625
+Database Path        : data\vectordb
+
+Check Results:
+--------------------------------------------------
+[Collection Existence] : PASS
+[Document Count Check] : PASS (Expected: 115625, Found: 115625)
+[Random Retrieval]     : PASS
+[Embedding Dimensions] : PASS (Expected: 384)
+[Metadata Integrity]   : PASS
+--------------------------------------------------
+Overall Status: PASSED
+==================================================

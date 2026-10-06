@@ -1,0 +1,19 @@
+# Data Engineering & Processing
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Backend API
+fastapi>=0.100.0
+uvicorn>=0.22.0
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+
+# Vector Database & Embeddings
+chromadb>=0.4.0
+sentence-transformers>=2.2.2
+
+# LLM & RAG Frameworks
+langchain>=0.1.0
+langchain-community>=0.0.10
+langchain-google-genai>=1.0.0
+google-generativeai>=0.3.0
