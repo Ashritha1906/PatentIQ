@@ -1,128 +1,220 @@
-﻿# PatentIQ 🧠⚖️
-### AI-Powered Natural Language Patent Search, Prior-Art Discovery & Novelty Intelligence
+# PatentIQ
 
-PatentIQ is a production-grade enterprise patent intelligence platform. It combines a local hybrid vector and lexical store of **115,625 Indian Patent Office (IPO) records** with **live on-demand federated knowledge expansion** via the **European Patent Office (EPO) European Publication Server (EPS)** REST API v1.2.
+<p align="center">
+  <img src="frontend/public/favicon.svg" alt="PatentIQ Logo" width="80" height="80" />
+</p>
 
----
+<p align="center">
+  <strong>Federated AI Patent Intelligence & Prior-Art Retrieval Platform</strong>
+</p>
 
-## 🚀 Key Features
+<p align="center">
+  <a href="#features">Features</a> •
+  <a href="#architecture">Architecture</a> •
+  <a href="#tech-stack">Tech Stack</a> •
+  <a href="#quickstart">Quickstart</a> •
+  <a href="#api-reference">API Reference</a> •
+  <a href="#license">License</a>
+</p>
 
-* **Natural Language Invention Planning**: Translates researcher questions and invention summaries into structured Boolean phrases, candidate IPC/CPC classifications, and key technical concepts.
-* **Dual-Track Hybrid Retrieval**:
-  * **Dense Semantic Search**: `all-MiniLM-L6-v2` dense vector embeddings indexed in ChromaDB.
-  * **Lexical / BM25 Search**: Precision token matching across titles, abstracts, and claims.
-  * **Reciprocal Rank Fusion**: Min-Max normalized hybrid score calibration.
-* **Federated Knowledge Expansion (Phase 6B)**:
-  * On-demand live enrichment from the official **EPO European Publication Server (EPS)**.
-  * Safe `ep-patent-document` XML parsing (XXE protected).
-  * Sliding 7-day fair-use bandwidth tracking with a 90% safety threshold (4.5 GB cutoff).
-  * Local document caching and automatic non-blocking local fallback if the external server is unavailable.
-* **Concept Coverage & Whitespace Intelligence**:
-  * 5-band concept coverage scoring (80–100% Strongly Represented down to 0% No Meaningful Evidence).
-  * Distinguishes exact phrase absence from semantic concept presence.
-  * Multi-concept combination gap detection (`[COMBO]`).
-* **Canonical AI-Estimated Novelty Indicator**:
-  * Single canonical score contract across summary metrics, circular gauge dials, and detailed reports.
-  * Statutory disclaimers preventing misleading legal determinations.
-* **Explainable Re-Ranking**:
-  * Explainable ranking reasons attached to every retrieved patent candidate.
-* **Modern Interactive Dashboard**:
-  * React + Vite SPA with real-time analytics, SVG gauges, and source provenance badges (`LOCAL`, `EPO LIVE`, `LOCAL + EPO`).
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.12-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3.12" />
+  <img src="https://img.shields.io/badge/FastAPI-1.0.0-009688?style=flat-square&logo=fastapi&logoColor=white" alt="FastAPI" />
+  <img src="https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React 18" />
+  <img src="https://img.shields.io/badge/Vite-8.1-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/ChromaDB-Vector_Store-FF6B6B?style=flat-square" alt="ChromaDB" />
+  <img src="https://img.shields.io/badge/LLM-Gemini_Flash-4285F4?style=flat-square&logo=google&logoColor=white" alt="Google Gemini" />
+</p>
 
 ---
 
-## 🏗️ Architecture
+## Overview
 
+**PatentIQ** is an enterprise AI patent intelligence platform designed for deep-tech innovators, patent attorneys, and R&D engineering teams. It unites a local store of **115,000+ patent records** with **live federated search across the European Patent Office (EPO)** to provide high-precision prior-art discovery, automated novelty assessment, side-by-side claim comparisons, and an interactive AI Research Copilot.
+
+---
+
+## Key Features
+
+- **Dual-Track Hybrid Retrieval**
+  - **Dense Semantic Vector Search**: High-dimensional embeddings powered by `all-MiniLM-L6-v2` indexed in **ChromaDB**.
+  - **Lexical BM25 Matching**: Exact token and phrase verification across titles, abstracts, and claims.
+  - **Reciprocal Rank Fusion (RRF)**: Calibrated Min-Max score normalization.
+
+- **Federated Live Knowledge Expansion**
+  - Live on-demand querying against the official **European Patent Office (EPO) European Publication Server (EPS v1.2)**.
+  - XXE-protected XML stream parsing with intelligent caching and automated fallback.
+
+- **AI Research Copilot**
+  - Conversational patent assistant with multi-turn memory, NLP query parsing, structured citation cards, and exportable research notes.
+
+- **Automated Novelty & Whitespace Scoring**
+  - Evaluates technical concepts across a 5-tier coverage spectrum (from *Strongly Represented* to *Unaddressed Gap*).
+  - Single canonical 0–100% novelty rating with explicit prior-art similarity factors.
+
+- **Side-by-Side Patent Comparison Matrix**
+  - Dual-patent comparison workspace analyzing claim breadth, independent claims overlap, and technical divergence.
+
+- **Modern Enterprise UI / UX**
+  - Sleek, high-DPI responsive interface with dark/light themes, collapsible sidebar navigation, and real-time system health metrics.
+
+---
+
+## Architecture
+
+```mermaid
+flowchart TD
+    User["Invention Query / Research Prompt"] --> Gateway["FastAPI API Gateway"]
+    
+    Gateway --> Copilot["AI Research Copilot (Gemini RAG)"]
+    Gateway --> SearchRouter["Dual-Track Retrieval Router"]
+    
+    SearchRouter --> LocalDB["ChromaDB Vector Store
+(115,000+ Records)"]
+    SearchRouter --> EPO["Live EPO EPS v1.2 Server
+(Federated REST API)"]
+    
+    LocalDB --> Fusion["Reciprocal Rank Fusion (RRF) & Calibration"]
+    EPO --> Fusion
+    
+    Fusion --> Novelty["Concept Coverage & Whitespace Engine"]
+    Novelty --> UI["React + Vite Interactive Workspace"]
+    Copilot --> UI
 ```
-                               USER QUERY
-                                   │
-                                   ▼
-                         QUERY UNDERSTANDING
-                                   │
-                    ┌──────────────┴──────────────┐
-                    ▼                             ▼
-            LOCAL PATENT SOURCE           EPO PUBLICATION SOURCE
-         (115,625-patent ChromaDB)         (Live EPO EPS v1.2)
-                    │                             │
-                    └──────────────┬──────────────┘
-                                   ▼
-                             RESULT FUSION
-                       (Deduplication + Calibration)
-                                   │
-                                   ▼
-                          EXISTING RE-RANKING
-                                   │
-                                   ▼
-                        CONCEPT COVERAGE SCORING
-                                   │
-                                   ▼
-                      AI NOVELTY & WHITESPACE ENGINE
-                                   │
-                                   ▼
-                          GEMINI RAG / REPORT
-```
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-* **Backend**: FastAPI, Python 3.12, Uvicorn, Pydantic v2
-* **Vector Store**: ChromaDB (115,625 documents)
-* **Embeddings**: SentenceTransformers (`all-MiniLM-L6-v2`)
-* **LLM Engine**: Google Gemini API (`gemini-2.5-flash`) with deterministic fallback
-* **External Live Source**: European Patent Office (EPO) European Publication Server (EPS v1.2)
-* **Frontend**: React 18, Vite, Lucide Icons
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend** | React 18, Vite, Vanilla CSS Design System, Responsive SVG Visualizations |
+| **Backend** | Python 3.12, FastAPI, Uvicorn, Pydantic v2 |
+| **Vector DB** | ChromaDB, SentenceTransformers (`all-MiniLM-L6-v2`) |
+| **AI / LLM** | Google Gemini (`gemini-2.5-flash`) with structured deterministic fallback |
+| **External APIs** | European Patent Office (EPO) European Publication Server REST API v1.2 |
 
 ---
 
-## 🚦 Quickstart
+## Quickstart
 
-### 1. Backend Setup
+### Prerequisites
+- **Python 3.10+** (Python 3.12 recommended)
+- **Node.js 18+** & `npm`
+- **Git**
+
+---
+
+### Step 1: Clone the Repository
+
 ```bash
-# Clone the repository
 git clone https://github.com/Ashritha1906/PatentIQ.git
 cd PatentIQ
+```
+
+---
+
+### Step 2: Backend Setup
+
+```bash
+# Create and activate Python virtual environment
+python -m venv venv
+
+# On Windows:
+.\venv\Scripts\activate
+# On macOS / Linux:
+# source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Configure environment variables
-# Create .env with:
-# GEMINI_API_KEY=your_gemini_api_key
-# EPO_ENABLED=true
+# (Optional) Create .env file for Gemini AI Copilot
+# GEMINI_API_KEY=your_gemini_api_key_here
 
-# Launch the FastAPI server
+# Start the FastAPI server
 uvicorn backend.api.main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-### 2. Frontend Setup
+> **API Documentation**: Once running, open [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) to access the interactive Swagger UI.
+
+---
+
+### Step 3: Frontend Setup
+
+Open a new terminal window:
+
 ```bash
 cd frontend
+
+# Install node dependencies
 npm install
+
+# Start the Vite development server
 npm run dev
 ```
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+> **Web App**: Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ---
 
-## 🧪 Testing
+## Project Structure
 
-```bash
-# Run Phase 6B Federated Retrieval Tests (11 tests)
-python -m unittest backend/tests/test_phase6b_federated_retrieval.py
-
-# Run Phase 6A.1 Corrections Tests (14 tests)
-python -m unittest backend/tests/test_phase6a1_corrections.py
-
-# Run Phase 6A Retrieval Regression Tests (21 tests)
-python -m unittest backend/tests/test_phase6a_retrieval.py
-
-# Run Core API Tests (8 tests)
-python -u backend/tests/api_tests/test_api.py
+```
+PatentIQ/
+├── backend/
+│   ├── api/
+│   │   ├── main.py              # FastAPI application & middleware
+│   │   └── routes/              # Modular API endpoints (search, copilot, novelty, compare)
+│   ├── embeddings/              # SentenceTransformer vector pipelines
+│   ├── knowledge_expansion/     # Live federated EPO EPS connectors
+│   ├── tests/                   # E2E, unit, and retrieval regression tests
+│   └── vectordb/                # ChromaDB vector index configuration
+├── frontend/
+│   ├── public/                  # Public assets & SVG favicon
+│   └── src/
+│       ├── components/          # Reusable UI components (Logo, Header, Icons)
+│       ├── pages/               # Workspace pages (Home, Copilot, Compare, Results)
+│       ├── services/            # Frontend API client
+│       └── index.css            # Enterprise dark/light design system
+├── requirements.txt             # Python dependencies
+└── README.md                    # Project documentation
 ```
 
 ---
 
-## ⚖️ Disclaimer
+## API Reference
 
-*PatentIQ is an automated prior-art similarity indicator and is not a legal determination of patentability, novelty, or non-infringement.*
+| Endpoint | Method | Description |
+| :--- | :--- | :--- |
+| `/api/health` | `GET` | System health, vector DB status, and active LLM configuration |
+| `/api/search` | `POST` | Hybrid dense + lexical prior-art retrieval across patent databases |
+| `/api/novelty` | `POST` | Canonical novelty score estimation and whitespace concept coverage |
+| `/api/copilot/chat` | `POST` | Multi-turn AI Research Copilot conversational analysis |
+| `/api/compare` | `POST` | Side-by-side comparative analysis of two patent publications |
+| `/api/knowledge/status` | `GET` | Federated live EPO connector bandwidth and cache health |
+
+---
+
+## Testing
+
+Run the test suite from the repository root:
+
+```bash
+# Core API endpoints test
+python backend/tests/api_tests/test_api.py
+
+# End-to-end retrieval validation
+python backend/tests/api_tests/run_e2e_tests.py
+```
+
+---
+
+## Disclaimer
+
+*PatentIQ provides automated prior-art similarity indicators and algorithmic novelty assessments. It does not constitute formal legal counsel or an official determination of patentability by a national patent authority.*
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
