@@ -1,7 +1,8 @@
-import React, { useState, useMemo } from 'react';
+﻿import React, { useState, useMemo } from 'react';
 import NoveltyGauge from '../components/NoveltyGauge';
 import PatentCard from '../components/PatentCard';
 import GapCard from '../components/GapCard';
+import { Icon } from '../components/Icons';
 
 // Simple Markdown formatting helper for the generative LLM response
 function formatMarkdown(text) {
@@ -54,42 +55,25 @@ function formatMarkdown(text) {
   return formatted;
 }
 
-export default function Results({ data, onNavigate }) {
+export default function Results({ data, onNavigate, onStartComparison, onDeepDive }) {
   const [selectedConcept, setSelectedConcept] = useState(null);
   const [selectedYear, setSelectedYear] = useState(null);
   const [highlightedPatentId, setHighlightedPatentId] = useState(null);
   const [hoveredNode, setHoveredNode] = useState(null);
+  const [selectedPatents, setSelectedPatents] = useState([]);
+  const [selectionWarning, setSelectionWarning] = useState(null);
 
-  // If no analysis is loaded, display standard placeholder
-  if (!data) {
-    return (
-      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
-        <div className="panel panel-padding" style={{ width: '100%', maxWidth: '500px', textAlign: 'center', background: 'var(--bg-surface)' }}>
-          <div style={{ fontSize: '40px', marginBottom: '16px' }}>📊</div>
-          <h2 style={{ fontSize: '18px', fontWeight: 600, color: '#fff', marginBottom: '8px' }}>
-            No Analysis Loaded
-          </h2>
-          <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '24px', lineHeight: '1.6' }}>
-            Please submit your technical details and run a prior art search inside the Research Workspace to view metrics, clusters, and reports.
-          </p>
-          <button className="btn-primary" onClick={() => onNavigate('workspace')}>
-            Open Research Workspace
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  // Extract variables safely
-  const domain = data.technology_domain || {};
+  // Extract variables safely before hooks
+  const domain = data?.technology_domain || {};
   const primaryDomain = domain.primary_domain || 'GENERAL';
   const keyConcepts = domain.key_concepts || [];
-  const patents = data.evidence_ranking || data.similar_patents || [];
-  const novelty = data.novelty_score || {};
+  const patents = useMemo(() => data?.evidence_ranking || data?.similar_patents || [], [data]);
+  const novelty = data?.novelty_score || {};
   const noveltyScore = Number(novelty.score ?? novelty.novelty_score ?? novelty.overall_novelty_score ?? 0);
-  const gaps = data.innovation_gaps || [];
-  const confidence = data.confidence_score || {};
-  const analysisHtml = useMemo(() => formatMarkdown(data.analysis), [data.analysis]);
+  const gaps = data?.innovation_gaps || [];
+  const confidence = data?.confidence_score || {};
+  
+  const analysisHtml = useMemo(() => formatMarkdown(data?.analysis), [data?.analysis]);
 
   // Extract unique assignee companies and calculate counts
   const competitorStats = useMemo(() => {
@@ -121,7 +105,59 @@ export default function Results({ data, onNavigate }) {
       .sort((a, b) => Number(a.year) - Number(b.year));
   }, [patents]);
 
-  // Scroll and highlight helper
+  // Filter patents based on active concept filter
+  const filteredPatents = useMemo(() => {
+    return patents.filter(p => {
+      if (!selectedConcept) return true;
+      const conceptLower = selectedConcept.toLowerCase();
+      const titleLower = (p.title || '').toLowerCase();
+      const textLower = (p.patent_text || '').toLowerCase();
+      const fieldLower = (p.field_of_invention || '').toLowerCase();
+      return titleLower.includes(conceptLower) || textLower.includes(conceptLower) || fieldLower.includes(conceptLower);
+    });
+  }, [patents, selectedConcept]);
+
+  // Network graph calculations (SVG)
+  const graphNodes = useMemo(() => {
+    const center = { x: 230, y: 130, label: 'My Idea', isCenter: true };
+    const list = [center];
+    const count = patents.length;
+
+    patents.forEach((p, idx) => {
+      const angle = (idx * 2 * Math.PI) / count;
+      const similarity = p.similarity_score || 0.5;
+      const distance = 160 - similarity * 80; 
+      
+      list.push({
+        x: 230 + Math.cos(angle) * distance,
+        y: 130 + Math.sin(angle) * distance * 0.75,
+        label: `P${idx + 1}`,
+        similarity: Math.round(similarity * 100),
+        title: p.title,
+        applicant: p.applicant_name,
+        appNum: p.application_number,
+        isCenter: false
+      });
+    });
+
+    return list;
+  }, [patents]);
+
+  const togglePatentSelection = (patent) => {
+    setSelectionWarning(null);
+    const pid = patent.publication_number || patent.application_number;
+    const isSelected = selectedPatents.some(p => (p.publication_number || p.application_number) === pid);
+    if (isSelected) {
+      setSelectedPatents(prev => prev.filter(p => (p.publication_number || p.application_number) !== pid));
+    } else {
+      if (selectedPatents.length >= 3) {
+        setSelectionWarning('Comparison is limited to 3 patents.');
+        return;
+      }
+      setSelectedPatents(prev => [...prev, patent]);
+    }
+  };
+
   const triggerHighlight = (appNum) => {
     const elementId = `patent-${appNum.replace(/[^a-zA-Z0-9]/g, '-')}`;
     const el = document.getElementById(elementId);
@@ -149,59 +185,47 @@ export default function Results({ data, onNavigate }) {
     setSelectedConcept(selectedConcept === concept ? null : concept);
   };
 
-  // Filter patents based on active concept filter
-  const filteredPatents = useMemo(() => {
-    return patents.filter(p => {
-      if (!selectedConcept) return true;
-      const conceptLower = selectedConcept.toLowerCase();
-      const titleLower = (p.title || '').toLowerCase();
-      const textLower = (p.patent_text || '').toLowerCase();
-      const fieldLower = (p.field_of_invention || '').toLowerCase();
-      return titleLower.includes(conceptLower) || textLower.includes(conceptLower) || fieldLower.includes(conceptLower);
-    });
-  }, [patents, selectedConcept]);
-
   const clearFilters = () => {
     setSelectedConcept(null);
     setSelectedYear(null);
   };
 
-  // Network graph calculations (SVG)
-  const graphNodes = useMemo(() => {
-    const center = { x: 230, y: 130, label: 'My Idea', isCenter: true };
-    const list = [center];
-    const count = patents.length;
-
-    patents.forEach((p, idx) => {
-      const angle = (idx * 2 * Math.PI) / count;
-      // Proportional distance: highly similar patents are closer (smaller radius)
-      const similarity = p.similarity_score || 0.5;
-      const distance = 160 - similarity * 80; 
-      
-      list.push({
-        x: 230 + Math.cos(angle) * distance,
-        y: 130 + Math.sin(angle) * distance * 0.75, // flatten slightly for 3D oval look
-        label: `P${idx + 1}`,
-        similarity: Math.round(similarity * 100),
-        title: p.title,
-        applicant: p.applicant_name,
-        appNum: p.application_number,
-        isCenter: false
-      });
-    });
-
-    return list;
-  }, [patents]);
+  // If no analysis is loaded, display standard placeholder
+  if (!data) {
+    return (
+      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
+        <div className="panel panel-padding" style={{ width: '100%', maxWidth: '480px', textAlign: 'center', background: 'var(--bg-surface)' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
+            <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'var(--primary-glow)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Icon name="search" size={24} color="var(--primary)" />
+            </div>
+          </div>
+          <h2 style={{ fontSize: '18px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '8px' }}>
+            No Analysis Loaded
+          </h2>
+          <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '24px', lineHeight: '1.6' }}>
+            Submit an invention description in the Patent Search workspace to view prior-art metrics, proximity graphs, and landscape analysis.
+          </p>
+          <button className="btn-primary" onClick={() => onNavigate('workspace')}>
+            Open Patent Search
+            <Icon name="arrow-right" size={14} />
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="container" style={{ margin: '30px auto' }}>
+    <div className="container" style={{ margin: '16px auto' }}>
       {/* Top Header Toolbar */}
       <div className="results-toolbar">
         <div>
-          <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>
-            Executive Dashboard
-          </span>
-          <h1 style={{ fontSize: '26px', fontWeight: 700 }}>Patent Intelligence Center</h1>
+          <h2 style={{ fontSize: '20px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '4px' }}>
+            Patent Intelligence Center
+          </h2>
+          <p style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
+            Deep-dive landscape metrics, novelty indicators, and technology whitespace mapping.
+          </p>
         </div>
       </div>
 
@@ -213,7 +237,7 @@ export default function Results({ data, onNavigate }) {
         </div>
         <div className="summary-stat-box">
           <div className="summary-stat-label">AI Novelty Indicator</div>
-          <div className="summary-stat-value">{noveltyScore}%</div>
+          <div className="summary-stat-value" style={{ color: 'var(--primary)' }}>{noveltyScore}%</div>
         </div>
         <div className="summary-stat-box">
           <div className="summary-stat-label">Confidence Rating</div>
@@ -230,7 +254,7 @@ export default function Results({ data, onNavigate }) {
         </div>
         <div className="summary-stat-box">
           <div className="summary-stat-label">Innovation Gaps</div>
-          <div className="summary-stat-value">{gaps.length} Whitespaces</div>
+          <div className="summary-stat-value" style={{ color: 'var(--accent-violet)' }}>{gaps.length} Whitespaces</div>
         </div>
       </div>
 
@@ -242,7 +266,6 @@ export default function Results({ data, onNavigate }) {
           <div className="novelty-flex-container">
             <div className="novelty-stat">
               <NoveltyGauge score={noveltyScore} />
-              <div className="novelty-score-text" style={{ marginTop: "12px" }}>{noveltyScore}%</div>
               <span className={`novelty-status-pill ${
                 (novelty.band || '').toLowerCase().includes('highly') || (novelty.band || '').toLowerCase().includes('strong') ? 'high' : 
                 (novelty.band || '').toLowerCase().includes('moderate') || (novelty.band || '').toLowerCase().includes('medium') ? 'medium' : 'low'
@@ -253,7 +276,7 @@ export default function Results({ data, onNavigate }) {
             <div className="novelty-description-box">
               <p style={{ marginBottom: '12px' }}>{novelty.explanation}</p>
               {novelty.breakdown && (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', fontSize: '11px', marginTop: '16px', background: 'var(--bg-surface-secondary)', padding: '10px', borderRadius: 'var(--border-radius-md)' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', fontSize: '11px', marginTop: '14px', background: 'var(--bg-surface-secondary)', padding: '10px', borderRadius: 'var(--border-radius-md)' }}>
                   <div>Uniqueness: <strong>{Math.round(novelty.breakdown.concept_uniqueness || 0)}%</strong></div>
                   <div>Saturation: <strong>{Math.round(100 - (novelty.breakdown.domain_saturation || 0))}%</strong></div>
                   <div>Diff: <strong>{Math.round(100 - (novelty.breakdown.similarity_overlap || 0) * 100)}%</strong></div>
@@ -271,9 +294,9 @@ export default function Results({ data, onNavigate }) {
         {/* Interactive SVG Patent Graph */}
         <div className="panel panel-padding" style={{ position: 'relative', overflow: 'hidden' }}>
           <h2 className="panel-title">Patent Proximity Graph</h2>
-          <div style={{ display: 'flex', position: 'relative', height: '260px' }}>
-            <svg width="100%" height="260px" style={{ overflow: 'visible' }}>
-              {/* Draw Links (connecting lines) */}
+          <div style={{ display: 'flex', position: 'relative', height: '240px' }}>
+            <svg width="100%" height="240px" style={{ overflow: 'visible' }}>
+              {/* Draw Links */}
               {graphNodes.slice(1).map((node, idx) => (
                 <line
                   key={idx}
@@ -281,8 +304,8 @@ export default function Results({ data, onNavigate }) {
                   y1={graphNodes[0].y}
                   x2={node.x}
                   y2={node.y}
-                  stroke="rgba(99, 102, 241, 0.25)"
-                  strokeWidth={1.5 + (node.similarity / 100) * 3}
+                  stroke="rgba(110, 168, 254, 0.2)"
+                  strokeWidth={1.5 + (node.similarity / 100) * 2.5}
                   strokeDasharray={node.appNum === hoveredNode?.appNum ? '4 4' : 'none'}
                 />
               ))}
@@ -300,7 +323,7 @@ export default function Results({ data, onNavigate }) {
               <text
                 x={graphNodes[0].x}
                 y={graphNodes[0].y + 4}
-                fill="#fff"
+                fill="#080B12"
                 fontSize="10"
                 fontWeight="700"
                 textAnchor="middle"
@@ -322,7 +345,7 @@ export default function Results({ data, onNavigate }) {
                     cy={node.y}
                     r="13"
                     fill="var(--bg-surface-secondary)"
-                    stroke={hoveredNode?.appNum === node.appNum ? '#fff' : 'var(--border-neutral)'}
+                    stroke={hoveredNode?.appNum === node.appNum ? 'var(--primary)' : 'var(--border-neutral)'}
                     strokeWidth="1.5"
                   />
                   <text
@@ -339,14 +362,14 @@ export default function Results({ data, onNavigate }) {
               ))}
             </svg>
 
-            {/* Hover Tooltip Overlay inside panel */}
+            {/* Hover Tooltip Overlay */}
             {hoveredNode ? (
               <div style={{
                 position: 'absolute',
                 bottom: '10px',
                 left: '10px',
                 right: '10px',
-                background: '#0b0f19',
+                background: 'var(--bg-surface-elevated)',
                 border: '1px solid var(--border-neutral)',
                 borderRadius: 'var(--border-radius-md)',
                 padding: '8px 12px',
@@ -354,10 +377,10 @@ export default function Results({ data, onNavigate }) {
                 pointerEvents: 'none',
                 zIndex: 10
               }}>
-                <span style={{ color: 'var(--primary-light)', fontWeight: 600, display: 'block', textTransform: 'uppercase', fontSize: '9px', marginBottom: '2px' }}>
+                <span style={{ color: 'var(--primary)', fontWeight: 600, display: 'block', textTransform: 'uppercase', fontSize: '9px', marginBottom: '2px' }}>
                   {hoveredNode.appNum} • Match: {hoveredNode.similarity}%
                 </span>
-                <strong style={{ color: '#fff', display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                <strong style={{ color: 'var(--text-primary)', display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   {hoveredNode.title}
                 </strong>
                 <span style={{ color: 'var(--text-secondary)' }}>Applicant: {hoveredNode.applicant}</span>
@@ -383,7 +406,7 @@ export default function Results({ data, onNavigate }) {
         <div className="panel panel-padding">
           <h2 className="panel-title">Competitor Landscape</h2>
           <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '16px' }}>
-            Top assignee organizations holding related prior art documents in vector space:
+            Top assignee organizations holding related prior art documents:
           </p>
           <div className="competitor-list">
             {competitorStats.map((item, idx) => (
@@ -421,7 +444,7 @@ export default function Results({ data, onNavigate }) {
                     <div 
                       className="timeline-node-circle"
                       style={{
-                        backgroundColor: selectedYear === item.year ? 'var(--primary-light)' : 'var(--bg-base)',
+                        backgroundColor: selectedYear === item.year ? 'var(--primary)' : 'var(--bg-base)',
                         transform: selectedYear === item.year ? 'scale(1.3)' : 'scale(1)'
                       }}
                     />
@@ -437,10 +460,10 @@ export default function Results({ data, onNavigate }) {
       </div>
 
       {/* Concept Filters & Executive Report layout */}
-      <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: '24px', marginBottom: '24px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: '20px', marginBottom: '24px' }}>
         
         {/* Left Side: Landscape Filter Chips & Gaps */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           {/* Key Concept Filters */}
           <div className="panel panel-padding">
             <h2 className="panel-title">Interactive Concepts</h2>
@@ -457,7 +480,7 @@ export default function Results({ data, onNavigate }) {
                     onClick={() => handleConceptClick(concept)}
                     style={{
                       background: isSelected ? 'var(--primary)' : 'var(--bg-surface-secondary)',
-                      color: isSelected ? '#fff' : 'var(--text-secondary)',
+                      color: isSelected ? '#080B12' : 'var(--text-secondary)',
                       border: '1px solid var(--border-neutral)',
                       cursor: 'pointer',
                       transition: 'all var(--transition-fast)'
@@ -473,7 +496,7 @@ export default function Results({ data, onNavigate }) {
               <button 
                 className="btn-secondary" 
                 onClick={clearFilters}
-                style={{ width: '100%', padding: '6px', fontSize: '12px' }}
+                style={{ width: '100%', padding: '6px', fontSize: '12px', marginTop: '6px' }}
               >
                 Clear Active Filters
               </button>
@@ -482,7 +505,7 @@ export default function Results({ data, onNavigate }) {
 
           {/* Whitespace Innovation Opportunities */}
           <div>
-            <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#fff', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <h3 style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               Whitespace Gap Detections
             </h3>
             {gaps.map((gap, idx) => (
@@ -499,7 +522,7 @@ export default function Results({ data, onNavigate }) {
             dangerouslySetInnerHTML={{ __html: analysisHtml }}
             style={{ 
               color: 'var(--text-secondary)', 
-              fontSize: '14px', 
+              fontSize: '13.5px', 
               lineHeight: '1.7' 
             }}
           />
@@ -507,8 +530,8 @@ export default function Results({ data, onNavigate }) {
       </div>
 
       {/* Prior Art Patents Details */}
-      <section style={{ marginTop: '32px' }}>
-        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <section style={{ marginTop: '24px' }}>
+        <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span>Semantically Aligned Patents ({filteredPatents.length})</span>
           {selectedConcept && (
             <span style={{ fontSize: '12px', fontWeight: 400, color: 'var(--primary-light)' }}>
@@ -517,16 +540,86 @@ export default function Results({ data, onNavigate }) {
           )}
         </h2>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          {filteredPatents.map((pat, idx) => (
-            <PatentCard 
-              key={idx} 
-              patent={pat} 
-              highlightClass={highlightedPatentId === pat.application_number ? 'highlight-flash' : ''}
-            />
-          ))}
+        {/* Floating / Sticky Comparison Action Bar */}
+        {selectedPatents.length > 0 && (
+          <div 
+            style={{
+              position: 'sticky',
+              top: '64px',
+              zIndex: 50,
+              background: 'var(--bg-surface-elevated)',
+              border: '1px solid var(--border-active)',
+              boxShadow: 'var(--shadow-lg)',
+              borderRadius: 'var(--border-radius-md)',
+              padding: '10px 18px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '16px',
+              marginBottom: '16px'
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <Icon name="compare" size={16} color="var(--primary)" />
+                <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)' }}>
+                  {selectedPatents.length} {selectedPatents.length === 1 ? 'patent' : 'patents'} selected
+                </span>
+              </div>
+              {selectedPatents.length < 2 && (
+                <span style={{ fontSize: '11px', color: 'var(--warning)', background: 'var(--warning-glow)', padding: '2px 8px', borderRadius: '4px' }}>
+                  Select at least 2 patents to compare
+                </span>
+              )}
+              {selectionWarning && (
+                <span style={{ fontSize: '11px', color: 'var(--error)', background: 'var(--error-glow)', padding: '2px 8px', borderRadius: '4px' }}>
+                  {selectionWarning}
+                </span>
+              )}
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <button 
+                className="btn-secondary" 
+                onClick={() => { setSelectedPatents([]); setSelectionWarning(null); }}
+                style={{ padding: '6px 12px', fontSize: '12px' }}
+              >
+                Clear
+              </button>
+              <button 
+                className="btn-primary" 
+                disabled={selectedPatents.length < 2 || selectedPatents.length > 3}
+                onClick={() => onStartComparison && onStartComparison(selectedPatents)}
+                style={{ 
+                  padding: '6px 14px', 
+                  fontSize: '12.5px', 
+                  opacity: selectedPatents.length < 2 ? 0.5 : 1,
+                  cursor: selectedPatents.length < 2 ? 'not-allowed' : 'pointer'
+                }}
+              >
+                Compare Selected ({selectedPatents.length}/3)
+                <Icon name="arrow-right" size={13} color="#080B12" />
+              </button>
+            </div>
+          </div>
+        )}
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          {filteredPatents.map((pat, idx) => {
+            const isSelected = selectedPatents.some(p => (p.publication_number || p.application_number) === (pat.publication_number || pat.application_number));
+            return (
+              <PatentCard 
+                key={idx} 
+                patent={pat} 
+                highlightClass={highlightedPatentId === pat.application_number ? 'highlight-flash' : ''}
+                selectable={true}
+                selected={isSelected}
+                onToggleSelect={togglePatentSelection}
+                onDeepDive={onDeepDive}
+              />
+            );
+          })}
           {filteredPatents.length === 0 && (
-            <div className="panel panel-padding" style={{ textAlign: 'center', padding: '48px', color: 'var(--text-muted)' }}>
+            <div className="panel panel-padding" style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
               No patents match the current filters. Click "Clear Active Filters" above.
             </div>
           )}

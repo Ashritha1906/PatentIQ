@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import Home from './pages/Home';
 import Workspace from './pages/Workspace';
 import Results from './pages/Results';
@@ -6,25 +6,42 @@ import Knowledge from './pages/Knowledge';
 import Docs from './pages/Docs';
 import SettingsPage from './pages/SettingsPage';
 import Copilot from './pages/Copilot';
+import PatentComparison from './pages/PatentComparison';
+import InnovationRefinement from './pages/InnovationRefinement';
+import ReportWorkspace from './pages/ReportWorkspace';
+import { Icon } from './components/Icons';
 import { checkSystemHealth, analyzeIdea } from './services/api';
 
 function App() {
-  const [activeTab, setActiveTab] = useState('home'); // 'home', 'workspace', 'results', 'knowledge', 'docs', 'settings'
+  const [activeTab, setActiveTab] = useState('home');
+  const [initialWorkspaceQuery, setInitialWorkspaceQuery] = useState('');
+  // Theme Management (Dark / Light)
+  const [theme, setTheme] = useState(() => localStorage.getItem('patentiq_theme') || 'dark');
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('patentiq_theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
+
   const [systemHealth, setSystemHealth] = useState(null);
   const [patentData, setPatentData] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
   const [historyQueries, setHistoryQueries] = useState([]);
+  const [comparisonPatents, setComparisonPatents] = useState([]);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   
-  // Custom user settings state
   const [userSettings, setUserSettings] = useState({
     apiKey: '',
     mockLLM: true,
     palette: 'indigo'
   });
 
-  // Poll system health status every 10 seconds
+  // Poll system health status every 12 seconds
   useEffect(() => {
     let active = true;
     
@@ -36,7 +53,7 @@ function App() {
     }
 
     getHealth();
-    const interval = setInterval(getHealth, 10000);
+    const interval = setInterval(getHealth, 12000);
 
     return () => {
       active = false;
@@ -51,22 +68,16 @@ function App() {
       try {
         const parsed = JSON.parse(saved);
         setUserSettings(parsed);
-        
-        // Apply color palette property tokens to document element
-        const palettes = {
-          indigo: { primary: '#6366f1', light: '#818cf8', glow: 'rgba(99, 102, 241, 0.08)' },
-          blue: { primary: '#2563eb', light: '#60a5fa', glow: 'rgba(37, 99, 235, 0.08)' },
-          teal: { primary: '#0d9488', light: '#2dd4bf', glow: 'rgba(13, 148, 136, 0.08)' }
-        };
-        const p = palettes[parsed.palette || 'indigo'];
-        if (p) {
-          document.documentElement.style.setProperty('--primary', p.primary);
-          document.documentElement.style.setProperty('--primary-light', p.light);
-          document.documentElement.style.setProperty('--primary-glow', p.glow);
-        }
-      } catch (_) {}
+      } catch {}
     }
   }, []);
+
+  const handleNavigate = (tab, query = '') => {
+    if (query) {
+      setInitialWorkspaceQuery(query);
+    }
+    setActiveTab(tab);
+  };
 
   const handleAnalyze = async ({ title, ideaText, topK, domainFilter, applicantFilter }) => {
     setIsAnalyzing(true);
@@ -82,7 +93,6 @@ function App() {
       
       setPatentData(data);
       
-      // Save query run to local history list
       setHistoryQueries((prev) => [
         {
           id: Date.now(),
@@ -94,13 +104,17 @@ function App() {
       ]);
 
       setIsAnalyzing(false);
-      // Automatically switch to dashboard results page
       setActiveTab('results');
     } catch (err) {
       console.error('Analysis failed:', err);
       setErrorMsg(err.message || 'An unexpected error occurred during pipeline execution.');
       setIsAnalyzing(false);
     }
+  };
+
+  const handleStartComparison = (patents) => {
+    setComparisonPatents(patents);
+    setActiveTab('compare');
   };
 
   const handleSelectHistoryItem = (item) => {
@@ -113,83 +127,99 @@ function App() {
     localStorage.setItem('patentiq_settings', JSON.stringify(settings));
   };
 
-  // Health check helper for sidebar footer
   const getHealthBadge = () => {
-    if (!systemHealth) return { text: 'Checking Status', color: 'var(--text-muted)' };
-    if (systemHealth.status === 'healthy') return { text: 'System Online', color: 'var(--success)' };
-    if (systemHealth.status === 'degraded') return { text: 'Degraded State', color: 'var(--warning)' };
-    return { text: 'System Offline', color: 'var(--error)' };
+    if (!systemHealth) return { text: 'Checking Status', statusClass: 'offline' };
+    if (systemHealth.status === 'healthy') return { text: 'System Online', statusClass: 'online' };
+    if (systemHealth.status === 'degraded') return { text: 'Degraded State', statusClass: 'degraded' };
+    return { text: 'System Offline', statusClass: 'offline' };
   };
 
   const badge = getHealthBadge();
 
-  const navItems = [
-    { id: 'home', label: 'Home Overview', icon: '🏠' },
-    { id: 'workspace', label: 'Research Workspace', icon: '💻' },
-    { id: 'copilot', label: 'AI Research Copilot', icon: '🤖' },
-    { id: 'results', label: 'Intelligence Center', icon: '📊' },
-    { id: 'knowledge', label: 'Knowledge Ingestion', icon: '🧠' },
-    { id: 'docs', label: 'Documentation', icon: '📖' },
-    { id: 'settings', label: 'Settings', icon: '⚙️' }
+  const primaryNavItems = [
+    { id: 'home', label: 'Overview', icon: 'home' },
+    { id: 'workspace', label: 'Patent Search', icon: 'search' },
+    { id: 'copilot', label: 'AI Copilot', icon: 'copilot' },
+    { id: 'compare', label: 'Patent Comparison', icon: 'compare' },
+    { id: 'innovation', label: 'Innovation Refinement', icon: 'innovation' },
+    { id: 'reports', label: 'Research Reports', icon: 'reports' },
+    { id: 'results', label: 'Intelligence Center', icon: 'results' }
   ];
+
+  const secondaryNavItems = [
+    { id: 'knowledge', label: 'Knowledge Ingestion', icon: 'knowledge' },
+    { id: 'docs', label: 'Documentation', icon: 'docs' },
+    { id: 'settings', label: 'Settings', icon: 'settings' }
+  ];
+
+  const getPageTitle = (tab) => {
+    switch (tab) {
+      case 'home': return { title: 'Overview', desc: 'Enterprise AI patent intelligence and prior-art discovery' };
+      case 'workspace': return { title: 'Patent Search', desc: 'Natural language semantic & hybrid prior-art retrieval' };
+      case 'copilot': return { title: 'AI Research Copilot', desc: 'Conversational prior-art exploration, claims inquiry & voice' };
+      case 'compare': return { title: 'Patent Comparison', desc: 'Side-by-side technical evaluation & combination gap analysis' };
+      case 'innovation': return { title: 'Innovation Refinement', desc: 'Concept coverage, whitespace detection & differentiation paths' };
+      case 'reports': return { title: 'Research Reports', desc: 'Publication-grade landscape synthesis with PDF & Markdown export' };
+      case 'results': return { title: 'Intelligence Center', desc: 'Deep-dive analysis, novelty scores, and technology clusters' };
+      case 'knowledge': return { title: 'Knowledge Ingestion', desc: 'Indian patent corpus indexation & live EPO connection' };
+      case 'docs': return { title: 'Documentation', desc: 'Architecture, API endpoints, and retrieval schemas' };
+      case 'settings': return { title: 'Settings', desc: 'System configuration, API keys, and environment toggles' };
+      default: return { title: 'PatentIQ', desc: 'Enterprise Patent Intelligence' };
+    }
+  };
+
+  const currentViewMeta = getPageTitle(activeTab);
 
   return (
     <div className="app-container">
-      {/* PERSISTENT LEFT SIDEBAR */}
-      <aside className={`sidebar ${sidebarCollapsed ? 'collapsed' : ''}`}>
+      {/* PERSISTENT LEFT SIDEBAR: Visible on analytical workspaces, hidden on Home Landing */}
+      {activeTab !== 'home' && (
+        <aside className={`sidebar ${sidebarCollapsed ? 'collapsed' : ''}`} aria-label="Sidebar Navigation">
         <div>
-          {/* Collapse Toggle trigger */}
-          <div style={{ display: 'flex', justifyContent: sidebarCollapsed ? 'center' : 'flex-end', marginBottom: '12px' }}>
+          {/* Sidebar Header & Brand */}
+          <div className="sidebar-header">
+            <div className="sidebar-brand">
+              <div className="sidebar-logo-icon">IQ</div>
+              {!sidebarCollapsed && <span className="sidebar-logo-text">PatentIQ</span>}
+            </div>
             <button 
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              style={{
-                background: 'var(--bg-surface-secondary)',
-                border: '1px solid var(--border-neutral)',
-                color: 'var(--text-secondary)',
-                borderRadius: 'var(--border-radius-sm)',
-                cursor: 'pointer',
-                fontSize: '12px',
-                padding: '4px 8px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all var(--transition-fast)'
-              }}
-              title={sidebarCollapsed ? 'Expand Menu' : 'Collapse Menu'}
+              className="sidebar-collapse-btn"
+              title={sidebarCollapsed ? 'Expand Navigation' : 'Collapse Navigation'}
+              aria-label={sidebarCollapsed ? 'Expand Navigation' : 'Collapse Navigation'}
             >
-              {sidebarCollapsed ? '☰' : '✕'}
+              <Icon name={sidebarCollapsed ? 'chevron-right' : 'chevron-left'} size={14} />
             </button>
           </div>
 
-          {/* Logo Section */}
-          <div className="sidebar-brand" style={{ paddingLeft: sidebarCollapsed ? '0' : '8px', justifyContent: sidebarCollapsed ? 'center' : 'flex-start' }}>
-            <img 
-              src="/logo.png" 
-              style={{ 
-                width: '32px', 
-                height: '32px', 
-                borderRadius: '6px', 
-                objectFit: 'contain'
-              }} 
-              alt="πQ Logo" 
-            />
-            {!sidebarCollapsed && <span className="sidebar-logo-text">PatentIQ</span>}
-          </div>
-
-          {/* Navigation Links */}
+          {/* Primary Navigation Section */}
           <nav className="sidebar-menu">
-            {navItems.map((item) => (
+            {!sidebarCollapsed && <span className="sidebar-section-label">Research Intelligence</span>}
+            {primaryNavItems.map((item) => (
               <button 
                 key={item.id}
                 className={`sidebar-item ${activeTab === item.id ? 'active' : ''}`}
                 onClick={() => setActiveTab(item.id)}
                 title={sidebarCollapsed ? item.label : ''}
-                style={{
-                  justifyContent: sidebarCollapsed ? 'center' : 'flex-start',
-                  padding: sidebarCollapsed ? '10px 0' : '10px 14px'
-                }}
               >
-                <span style={{ fontSize: '15px', marginRight: sidebarCollapsed ? '0' : '10px' }}>{item.icon}</span>
+                <span className="sidebar-item-icon">
+                  <Icon name={item.icon} size={16} />
+                </span>
+                {!sidebarCollapsed && <span>{item.label}</span>}
+              </button>
+            ))}
+
+            {!sidebarCollapsed && <span className="sidebar-section-label" style={{ marginTop: '10px' }}>Platform</span>}
+            {secondaryNavItems.map((item) => (
+              <button 
+                key={item.id}
+                className={`sidebar-item ${activeTab === item.id ? 'active' : ''}`}
+                onClick={() => setActiveTab(item.id)}
+                title={sidebarCollapsed ? item.label : ''}
+              >
+                <span className="sidebar-item-icon">
+                  <Icon name={item.icon} size={16} />
+                </span>
                 {!sidebarCollapsed && <span>{item.label}</span>}
               </button>
             ))}
@@ -197,25 +227,71 @@ function App() {
         </div>
 
         {/* Sidebar Footer Status Indicator */}
-        <div className="sidebar-footer" style={{ padding: sidebarCollapsed ? '16px 0 0 0' : '16px 8px 0 8px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: 'var(--text-secondary)', justifyContent: sidebarCollapsed ? 'center' : 'flex-start' }}>
-            <span style={{
-              width: '6px',
-              height: '6px',
-              borderRadius: '50%',
-              backgroundColor: badge.color,
-              display: 'inline-block'
-            }} title={badge.text}></span>
-            {!sidebarCollapsed && <span>{badge.text}</span>}
+        <div className="sidebar-footer">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '11.5px', color: 'var(--text-secondary)', justifyContent: sidebarCollapsed ? 'center' : 'flex-start' }}>
+            <span className={`status-indicator ${badge.statusClass}`} title={badge.text}></span>
+            {!sidebarCollapsed && (
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{badge.text}</span>
+                <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>115k Patents + EPO Live</span>
+              </div>
+            )}
           </div>
         </div>
       </aside>
+      )}
 
       {/* MAIN CONTENT VIEWPORT */}
       <div className="main-viewport">
+        {/* TOP BAR: Displayed on analytical workspaces & tools */}
+        {activeTab !== 'home' && (
+          <header className="top-bar">
+            <div className="top-bar-left">
+              <div>
+                <h1 className="top-bar-title">{currentViewMeta.title}</h1>
+                <p style={{ fontSize: '12px', color: 'var(--text-muted)', margin: 0 }}>{currentViewMeta.desc}</p>
+              </div>
+            </div>
+            <div className="top-bar-right">
+              <button 
+                onClick={() => setActiveTab('home')}
+                className="btn-secondary"
+                style={{ padding: '5px 12px', fontSize: '12px' }}
+                title="Return to Landing Overview"
+              >
+                <Icon name="home" size={13} />
+                <span>Overview</span>
+              </button>
+
+              <span className="top-bar-badge">Enterprise Edition</span>
+
+              {/* Theme Toggle Button */}
+              <button 
+                onClick={toggleTheme}
+                className="theme-toggle-btn"
+                title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+                aria-label={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              >
+                <Icon name={theme === 'dark' ? 'sun' : 'moon'} size={14} color="var(--primary)" />
+                <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+              </button>
+
+              {patentData?.patents?.length > 0 && (
+                <button 
+                  onClick={() => setActiveTab('results')}
+                  className="btn-secondary"
+                  style={{ padding: '4px 10px', fontSize: '12px' }}
+                >
+                  Active Search ({patentData.patents.length})
+                </button>
+              )}
+            </div>
+          </header>
+        )}
+
         {/* Global Error Banner */}
         {errorMsg && (
-          <div className="container" style={{ marginTop: '20px' }}>
+          <div className="container" style={{ paddingBottom: 0 }}>
             <div 
               style={{ 
                 background: 'rgba(239, 68, 68, 0.1)', 
@@ -229,7 +305,7 @@ function App() {
                 alignItems: 'center'
               }}
             >
-              <span><strong>Analysis Failure:</strong> {errorMsg}</span>
+              <span><strong>Execution Error:</strong> {errorMsg}</span>
               <button 
                 onClick={() => setErrorMsg(null)}
                 style={{
@@ -237,11 +313,12 @@ function App() {
                   border: 'none',
                   color: 'var(--text-muted)',
                   cursor: 'pointer',
-                  fontSize: '16px',
+                  fontSize: '18px',
                   lineHeight: 1
                 }}
+                aria-label="Dismiss Error"
               >
-                ×
+                x
               </button>
             </div>
           </div>
@@ -249,10 +326,7 @@ function App() {
 
         {/* Routed views */}
         {activeTab === 'home' && (
-          <Home onNavigate={setActiveTab} />
-        )}
-        {activeTab === 'copilot' && (
-          <Copilot />
+          <Home onNavigate={handleNavigate} theme={theme} onToggleTheme={toggleTheme} />
         )}
         {activeTab === 'workspace' && (
           <Workspace 
@@ -262,10 +336,38 @@ function App() {
             onSelectHistoryItem={handleSelectHistoryItem}
           />
         )}
+        {activeTab === 'copilot' && (
+          <Copilot />
+        )}
+        {activeTab === 'compare' && (
+          <PatentComparison 
+            initialPatents={comparisonPatents}
+            availablePatents={patentData?.patents || []}
+            onNavigate={setActiveTab}
+          />
+        )}
+        {activeTab === 'innovation' && (
+          <InnovationRefinement 
+            onNavigate={setActiveTab}
+            initialIdea={patentData?.ideaText || ''}
+          />
+        )}
+        {activeTab === 'reports' && (
+          <ReportWorkspace 
+            onNavigate={setActiveTab}
+            initialTopic={patentData?.ideaText || ''}
+            initialPatents={patentData?.patents || []}
+          />
+        )}
         {activeTab === 'results' && (
           <Results 
             data={patentData} 
             onNavigate={setActiveTab} 
+            onStartComparison={handleStartComparison}
+            onDeepDive={(patent) => {
+              setComparisonPatents([patent]);
+              setActiveTab('compare');
+            }}
           />
         )}
         {activeTab === 'knowledge' && (

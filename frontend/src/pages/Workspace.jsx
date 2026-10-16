@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
+import { Icon } from '../components/Icons';
 
 const SUGGESTIONS = [
   {
@@ -36,9 +37,16 @@ const STEPS = [
   "Synthesizing Gemini RAG Report"
 ];
 
-export default function Workspace({ onAnalyze, isAnalyzing, history, onSelectHistoryItem }) {
+export default function Workspace({ onAnalyze, isAnalyzing, history, onSelectHistoryItem, initialQuery = "" }) {
   const [title, setTitle] = useState('');
-  const [ideaText, setIdeaText] = useState('');
+  const [ideaText, setIdeaText] = useState(initialQuery || '');
+
+  useEffect(() => {
+    if (initialQuery) {
+      setIdeaText(initialQuery);
+      setTitle(initialQuery.substring(0, 40) + '...');
+    }
+  }, [initialQuery]);
   const [topK, setTopK] = useState(5);
   const [domainFilter, setDomainFilter] = useState('');
   const [applicantFilter, setApplicantFilter] = useState('');
@@ -67,7 +75,6 @@ export default function Workspace({ onAnalyze, isAnalyzing, history, onSelectHis
     e.preventDefault();
     if (!ideaText.trim()) return;
     
-    // Create default title if missing
     const finalTitle = title.trim() || ideaText.trim().substring(0, 35) + '...';
     onAnalyze({
       title: finalTitle,
@@ -83,18 +90,19 @@ export default function Workspace({ onAnalyze, isAnalyzing, history, onSelectHis
     setIdeaText(s.text);
   };
 
-  // Word & Character counts
   const wordCount = ideaText.trim() ? ideaText.trim().split(/\s+/).length : 0;
   const charCount = ideaText.length;
   const progressPercentage = ((loadingStep + 1) / STEPS.length) * 100;
 
   return (
-    <div className="container" style={{ margin: '30px auto' }}>
-      <div style={{ marginBottom: '18px' }}>
-        <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>
-          Interactive Workspace
-        </span>
-        <h1 style={{ fontSize: '26px', fontWeight: 700, color: '#fff' }}>Research Workspace</h1>
+    <div className="container" style={{ margin: '16px auto' }}>
+      <div style={{ marginBottom: '16px' }}>
+        <h2 style={{ fontSize: '20px', fontWeight: 600, color: '#fff', marginBottom: '4px' }}>
+          Prior-Art Search Workspace
+        </h2>
+        <p style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
+          Input invention specifications in natural language to perform federated vector retrieval across Indian and EPO patents.
+        </p>
       </div>
 
       <div className="workspace-grid">
@@ -102,13 +110,16 @@ export default function Workspace({ onAnalyze, isAnalyzing, history, onSelectHis
         <div className="workspace-column workspace-history-col">
           {/* Advanced Filters */}
           <div className="panel panel-padding" style={{ background: 'var(--bg-surface)' }}>
-            <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#fff', marginBottom: '12px', borderBottom: '1px solid var(--border-neutral)', paddingBottom: '6px' }}>
-              Retrieval Filters
-            </h3>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px', borderBottom: '1px solid var(--border-neutral)', paddingBottom: '6px' }}>
+              <Icon name="filter" size={14} color="var(--primary)" />
+              <h3 style={{ fontSize: '13px', fontWeight: 600, color: '#fff', margin: 0 }}>
+                Retrieval Parameters
+              </h3>
+            </div>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div>
-                <label className="input-label" htmlFor="topKSelect" style={{ fontSize: '10px' }}>Top K Matches</label>
+                <label className="input-label" htmlFor="topKSelect" style={{ fontSize: '10px' }}>Top Candidates</label>
                 <select
                   id="topKSelect"
                   className="select-field"
@@ -122,24 +133,24 @@ export default function Workspace({ onAnalyze, isAnalyzing, history, onSelectHis
               </div>
 
               <div>
-                <label className="input-label" htmlFor="domainInput" style={{ fontSize: '10px' }}>Domain Class</label>
+                <label className="input-label" htmlFor="domainInput" style={{ fontSize: '10px' }}>Technology Domain</label>
                 <input
                   id="domainInput"
                   type="text"
                   className="text-field"
-                  placeholder="e.g. AI, Healthcare"
+                  placeholder="e.g. AI, Biomarkers"
                   value={domainFilter}
                   onChange={(e) => setDomainFilter(e.target.value)}
                 />
               </div>
 
               <div>
-                <label className="input-label" htmlFor="applicantInput" style={{ fontSize: '10px' }}>Applicant Name</label>
+                <label className="input-label" htmlFor="applicantInput" style={{ fontSize: '10px' }}>Target Applicant</label>
                 <input
                   id="applicantInput"
                   type="text"
                   className="text-field"
-                  placeholder="e.g. Samsung, Huawei"
+                  placeholder="e.g. Siemens, Philips"
                   value={applicantFilter}
                   onChange={(e) => setApplicantFilter(e.target.value)}
                 />
@@ -149,8 +160,8 @@ export default function Workspace({ onAnalyze, isAnalyzing, history, onSelectHis
 
           {/* History of Previous Runs */}
           <div className="panel panel-padding" style={{ background: 'var(--bg-surface)', flex: 1 }}>
-            <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#fff', marginBottom: '12px', borderBottom: '1px solid var(--border-neutral)', paddingBottom: '6px' }}>
-              Queries History
+            <h3 style={{ fontSize: '13px', fontWeight: 600, color: '#fff', marginBottom: '12px', borderBottom: '1px solid var(--border-neutral)', paddingBottom: '6px' }}>
+              Search History
             </h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '350px', overflowY: 'auto' }}>
@@ -159,26 +170,26 @@ export default function Workspace({ onAnalyze, isAnalyzing, history, onSelectHis
                   key={idx}
                   onClick={() => onSelectHistoryItem(item)}
                   style={{
-                    padding: '10px',
+                    padding: '8px 10px',
                     borderRadius: 'var(--border-radius-sm)',
                     background: 'var(--bg-surface-secondary)',
                     border: '1px solid var(--border-neutral)',
                     cursor: 'pointer',
                     transition: 'var(--transition-fast)'
                   }}
-                  className="interactive-card"
+                  className="panel interactive"
                 >
-                  <div style={{ fontSize: '12.5px', fontWeight: 600, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                     {item.title}
                   </div>
-                  <div style={{ fontSize: '10px', color: 'var(--text-secondary)', marginTop: '4px' }}>
-                    Score: <strong>{(item.data?.novelty_score?.score ?? item.data?.novelty_score?.novelty_score ?? item.data?.novelty_score?.overall_novelty_score ?? 0)}%</strong>
+                  <div style={{ fontSize: '10px', color: 'var(--text-secondary)', marginTop: '2px' }}>
+                    Novelty: <strong>{(item.data?.novelty_score?.score ?? item.data?.novelty_score?.novelty_score ?? item.data?.novelty_score?.overall_novelty_score ?? 0)}%</strong>
                   </div>
                 </div>
               ))}
               {(!history || history.length === 0) && (
-                <div style={{ fontSize: '12.5px', color: 'var(--text-muted)', textAlign: 'center', padding: '16px 0' }}>
-                  No previous runs
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)', textAlign: 'center', padding: '16px 0' }}>
+                  No previous searches
                 </div>
               )}
             </div>
@@ -189,13 +200,13 @@ export default function Workspace({ onAnalyze, isAnalyzing, history, onSelectHis
         <div className="workspace-column" style={{ flex: 1 }}>
           <div className="panel panel-padding" style={{ background: 'var(--bg-surface)' }}>
             <form onSubmit={handleSubmit}>
-              <div style={{ marginBottom: '16px' }}>
-                <label className="input-label" htmlFor="titleInput">Invention Title</label>
+              <div style={{ marginBottom: '14px' }}>
+                <label className="input-label" htmlFor="titleInput">Invention / Research Title</label>
                 <input
                   id="titleInput"
                   type="text"
                   className="text-field"
-                  placeholder="e.g. Edge LLM Video Compression"
+                  placeholder="e.g. Edge LLM Video Compression Algorithm"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   disabled={isAnalyzing}
@@ -203,22 +214,22 @@ export default function Workspace({ onAnalyze, isAnalyzing, history, onSelectHis
               </div>
 
               <div style={{ marginBottom: '8px' }}>
-                <label className="input-label" htmlFor="ideaText">Technical Description</label>
+                <label className="input-label" htmlFor="ideaText">Technical Invention Description</label>
                 <textarea
                   id="ideaText"
                   className="textarea-field"
-                  placeholder="Describe the technology or invention you want to research in natural language (e.g. Find patents related to AI-based detection of diabetic retinopathy using retinal images)..."
+                  placeholder="Describe your technical invention, method, or system architecture in natural language. For example: A decentralized swarm navigation system for aerial drones using ultra-wideband relative localization, edge optical flow, and mesh consensus collision avoidance..."
                   value={ideaText}
                   onChange={(e) => setIdeaText(e.target.value)}
                   disabled={isAnalyzing}
-                  style={{ height: '220px' }}
+                  style={{ height: '200px' }}
                 />
               </div>
 
               {/* Word & Char counter indicators */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--text-muted)', marginBottom: '20px' }}>
-                <span>Words: <strong>{wordCount}</strong></span>
-                <span>Characters: <strong>{charCount} / 2000</strong></span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--text-muted)', marginBottom: '16px' }}>
+                <span>Words: <strong style={{ color: 'var(--text-secondary)' }}>{wordCount}</strong></span>
+                <span>Characters: <strong style={{ color: 'var(--text-secondary)' }}>{charCount} / 2500</strong></span>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -226,9 +237,10 @@ export default function Workspace({ onAnalyze, isAnalyzing, history, onSelectHis
                   type="submit"
                   className="btn-primary"
                   disabled={isAnalyzing || !ideaText.trim()}
-                  style={{ padding: '12px 24px', fontSize: '13.5px', fontWeight: 600 }}
+                  style={{ padding: '10px 20px', fontSize: '13px' }}
                 >
-                  {isAnalyzing ? 'Processing...' : 'Run Prior Art Analysis'}
+                  <Icon name="search" size={15} color="#080B12" />
+                  {isAnalyzing ? 'Retrieving Prior Art...' : 'Search & Analyze Prior Art'}
                 </button>
               </div>
             </form>
@@ -236,24 +248,28 @@ export default function Workspace({ onAnalyze, isAnalyzing, history, onSelectHis
 
           {/* Quick-Start suggestions */}
           <div className="panel panel-padding" style={{ background: 'var(--bg-surface)' }}>
-            <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#fff', marginBottom: '12px', borderBottom: '1px solid var(--border-neutral)', paddingBottom: '6px' }}>
-              Quick Templates
+            <h3 style={{ fontSize: '13px', fontWeight: 600, color: '#fff', marginBottom: '10px', borderBottom: '1px solid var(--border-neutral)', paddingBottom: '6px' }}>
+              Example Research Templates
             </h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '10px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '8px' }}>
               {SUGGESTIONS.map((s, idx) => (
                 <div
                   key={idx}
-                  className="panel interactive template-card"
+                  className="panel interactive"
                   onClick={() => !isAnalyzing && handleSelectSuggestion(s)}
                   style={{
                     background: 'var(--bg-surface-secondary)',
-                    padding: '12px',
+                    padding: '10px 12px',
                     cursor: isAnalyzing ? 'not-allowed' : 'pointer',
                     opacity: isAnalyzing ? 0.5 : 1
                   }}
                 >
-                  <div className="template-category" style={{ fontSize: '9px' }}>{s.category}</div>
-                  <div className="template-title" style={{ fontSize: '12px' }}>{s.title}</div>
+                  <div style={{ fontSize: '9px', fontWeight: 700, color: 'var(--primary)', textTransform: 'uppercase', marginBottom: '2px' }}>
+                    {s.category}
+                  </div>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.3 }}>
+                    {s.title}
+                  </div>
                 </div>
               ))}
             </div>
@@ -263,40 +279,59 @@ export default function Workspace({ onAnalyze, isAnalyzing, history, onSelectHis
         {/* COLUMN 3: AI Analysis Panel (Right) */}
         <div className="workspace-column workspace-status-col">
           {isAnalyzing ? (
-            /* Active Loading checklist */
             <div className="panel panel-padding" style={{ background: 'var(--bg-surface)', borderColor: 'var(--primary)' }}>
-              <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#fff', marginBottom: '10px', textAlign: 'center' }}>
-                RAG Pipeline Running
-              </h3>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '12px' }}>
+                <Icon name="sparkles" size={16} color="var(--primary)" />
+                <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#fff', margin: 0 }}>
+                  Pipeline Executing
+                </h3>
+              </div>
               
-              <div className="progress-track" style={{ marginBottom: '20px' }}>
+              <div style={{ width: '100%', height: '4px', background: 'var(--bg-surface-secondary)', borderRadius: '2px', overflow: 'hidden', marginBottom: '18px' }}>
                 <div 
-                  className="progress-bar" 
                   style={{ 
                     width: `${progressPercentage}%`,
+                    height: '100%',
+                    background: 'linear-gradient(90deg, var(--primary), var(--accent-violet))',
                     transition: 'width 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
                   }}
                 />
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {STEPS.map((step, idx) => {
-                  let statusClass = '';
-                  let indicatorText = idx + 1;
-                  
-                  if (idx < loadingStep) {
-                    statusClass = 'completed';
-                    indicatorText = '✓';
-                  } else if (idx === loadingStep) {
-                    statusClass = 'active';
-                  }
+                  const isPast = idx < loadingStep;
+                  const isCurrent = idx === loadingStep;
 
                   return (
-                    <div key={idx} className={`step-item ${statusClass}`} style={{ fontSize: '13px' }}>
-                      <div className="step-icon" style={{ width: '16px', height: '16px', fontSize: '9px' }}>
-                        {indicatorText}
+                    <div 
+                      key={idx} 
+                      style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: '8px', 
+                        fontSize: '12px',
+                        color: isPast ? 'var(--text-primary)' : isCurrent ? 'var(--primary)' : 'var(--text-muted)'
+                      }}
+                    >
+                      <div 
+                        style={{ 
+                          width: '18px', 
+                          height: '18px', 
+                          borderRadius: '50%', 
+                          background: isPast ? 'var(--success)' : isCurrent ? 'var(--primary-glow)' : 'var(--bg-surface-secondary)',
+                          border: `1px solid ${isPast ? 'var(--success)' : isCurrent ? 'var(--primary)' : 'var(--border-neutral)'}`,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '10px',
+                          color: isPast ? '#fff' : isCurrent ? 'var(--primary)' : 'var(--text-muted)',
+                          flexShrink: 0
+                        }}
+                      >
+                        {isPast ? <Icon name="check" size={11} color="#fff" /> : idx + 1}
                       </div>
-                      <span style={{ fontWeight: idx === loadingStep ? '600' : '400' }}>
+                      <span style={{ fontWeight: isCurrent ? 600 : 400 }}>
                         {step}
                       </span>
                     </div>
@@ -305,26 +340,25 @@ export default function Workspace({ onAnalyze, isAnalyzing, history, onSelectHis
               </div>
             </div>
           ) : (
-            /* Idle Guidelines Placeholder */
             <div className="panel panel-padding" style={{ background: 'var(--bg-surface)', flex: 1 }}>
-              <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#fff', marginBottom: '12px', borderBottom: '1px solid var(--border-neutral)', paddingBottom: '6px' }}>
-                Guidelines & Tips
+              <h3 style={{ fontSize: '13px', fontWeight: 600, color: '#fff', marginBottom: '12px', borderBottom: '1px solid var(--border-neutral)', paddingBottom: '6px' }}>
+                Research Guidelines
               </h3>
               
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.55' }}>
                 <div>
-                  <strong style={{ color: '#fff', display: 'block', marginBottom: '4px' }}>💡 Detailed Queries Work Best</strong>
-                  Describe the unique problem, implementation methods, and technical interfaces. The semantic engine compares concepts, not just keywords.
+                  <strong style={{ color: '#fff', display: 'block', marginBottom: '2px' }}>Detailed Descriptions</strong>
+                  Outline the underlying technical mechanism, structural elements, and data flow. The dense semantic embedder matches conceptual representations.
                 </div>
                 
                 <div>
-                  <strong style={{ color: '#fff', display: 'block', marginBottom: '4px' }}>⚙️ Utilize Filters</strong>
-                  Constraint searches by primary technology classes (e.g. AI, Healthcare) or applicant fields to refine candidate alignments.
+                  <strong style={{ color: '#fff', display: 'block', marginBottom: '2px' }}>Federated Scope</strong>
+                  Queries automatically search the indexed Indian patent dataset (~115k records) and federate against live European Publication Server (EPO) records.
                 </div>
 
                 <div>
-                  <strong style={{ color: '#fff', display: 'block', marginBottom: '4px' }}>📁 History Backups</strong>
-                  Every successful run is cached in local memory. Select previous entries on the left panel to compare assessments instantly.
+                  <strong style={{ color: '#fff', display: 'block', marginBottom: '2px' }}>Downstream Tools</strong>
+                  Retrieved patents can be directly sent to Patent Comparison (Feature 2) or synthesized into Research Intelligence Reports (Feature 4).
                 </div>
               </div>
             </div>

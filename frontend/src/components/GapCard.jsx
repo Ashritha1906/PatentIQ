@@ -7,46 +7,48 @@ export default function GapCard({ gap }) {
   const coverageScore = gap.coverage_score !== undefined ? Math.round(gap.coverage_score) : null;
   const equivalents = gap.matched_equivalents || [];
 
-  const getBadgeStyle = (statusVal) => {
+  const getStatusBadge = (statusVal) => {
     switch ((statusVal || '').toLowerCase()) {
       case 'missing':
       case 'no meaningful evidence':
-        return { backgroundColor: 'rgba(239, 68, 68, 0.1)', color: 'var(--error)' };
-      case 'weakly represented':
+      case 'minimal':
       case 'minimally represented':
+        return { bg: 'rgba(239, 68, 68, 0.1)', color: 'var(--error)', border: 'rgba(239, 68, 68, 0.25)' };
       case 'weak':
-        return { backgroundColor: 'rgba(245, 158, 11, 0.1)', color: 'var(--warning)' };
+      case 'weakly represented':
+        return { bg: 'rgba(245, 158, 11, 0.1)', color: 'var(--warning)', border: 'rgba(245, 158, 11, 0.25)' };
+      case 'moderate':
       case 'moderately represented':
-        return { backgroundColor: 'rgba(59, 130, 246, 0.1)', color: '#60a5fa' };
+        return { bg: 'rgba(110, 168, 254, 0.1)', color: 'var(--primary)', border: 'rgba(110, 168, 254, 0.25)' };
       default:
-        return { backgroundColor: 'rgba(16, 185, 129, 0.1)', color: 'var(--success)' };
+        return { bg: 'rgba(16, 185, 129, 0.1)', color: 'var(--success)', border: 'rgba(16, 185, 129, 0.25)' };
     }
   };
 
-  const badgeStyle = getBadgeStyle(status);
+  const badgeStyle = getStatusBadge(status);
 
   return (
     <div 
       className="panel panel-padding" 
       style={{ 
         background: 'var(--bg-surface)', 
-        border: isCombination ? '1px solid rgba(139, 92, 246, 0.4)' : '1px solid var(--border-neutral)',
-        borderRadius: 'var(--border-radius-lg)',
-        marginBottom: '16px',
-        boxShadow: isCombination ? '0 0 12px rgba(139, 92, 246, 0.08)' : 'none'
+        border: isCombination ? '1px solid rgba(155, 138, 251, 0.35)' : '1px solid var(--border-neutral)',
+        marginBottom: '12px',
+        boxShadow: isCombination ? '0 0 16px rgba(155, 138, 251, 0.05)' : 'none'
       }}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', flexWrap: 'wrap', gap: '8px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', flexWrap: 'wrap', gap: '8px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-          <h4 style={{ fontSize: '15px', fontWeight: 600, color: '#fff', margin: 0 }}>
+          <h4 style={{ fontSize: '14.5px', fontWeight: 600, color: '#fff', margin: 0 }}>
             {conceptName}
           </h4>
           {isCombination && (
-            <span style={{ fontSize: '10px', background: 'rgba(139, 92, 246, 0.15)', color: '#c084fc', padding: '2px 8px', borderRadius: '4px', fontWeight: 600 }}>
+            <span style={{ fontSize: '10px', background: 'rgba(155, 138, 251, 0.15)', color: 'var(--accent-violet-light)', border: '1px solid rgba(155, 138, 251, 0.3)', padding: '1px 6px', borderRadius: '4px', fontWeight: 600 }}>
               COMBINATION GAP
             </span>
           )}
         </div>
+
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
           {coverageScore !== null && (
             <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 500 }}>
@@ -55,13 +57,15 @@ export default function GapCard({ gap }) {
           )}
           <span 
             style={{ 
-              fontSize: '11px', 
+              fontSize: '10.5px', 
               fontWeight: 600, 
-              padding: '2px 10px', 
-              borderRadius: '50px',
+              padding: '2px 8px', 
+              borderRadius: '4px',
               textTransform: 'uppercase',
               letterSpacing: '0.02em',
-              ...badgeStyle
+              background: badgeStyle.bg,
+              color: badgeStyle.color,
+              border: `1px solid ${badgeStyle.border}`
             }}
           >
             {status}
@@ -69,16 +73,16 @@ export default function GapCard({ gap }) {
         </div>
       </div>
       
-      <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.6', margin: '0 0 10px 0' }}>
+      <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.55, margin: '0 0 8px 0' }}>
         {gap.explanation}
       </p>
 
-      {/* Semantic equivalents chips if found */}
+      {/* Semantic equivalents */}
       {equivalents.length > 0 && (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap', marginTop: '8px', fontSize: '11px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap', marginTop: '6px', fontSize: '11px' }}>
           <span style={{ color: 'var(--text-muted)' }}>Semantic matches:</span>
           {equivalents.slice(0, 4).map((eq, i) => (
-            <span key={i} style={{ background: 'var(--bg-surface-secondary)', border: '1px solid var(--border-neutral)', padding: '1px 6px', borderRadius: '4px', color: 'var(--primary-light)' }}>
+            <span key={i} style={{ background: 'var(--bg-surface-secondary)', border: '1px solid var(--border-neutral)', padding: '1px 6px', borderRadius: '4px', color: 'var(--primary)' }}>
               {eq}
             </span>
           ))}
@@ -86,7 +90,7 @@ export default function GapCard({ gap }) {
       )}
 
       {gap.containing_patents && gap.containing_patents.length > 0 && (
-        <div style={{ marginTop: '10px', fontSize: '11px', color: 'var(--text-muted)' }}>
+        <div style={{ marginTop: '8px', fontSize: '11px', color: 'var(--text-muted)' }}>
           Prior Art Alignment: {gap.containing_patents.slice(0, 6).join(', ')}
         </div>
       )}

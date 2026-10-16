@@ -258,46 +258,59 @@ class CopilotService:
                 suggested_followups=["Search patents for diabetic retinopathy", "Find drone surveillance patents"]
             )
 
-        p1, p2 = targets[0], targets[1]
-        p1_id = p1.get("publication_number") or p1.get("application_number") or "Patent 1"
-        p2_id = p2.get("publication_number") or p2.get("application_number") or "Patent 2"
+        from backend.comparison.models import CompareRequest
+        from backend.comparison.engine import comparison_engine
 
-        prompt = (
-            f"Perform a technical comparison between these two retrieved patents based strictly on their provided text:\n\n"
-            f"PATENT A:\n- ID: {p1_id}\n- Title: {p1.get('title')}\n- Applicant: {p1.get('applicant')}\n- IPC: {p1.get('classification')}\n- Text: {p1.get('abstract', '')[:800]}\n\n"
-            f"PATENT B:\n- ID: {p2_id}\n- Title: {p2.get('title')}\n- Applicant: {p2.get('applicant')}\n- IPC: {p2.get('classification')}\n- Text: {p2.get('abstract', '')[:800]}\n\n"
-            f"Provide:\n"
-            f"1. Common Technical Concepts (Overlap)\n"
-            f"2. Key Differences in Approach\n"
-            f"3. Unique Features of Each\n"
-            f"4. Summary of Technological Trade-offs\n"
-            f"Do not make any claims regarding legal infringement or validity."
-        )
+        selected_patents = targets[:3]
+        target_ids = [p.get('publication_number') or p.get('application_number') or f'Patent_{i+1}' for i, p in enumerate(selected_patents)]
 
         try:
-            comparison_text = generate_text(prompt, system_instruction=COPILOT_SYSTEM_INSTRUCTION)
-        except Exception:
+            comp_res = comparison_engine.compare(CompareRequest(patents=selected_patents))
+            comparison_lines = [
+                '### Technical Comparison: ' + ' vs '.join(target_ids) + '\n',
+                comp_res.summary + '\n',
+                '**Key Technical Differences:**'
+            ]
+            for diff in comp_res.key_differences:
+                comparison_lines.append(f"- **{diff.get('title')}**: {diff.get('difference_explanation')}")
+            if comp_res.shared_concepts:
+                comparison_lines.append('\n**Shared Technical Concepts:** ' + ', '.join(comp_res.shared_concepts[:6]))
+            if comp_res.combination_gaps:
+                comparison_lines.append('\n**Potential Combination Gap:** ' + comp_res.combination_gaps[0].get('description', ''))
+            comparison_text = '\n'.join(comparison_lines)
+            analysis_data = comp_res.model_dump()
+        except Exception as e:
+            logger.warning(f"Comparison engine invocation fallback: {e}")
+            p1, p2 = selected_patents[0], selected_patents[1]
+            p1_id, p2_id = target_ids[0], target_ids[1]
+            t1 = p1.get('title', 'Patent 1')
+            t2 = p2.get('title', 'Patent 2')
+            a1 = p1.get('applicant', 'Unknown')
+            a2 = p2.get('applicant', 'Unknown')
+            ab1 = str(p1.get('abstract', ''))[:200]
+            ab2 = str(p2.get('abstract', ''))[:200]
             comparison_text = (
                 f"### Technical Comparison: {p1_id} vs {p2_id}\n\n"
-                f"- **{p1_id}**: *\"{p1.get('title')}\"* (Applicant: {p1.get('applicant')})\n"
-                f"- **{p2_id}**: *\"{p2.get('title')}\"* (Applicant: {p2.get('applicant')})\n\n"
-                f"**Overlapping Scope:** Both patents operate in classification {p1.get('classification', 'N/A')} / {p2.get('classification', 'N/A')}.\n\n"
+                f"- **{p1_id}**: *{t1}* (Applicant: {a1})\n"
+                f"- **{p2_id}**: *{t2}* (Applicant: {a2})\n\n"
                 f"**Technical Differences:**\n"
-                f"- {p1_id} focuses on: {p1.get('abstract', '')[:200]}...\n"
-                f"- {p2_id} focuses on: {p2.get('abstract', '')[:200]}..."
+                f"- {p1_id} focuses on: {ab1}...\n"
+                f"- {p2_id} focuses on: {ab2}..."
             )
+            analysis_data = {"compared_patents": [p1_id, p2_id]}
 
         return CopilotChatResponse(
             session_id=session.session_id,
             message=comparison_text,
             intent=CopilotIntent.COMPARE.value,
-            patents=[p1, p2],
-            analysis={"compared_patents": [p1_id, p2_id]},
+            patents=selected_patents,
+            analysis=analysis_data,
             research_context=session.get_summary(),
             suggested_followups=[
+                f"Deep dive into {target_ids[0]}",
+                f"Deep dive into {target_ids[1]}",
                 "Which one is closer to my research idea?",
-                "What technology areas are not well covered?",
-                "How can I differentiate from these?"
+                "Open Comparison Workspace"
             ]
         )
 
@@ -334,6 +347,7 @@ class CopilotService:
             patents=session.retrieved_patents,
             research_context=session.get_summary(),
             suggested_followups=[
+                "Open Innovation Refinement Workspace",
                 "What areas are not well covered?",
                 "Explain the top patent",
                 "Compare the top 2 patents"
@@ -433,6 +447,27 @@ class CopilotService:
         lines.append(
             "\n**2. Specific Operational Constraints:** Rather than general algorithmic claims, focus on domain-specific edge cases, constrained latency parameters, or proprietary feedback loops."
         )
+        # Step 16: Feature 3 Innovation Refinement integration
+        innovation_data = None
+        try:
+            from backend.innovation.service import innovation_service
+            from backend.innovation.models import InnovationAnalyzeRequest
+            idea_text = query if len(query.strip().split()) >= 4 else (session.current_query or "technical innovation")
+            ir_res = innovation_service.analyze_innovation(
+                InnovationAnalyzeRequest(
+                    idea=idea_text,
+                    source_mode=session.source_mode or "hybrid",
+                    top_k=min(len(session.retrieved_patents), 10)
+                )
+            )
+            innovation_data = ir_res.model_dump()
+            if ir_res.differentiation_directions:
+                lines.append("\n**3. Potential Differentiation Directions:**")
+                for d in ir_res.differentiation_directions[:2]:
+                    lines.append(f"- *[{d.category}]* **{d.direction}**: {d.why_investigate}")
+        except Exception:
+            pass
+
         lines.append(
             "\n*Note: Based on the retrieved prior-art set, these observations reflect technical differentiation and do NOT constitute legal advice or guarantee patentability.*"
         )

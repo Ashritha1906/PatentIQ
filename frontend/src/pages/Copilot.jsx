@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import PatentCard from '../components/PatentCard';
+import { Icon } from '../components/Icons';
 import { chatCopilot, deleteCopilotSession } from '../services/api';
 
 const STARTER_PROMPTS = [
@@ -70,7 +71,7 @@ export default function Copilot() {
 
       recognition.onstart = () => {
         setIsListening(true);
-        setVoiceStatus('Listening... Speak now');
+        setVoiceStatus('Listening... Speak your research question.');
       };
 
       recognition.onresult = (event) => {
@@ -79,7 +80,7 @@ export default function Copilot() {
           transcript += event.results[i][0].transcript;
         }
         setInputMessage(transcript);
-        setVoiceStatus('Transcribing...');
+        setVoiceStatus('Transcribing speech...');
       };
 
       recognition.onerror = (event) => {
@@ -213,7 +214,6 @@ export default function Copilot() {
     }
 
     window.speechSynthesis.cancel();
-    // Clean markdown symbols for cleaner TTS narration
     const cleanText = text
       .replace(/[#*`_~]/g, '')
       .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
@@ -248,7 +248,7 @@ export default function Copilot() {
       {
         id: 'welcome_reset',
         role: 'copilot',
-        content: 'Session cleared. What patent topic or invention idea would you like to investigate?',
+        content: 'Session context cleared. What patent topic or invention idea would you like to investigate?',
         timestamp: Date.now(),
         suggestedFollowups: STARTER_PROMPTS.slice(0, 3)
       }
@@ -256,12 +256,12 @@ export default function Copilot() {
   };
 
   return (
-    <div className="copilot-container" style={{ display: 'flex', height: '100%', overflow: 'hidden' }}>
+    <div style={{ display: 'flex', height: 'calc(100vh - 61px)', overflow: 'hidden' }}>
       {/* MAIN CONVERSATIONAL COLUMN */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100%', minWidth: 0 }}>
-        {/* TOP BAR / HEADER */}
-        <header style={{
-          padding: '16px 24px',
+        {/* TOP SUB-HEADER */}
+        <div style={{
+          padding: '12px 24px',
           borderBottom: '1px solid var(--border-neutral)',
           background: 'var(--bg-surface)',
           display: 'flex',
@@ -270,45 +270,33 @@ export default function Copilot() {
           flexWrap: 'wrap',
           gap: '12px'
         }}>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ fontSize: '20px' }}>🤖</span>
-              <h1 style={{ fontSize: '18px', fontWeight: 600, color: 'var(--text-primary)' }}>
-                PatentIQ Research Copilot
-              </h1>
-              <span style={{
-                fontSize: '11px',
-                fontWeight: 600,
-                color: 'var(--primary-light)',
-                background: 'var(--primary-glow)',
-                border: '1px solid var(--border-active)',
-                padding: '2px 8px',
-                borderRadius: '4px'
-              }}>
-                Phase 6B Federated RAG
-              </span>
-            </div>
-            <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '2px' }}>
-              Ask questions about patents, prior art, technology gaps, and your innovation.
-            </p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Icon name="copilot" size={18} color="var(--primary)" />
+            <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)' }}>
+              Interactive Research Session
+            </span>
+            <span style={{
+              fontSize: '10px',
+              fontWeight: 600,
+              color: 'var(--primary)',
+              background: 'var(--primary-glow)',
+              border: '1px solid rgba(110, 168, 254, 0.25)',
+              padding: '1px 6px',
+              borderRadius: '4px'
+            }}>
+              Federated RAG
+            </span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             {/* Source Mode Selector */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Source:</span>
+              <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Source:</span>
               <select
                 value={sourceMode}
                 onChange={(e) => setSourceMode(e.target.value)}
-                style={{
-                  background: 'var(--bg-surface-secondary)',
-                  border: '1px solid var(--border-neutral)',
-                  color: 'var(--text-primary)',
-                  fontSize: '12px',
-                  padding: '6px 10px',
-                  borderRadius: 'var(--border-radius-sm)',
-                  cursor: 'pointer'
-                }}
+                className="select-field"
+                style={{ padding: '4px 8px', fontSize: '11px', width: 'auto' }}
               >
                 <option value="hybrid">Federated Hybrid (Local + EPO Live)</option>
                 <option value="local">Local Corpus (~115k Records)</option>
@@ -319,22 +307,14 @@ export default function Copilot() {
             {/* Clear Session Button */}
             <button
               onClick={handleResetSession}
-              style={{
-                background: 'transparent',
-                border: '1px solid var(--border-neutral)',
-                color: 'var(--text-secondary)',
-                fontSize: '12px',
-                padding: '6px 12px',
-                borderRadius: 'var(--border-radius-sm)',
-                cursor: 'pointer',
-                transition: 'all var(--transition-fast)'
-              }}
+              className="btn-secondary"
+              style={{ padding: '4px 10px', fontSize: '11px' }}
               title="Reset conversation context"
             >
-              🔄 New Session
+              New Session
             </button>
           </div>
-        </header>
+        </div>
 
         {/* MESSAGES SCROLL AREA */}
         <div style={{
@@ -355,7 +335,7 @@ export default function Copilot() {
                 width: '100%'
               }}
             >
-              {/* Message Label / Role */}
+              {/* Message Header / Role */}
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -368,50 +348,53 @@ export default function Copilot() {
                 {msg.intent && (
                   <span style={{
                     fontSize: '10px',
-                    color: 'var(--primary-light)',
-                    background: 'rgba(99, 102, 241, 0.1)',
+                    color: 'var(--primary)',
+                    background: 'var(--primary-glow)',
+                    border: '1px solid rgba(110, 168, 254, 0.2)',
                     padding: '1px 6px',
                     borderRadius: '3px'
                   }}>
                     {msg.intent}
                   </span>
                 )}
-                {/* TTS Speaker Button for Copilot */}
+                {/* TTS Speaker Button */}
                 {msg.role === 'copilot' && !msg.isError && (
                   <button
                     onClick={() => toggleTextToSpeech(msg.id, msg.content)}
                     style={{
                       background: 'transparent',
                       border: 'none',
-                      color: speakingMsgId === msg.id ? 'var(--primary-light)' : 'var(--text-muted)',
+                      color: speakingMsgId === msg.id ? 'var(--primary)' : 'var(--text-muted)',
                       cursor: 'pointer',
-                      fontSize: '13px',
+                      fontSize: '11px',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '3px'
+                      gap: '4px',
+                      padding: 0
                     }}
                     title={speakingMsgId === msg.id ? 'Stop Narration' : 'Listen with Speech Synthesis'}
                   >
-                    {speakingMsgId === msg.id ? '⏹ Stop' : '🔊 Listen'}
+                    <Icon name="volume" size={13} color={speakingMsgId === msg.id ? 'var(--primary)' : 'var(--text-muted)'} />
+                    <span>{speakingMsgId === msg.id ? 'Stop' : 'Listen'}</span>
                   </button>
                 )}
               </div>
 
               {/* Message Bubble */}
               <div style={{
-                maxWidth: msg.role === 'user' ? '75%' : '90%',
+                maxWidth: msg.role === 'user' ? '75%' : '85%',
                 background: msg.role === 'user'
-                  ? 'rgba(99, 102, 241, 0.15)'
+                  ? 'var(--bg-surface-elevated)'
                   : 'var(--bg-surface)',
                 border: msg.role === 'user'
-                  ? '1px solid rgba(99, 102, 241, 0.3)'
+                  ? '1px solid var(--border-neutral)'
                   : msg.isError
                     ? '1px solid var(--error)'
                     : '1px solid var(--border-neutral)',
                 color: 'var(--text-primary)',
-                padding: '16px 20px',
+                padding: '14px 18px',
                 borderRadius: 'var(--border-radius-md)',
-                fontSize: '14px',
+                fontSize: '13.5px',
                 lineHeight: 1.6,
                 whiteSpace: 'pre-wrap',
                 boxShadow: 'var(--shadow-sm)'
@@ -428,26 +411,20 @@ export default function Copilot() {
                     color: 'var(--text-muted)',
                     fontStyle: 'italic'
                   }}>
-                    ⚖️ {msg.disclaimer}
+                    {msg.disclaimer}
                   </div>
                 )}
               </div>
 
-              {/* Embedded Patent Results if present */}
+              {/* Retrieved Patent Cards in Message */}
               {msg.patents && msg.patents.length > 0 && (
-                <div style={{ marginTop: '16px', width: '100%', maxWidth: '90%' }}>
-                  <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '8px' }}>
-                    Retrieved Prior Art Documents ({msg.patents.length}):
+                <div style={{ marginTop: '12px', width: '100%', maxWidth: '85%' }}>
+                  <div style={{ fontSize: '11.5px', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.04em' }}>
+                    Retrieved Prior Art Documents ({msg.patents.length})
                   </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    {msg.patents.map((p, idx) => (
-                      <PatentCard
-                        key={p.publication_number || idx}
-                        patent={p}
-                        highlightClass={idx === 0 ? 'top-match' : ''}
-                      />
-                    ))}
-                  </div>
+                  {msg.patents.map((p, pIdx) => (
+                    <PatentCard key={pIdx} patent={p} />
+                  ))}
                 </div>
               )}
 
@@ -456,9 +433,9 @@ export default function Copilot() {
                 <div style={{
                   display: 'flex',
                   flexWrap: 'wrap',
-                  gap: '8px',
+                  gap: '6px',
                   marginTop: '10px',
-                  maxWidth: '90%'
+                  maxWidth: '85%'
                 }}>
                   {msg.suggestedFollowups.map((fPrompt, idx) => (
                     <button
@@ -468,14 +445,14 @@ export default function Copilot() {
                         background: 'var(--bg-surface-secondary)',
                         border: '1px solid var(--border-neutral)',
                         color: 'var(--text-secondary)',
-                        fontSize: '12px',
-                        padding: '6px 12px',
+                        fontSize: '11.5px',
+                        padding: '4px 10px',
                         borderRadius: '20px',
                         cursor: 'pointer',
                         transition: 'all var(--transition-fast)'
                       }}
                       onMouseOver={(e) => {
-                        e.currentTarget.style.borderColor = 'var(--primary-light)';
+                        e.currentTarget.style.borderColor = 'var(--primary)';
                         e.currentTarget.style.color = 'var(--text-primary)';
                       }}
                       onMouseOut={(e) => {
@@ -483,7 +460,7 @@ export default function Copilot() {
                         e.currentTarget.style.color = 'var(--text-secondary)';
                       }}
                     >
-                      💬 {fPrompt}
+                      {fPrompt}
                     </button>
                   ))}
                 </div>
@@ -493,38 +470,35 @@ export default function Copilot() {
 
           {/* Loading Indicator */}
           {isLoading && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-muted)', fontSize: '13px' }}>
-              <div className="spinner-sm" style={{ width: '16px', height: '16px' }}></div>
-              <span>PatentIQ Copilot is analyzing patents & prior art context...</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)', fontSize: '12.5px' }}>
+              <Icon name="sparkles" size={15} color="var(--primary)" />
+              <span>Analyzing prior-art corpus & formulating response...</span>
             </div>
           )}
 
           <div ref={messagesEndRef} />
         </div>
 
-        {/* INPUT FOOTER AREA */}
+        {/* INPUT COMPOSER AREA */}
         <div style={{
-          padding: '16px 24px',
+          padding: '14px 24px',
           borderTop: '1px solid var(--border-neutral)',
           background: 'var(--bg-surface)'
         }}>
-          {/* Voice Status Alert */}
           {voiceStatus && (
             <div style={{
-              fontSize: '12px',
-              color: isListening ? 'var(--primary-light)' : 'var(--warning)',
+              fontSize: '11.5px',
+              color: isListening ? 'var(--primary)' : 'var(--warning)',
               marginBottom: '8px',
               display: 'flex',
               alignItems: 'center',
               gap: '6px'
             }}>
               <span style={{
-                width: '8px',
-                height: '8px',
+                width: '6px',
+                height: '6px',
                 borderRadius: '50%',
-                background: isListening ? 'var(--primary)' : 'var(--warning)',
-                display: 'inline-block',
-                animation: isListening ? 'pulse 1.2s infinite' : 'none'
+                background: isListening ? 'var(--primary)' : 'var(--warning)'
               }}></span>
               {voiceStatus}
             </div>
@@ -533,8 +507,8 @@ export default function Copilot() {
           <div style={{
             display: 'flex',
             alignItems: 'flex-end',
-            gap: '12px',
-            background: 'var(--bg-base)',
+            gap: '10px',
+            background: 'var(--bg-surface-secondary)',
             border: '1px solid var(--border-neutral)',
             borderRadius: 'var(--border-radius-md)',
             padding: '8px 12px'
@@ -545,172 +519,137 @@ export default function Copilot() {
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Ask PatentIQ anything about your research... (Enter to send, Shift+Enter for new line)"
+              placeholder="Ask a technical research question, investigate prior art, or request claim comparisons... (Enter to send, Shift+Enter for newline)"
               style={{
                 flex: 1,
                 background: 'transparent',
                 border: 'none',
                 color: 'var(--text-primary)',
                 fontFamily: 'var(--font-body)',
-                fontSize: '14px',
+                fontSize: '13.5px',
                 resize: 'none',
                 outline: 'none',
                 lineHeight: 1.5
               }}
             />
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
               {/* Voice Microphone Button */}
               <button
                 type="button"
                 onClick={toggleVoiceInput}
+                className="btn-secondary"
                 style={{
-                  background: isListening ? 'rgba(239, 68, 68, 0.2)' : 'var(--bg-surface-secondary)',
-                  border: isListening ? '1px solid var(--error)' : '1px solid var(--border-neutral)',
+                  padding: '6px 8px',
+                  borderRadius: 'var(--border-radius-sm)',
                   color: isListening ? 'var(--error)' : 'var(--text-secondary)',
-                  width: '36px',
-                  height: '36px',
-                  borderRadius: '50%',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '16px',
-                  transition: 'all var(--transition-fast)'
+                  borderColor: isListening ? 'var(--error)' : 'var(--border-neutral)'
                 }}
-                title={isListening ? 'Stop Listening' : 'Speak Question (Speech-to-Text)'}
+                title={isListening ? 'Stop Listening' : 'Voice Input (Speech-to-Text)'}
               >
-                {isListening ? '🔴' : '🎙️'}
+                <Icon name="mic" size={15} color={isListening ? 'var(--error)' : 'currentColor'} />
               </button>
 
-              {/* Submit Button */}
+              {/* Send Button */}
               <button
                 type="button"
                 onClick={() => handleSendMessage()}
                 disabled={isLoading || !inputMessage.trim()}
+                className="btn-primary"
                 style={{
-                  background: inputMessage.trim() ? 'var(--primary)' : 'var(--bg-surface-secondary)',
-                  border: 'none',
-                  color: inputMessage.trim() ? '#fff' : 'var(--text-muted)',
-                  width: '36px',
-                  height: '36px',
-                  borderRadius: '50%',
-                  cursor: inputMessage.trim() && !isLoading ? 'pointer' : 'default',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '15px',
-                  transition: 'all var(--transition-fast)'
+                  padding: '6px 14px',
+                  fontSize: '12.5px'
                 }}
-                title="Send Research Query"
+                title="Send Question"
               >
-                ➤
+                Send
+                <Icon name="arrow-right" size={14} color="#080B12" />
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* RESEARCH CONTEXT PANEL (STEP 21) */}
+      {/* RESEARCH CONTEXT PANEL */}
       <aside style={{
-        width: '300px',
+        width: '280px',
         borderLeft: '1px solid var(--border-neutral)',
         background: 'var(--bg-surface)',
         display: 'flex',
         flexDirection: 'column',
         overflowY: 'auto',
-        padding: '20px'
+        padding: '18px'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-          <span style={{ fontSize: '16px' }}>📊</span>
-          <h2 style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)' }}>
-            Research Context
+          <Icon name="file-text" size={16} color="var(--primary)" />
+          <h2 style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)', margin: 0 }}>
+            Session Context
           </h2>
         </div>
 
         {/* Current Query */}
-        <div style={{ marginBottom: '16px' }}>
-          <div style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px' }}>
+        <div style={{ marginBottom: '14px' }}>
+          <div style={{ fontSize: '10.5px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '4px' }}>
             Active Query
           </div>
-          <div style={{ fontSize: '13px', color: 'var(--text-primary)', background: 'var(--bg-surface-secondary)', padding: '8px 12px', borderRadius: '4px', wordBreak: 'break-word' }}>
-            {researchContext.current_query || 'No active search topic'}
+          <div style={{ fontSize: '12px', color: 'var(--text-primary)', background: 'var(--bg-surface-secondary)', padding: '6px 10px', borderRadius: '4px', wordBreak: 'break-word', border: '1px solid var(--border-subtle)' }}>
+            {researchContext.current_query || 'No active query'}
           </div>
         </div>
 
         {/* Active Intent */}
-        <div style={{ marginBottom: '16px' }}>
-          <div style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px' }}>
+        <div style={{ marginBottom: '14px' }}>
+          <div style={{ fontSize: '10.5px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '4px' }}>
             Current Intent
           </div>
-          <div style={{
-            fontSize: '12px',
-            color: 'var(--primary-light)',
+          <span style={{
+            fontSize: '11px',
+            color: 'var(--primary)',
             background: 'var(--primary-glow)',
-            border: '1px solid var(--border-active)',
-            padding: '4px 8px',
+            border: '1px solid rgba(110, 168, 254, 0.25)',
+            padding: '2px 8px',
             borderRadius: '4px',
             display: 'inline-block'
           }}>
             {researchContext.intent}
-          </div>
-        </div>
-
-        {/* Patents in Scope */}
-        <div style={{ marginBottom: '16px' }}>
-          <div style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px' }}>
-            Prior Art Context
-          </div>
-          <div style={{ fontSize: '13px', color: 'var(--text-primary)' }}>
-            <strong>{researchContext.patents_count}</strong> patents retrieved
-          </div>
-        </div>
-
-        {/* Source Mode */}
-        <div style={{ marginBottom: '16px' }}>
-          <div style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px' }}>
-            Retrieval Provider
-          </div>
-          <span style={{
-            fontSize: '11px',
-            fontWeight: 600,
-            color: '#38bdf8',
-            background: 'rgba(56, 189, 248, 0.1)',
-            padding: '3px 8px',
-            borderRadius: '4px',
-            border: '1px solid rgba(56, 189, 248, 0.2)'
-          }}>
-            {researchContext.source_mode.toUpperCase()}
           </span>
         </div>
 
-        {/* Selected Patent */}
-        {researchContext.selected_patent_id && (
-          <div style={{ marginBottom: '16px' }}>
-            <div style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px' }}>
-              Focused Patent
-            </div>
-            <div style={{ fontSize: '12px', color: 'var(--text-secondary)', background: 'var(--bg-surface-secondary)', padding: '6px 10px', borderRadius: '4px' }}>
-              📌 {researchContext.selected_patent_id}
-            </div>
+        {/* Patents in Scope */}
+        <div style={{ marginBottom: '14px' }}>
+          <div style={{ fontSize: '10.5px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '4px' }}>
+            Prior Art Candidates
           </div>
-        )}
+          <div style={{ fontSize: '12.5px', color: 'var(--text-primary)' }}>
+            <strong>{researchContext.patents_count}</strong> records in scope
+          </div>
+        </div>
+
+        {/* Retrieval Mode */}
+        <div style={{ marginBottom: '14px' }}>
+          <div style={{ fontSize: '10.5px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '4px' }}>
+            Federation Scope
+          </div>
+          <span className="badge badge-source-epo">
+            {researchContext.source_mode?.toUpperCase() || 'HYBRID'}
+          </span>
+        </div>
 
         {/* Technical Concepts */}
         {researchContext.technical_concepts && researchContext.technical_concepts.length > 0 && (
-          <div style={{ marginBottom: '16px' }}>
-            <div style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '6px' }}>
+          <div style={{ marginBottom: '14px' }}>
+            <div style={{ fontSize: '10.5px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
               Concepts Under Analysis
             </div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
               {researchContext.technical_concepts.map((concept, idx) => (
                 <span
                   key={idx}
                   style={{
-                    fontSize: '11px',
+                    fontSize: '10.5px',
                     color: 'var(--text-secondary)',
                     background: 'var(--bg-surface-secondary)',
-                    padding: '3px 8px',
+                    padding: '2px 6px',
                     borderRadius: '4px',
                     border: '1px solid var(--border-neutral)'
                   }}
@@ -723,11 +662,11 @@ export default function Copilot() {
         )}
 
         {/* Starter Prompts Sidebar Section */}
-        <div style={{ marginTop: 'auto', paddingTop: '16px', borderTop: '1px solid var(--border-neutral)' }}>
-          <div style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
-            Quick Prompts
+        <div style={{ marginTop: 'auto', paddingTop: '14px', borderTop: '1px solid var(--border-neutral)' }}>
+          <div style={{ fontSize: '10.5px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
+            Suggested Prompts
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             {STARTER_PROMPTS.slice(2, 6).map((prompt, idx) => (
               <button
                 key={idx}
@@ -736,16 +675,16 @@ export default function Copilot() {
                   background: 'transparent',
                   border: 'none',
                   color: 'var(--text-secondary)',
-                  fontSize: '12px',
+                  fontSize: '11.5px',
                   textAlign: 'left',
                   cursor: 'pointer',
                   padding: '4px 0',
-                  lineHeight: 1.4
+                  lineHeight: 1.35
                 }}
-                onMouseOver={(e) => e.currentTarget.style.color = 'var(--primary-light)'}
+                onMouseOver={(e) => e.currentTarget.style.color = 'var(--primary)'}
                 onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
               >
-                ▸ {prompt}
+                • {prompt}
               </button>
             ))}
           </div>

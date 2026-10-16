@@ -1,10 +1,26 @@
 ﻿import React, { useState } from 'react';
+import { Icon } from './Icons';
 
-export default function PatentCard({ patent, highlightClass = '' }) {
+/**
+ * PatentCard Component
+ * Displays a single patent retrieval match with full explainability details,
+ * metadata provenance badges, selection checkbox for comparison, and Deep-Dive exploration.
+ */
+export default function PatentCard({ 
+  patent, 
+  highlightClass = '',
+  selectable = false,
+  selected = false,
+  onToggleSelect = null,
+  onDeepDive = null
+}) {
   const [expanded, setExpanded] = useState(false);
 
-  // Extract publication/application year from application number or metadata
-  const appNum = patent.publication_number || patent.application_number || patent.patent_id || '';
+  if (!patent) return null;
+
+  const appNum = patent.application_number || patent.publication_number || 'Unknown ID';
+  
+  // Extract publication date or application year
   const getYear = () => {
     if (patent.publication_date) {
       const match = patent.publication_date.match(/\b(19|20)\d{2}\b/);
@@ -17,109 +33,134 @@ export default function PatentCard({ patent, highlightClass = '' }) {
   const year = getYear();
   const applicant = patent.applicant || patent.applicant_name || 'Unknown Applicant';
   const classification = patent.classification || patent.classification_ipc || 'Unknown IPC';
-  const source = patent.source || 'PatentIQ Indexed Corpus';
-
-  // Color helper for scores
-  const getScoreColorClass = (score) => {
-    if (score >= 70) return 'high';
-    if (score >= 40) return 'medium';
-    return 'low';
-  };
+  const source = patent.source || 'LOCAL_PATENTIQ';
 
   const simPercent = Math.round((patent.semantic_score ?? patent.similarity_score ?? 0) * 100);
   const kwPercent = patent.keyword_score !== undefined ? Math.round(patent.keyword_score * 100) : null;
   const finalPercent = patent.final_score !== undefined ? Math.round(patent.final_score * 100) : null;
+
+  const getSourceBadge = () => {
+    if (source.includes('EPO') && source.includes('LOCAL')) {
+      return { label: 'LOCAL + EPO', className: 'badge-source-fused' };
+    }
+    if (source === 'EPO_EPS' || source.includes('EPO')) {
+      return { label: 'EPO LIVE', className: 'badge-source-epo' };
+    }
+    return { label: 'LOCAL PATENTIQ', className: 'badge-source-local' };
+  };
+
+  const sourceBadge = getSourceBadge();
 
   return (
     <div 
       className={`panel interactive panel-padding ${highlightClass}`} 
       id={`patent-${appNum.replace(/[^a-zA-Z0-9]/g, '-')}`}
       style={{
-        marginBottom: '16px',
-        transition: 'all var(--transition-normal)',
-        borderLeft: highlightClass ? '3px solid var(--primary)' : '1px solid var(--border-neutral)'
+        marginBottom: '14px',
+        transition: 'all var(--transition-fast)',
+        borderLeft: selected ? '3px solid var(--primary)' : highlightClass ? '3px solid var(--accent-violet)' : '1px solid var(--border-neutral)',
+        background: selected ? 'rgba(110, 168, 254, 0.04)' : undefined
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, minWidth: '280px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-            <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 600 }}>
-              {appNum} {year ? `• ${year}` : ''}
+          {/* Header Metadata & Tags */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', flexWrap: 'wrap' }}>
+            {selectable && (
+              <label 
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  cursor: 'pointer',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: selected ? 'var(--primary)' : 'var(--text-muted)',
+                  background: selected ? 'var(--primary-glow)' : 'var(--bg-surface-secondary)',
+                  padding: '2px 8px',
+                  borderRadius: '4px',
+                  border: `1px solid ${selected ? 'rgba(110, 168, 254, 0.5)' : 'var(--border-neutral)'}`,
+                  userSelect: 'none'
+                }}
+              >
+                <input 
+                  type="checkbox"
+                  checked={selected}
+                  onChange={() => onToggleSelect && onToggleSelect(patent)}
+                  style={{ cursor: 'pointer', accentColor: 'var(--primary)' }}
+                />
+                <span>{selected ? 'Selected for comparison' : 'Compare'}</span>
+              </label>
+            )}
+
+            <span className="font-mono" style={{ color: 'var(--text-muted)', fontWeight: 600 }}>
+              {appNum}
             </span>
-            <span style={{ 
-              fontSize: '10px', 
-              fontWeight: 600,
-              color: source.includes('EPO') && source.includes('LOCAL') ? '#c084fc' : source.includes('EPO') ? '#38bdf8' : 'var(--primary-light)', 
-              background: source.includes('EPO') && source.includes('LOCAL') ? 'rgba(192, 132, 252, 0.15)' : source.includes('EPO') ? 'rgba(56, 189, 248, 0.15)' : 'rgba(59, 130, 246, 0.1)', 
-              padding: '2px 8px', 
-              borderRadius: '4px',
-              border: '1px solid ' + (source.includes('EPO') ? 'rgba(56, 189, 248, 0.3)' : 'rgba(59, 130, 246, 0.2)')
-            }}>
-              {source === 'EPO_EPS' ? 'EPO LIVE' : source.includes('LOCAL') && source.includes('EPO') ? 'LOCAL + EPO' : 'LOCAL'}
+
+            {year && (
+              <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
+                ({year})
+              </span>
+            )}
+
+            <span className={`badge ${sourceBadge.className}`}>
+              {sourceBadge.label}
             </span>
           </div>
-          <h3 style={{ fontSize: '16px', fontWeight: 600, color: '#fff', marginBottom: '8px', lineHeight: 1.4 }}>
+
+          {/* Patent Title */}
+          <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#fff', marginBottom: '8px', lineHeight: 1.4 }}>
             {patent.title}
           </h3>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', fontSize: '12px', color: 'var(--text-secondary)' }}>
-            <span><strong>Applicant:</strong> {applicant}</span>
-            <span><strong>Classification:</strong> {classification}</span>
-            {patent.field_of_invention && <span><strong>Field:</strong> {patent.field_of_invention}</span>}
+
+          {/* Core Metadata */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', fontSize: '12px', color: 'var(--text-secondary)' }}>
+            <span><strong style={{ color: 'var(--text-muted)' }}>Applicant:</strong> {applicant}</span>
+            <span><strong style={{ color: 'var(--text-muted)' }}>IPC:</strong> {classification}</span>
+            {patent.field_of_invention && (
+              <span><strong style={{ color: 'var(--text-muted)' }}>Field:</strong> {patent.field_of_invention}</span>
+            )}
           </div>
         </div>
 
+        {/* Score Badges */}
         <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
-          {/* Hybrid Score (Phase 6A) */}
           {finalPercent !== null && (
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ textAlign: 'center', background: 'var(--bg-surface-secondary)', padding: '4px 8px', borderRadius: '4px', border: '1px solid var(--border-neutral)' }}>
               <span style={{ fontSize: '9px', textTransform: 'uppercase', color: 'var(--text-muted)', display: 'block', fontWeight: 600 }}>
-                Hybrid Score
+                Hybrid
               </span>
-              <span className={`novelty-status-pill ${getScoreColorClass(finalPercent)}`}>
+              <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--primary)' }}>
                 {finalPercent}%
               </span>
             </div>
           )}
 
-          {/* Semantic Similarity Score */}
-          <div style={{ textAlign: 'right' }}>
+          <div style={{ textAlign: 'center', background: 'var(--bg-surface-secondary)', padding: '4px 8px', borderRadius: '4px', border: '1px solid var(--border-neutral)' }}>
             <span style={{ fontSize: '9px', textTransform: 'uppercase', color: 'var(--text-muted)', display: 'block', fontWeight: 600 }}>
               Semantic
             </span>
-            <span className={`novelty-status-pill ${getScoreColorClass(simPercent)}`}>
+            <span style={{ fontSize: '13px', fontWeight: 700, color: '#fff' }}>
               {simPercent}%
             </span>
           </div>
 
-          {/* Keyword Score if present */}
           {kwPercent !== null && (
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ textAlign: 'center', background: 'var(--bg-surface-secondary)', padding: '4px 8px', borderRadius: '4px', border: '1px solid var(--border-neutral)' }}>
               <span style={{ fontSize: '9px', textTransform: 'uppercase', color: 'var(--text-muted)', display: 'block', fontWeight: 600 }}>
                 Keyword
               </span>
-              <span className={`novelty-status-pill ${getScoreColorClass(kwPercent)}`}>
+              <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-secondary)' }}>
                 {kwPercent}%
-              </span>
-            </div>
-          )}
-
-          {/* Evidence Score if present in legacy mode */}
-          {patent.evidence_score !== undefined && (
-            <div style={{ textAlign: 'right' }}>
-              <span style={{ fontSize: '9px', textTransform: 'uppercase', color: 'var(--text-muted)', display: 'block', fontWeight: 600 }}>
-                Evidence
-              </span>
-              <span className={`novelty-status-pill ${getScoreColorClass(patent.evidence_score)}`}>
-                {Math.round(patent.evidence_score)}%
               </span>
             </div>
           )}
         </div>
       </div>
 
-      {/* Explainable Ranking Reasons (Phase 6A) */}
+      {/* Explainable Ranking Reasons */}
       {patent.ranking_reasons && patent.ranking_reasons.length > 0 && (
-        <div style={{ marginTop: '12px', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+        <div style={{ marginTop: '10px', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
           {patent.ranking_reasons.map((reason, rIdx) => (
             <span
               key={rIdx}
@@ -127,64 +168,56 @@ export default function PatentCard({ patent, highlightClass = '' }) {
                 fontSize: '11px',
                 padding: '2px 8px',
                 borderRadius: '4px',
-                background: 'rgba(59, 130, 246, 0.12)',
-                color: '#93c5fd',
-                border: '1px solid rgba(59, 130, 246, 0.25)',
+                background: 'rgba(110, 168, 254, 0.08)',
+                color: 'var(--primary-light)',
+                border: '1px solid rgba(110, 168, 254, 0.2)',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '4px'
               }}
             >
-              <span style={{ color: '#38bdf8' }}>✓</span> {reason}
+              <span style={{ color: 'var(--primary)' }}>•</span> {reason}
             </span>
           ))}
         </div>
       )}
 
-      {/* Scoring breakdown if available */}
-      {patent.scoring_breakdown && (
+      {/* Expanded Abstract Section */}
+      {expanded && (
         <div style={{ 
-          marginTop: '12px', 
-          padding: '8px 12px', 
-          background: 'var(--bg-surface-secondary)', 
-          borderRadius: 'var(--border-radius-sm)',
-          fontSize: '11px',
-          color: 'var(--text-secondary)',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))',
-          gap: '8px',
-          border: '1px solid var(--border-neutral)'
-        }}>
-          <div>Semantic Weight: <strong>{patent.scoring_breakdown.semantic}%</strong></div>
-          <div>Concept Match: <strong>{patent.scoring_breakdown.concept_coverage}%</strong></div>
-          <div>Domain Match: <strong>{patent.scoring_breakdown.domain_alignment}%</strong></div>
-          <div>Metadata Match: <strong>{patent.scoring_breakdown.metadata_relevance}%</strong></div>
-        </div>
-      )}
-
-      {/* Expanded Text Section */}
-      {expanded ? (
-        <div style={{ 
-          marginTop: '16px', 
-          paddingTop: '16px', 
+          marginTop: '14px', 
+          paddingTop: '14px', 
           borderTop: '1px solid var(--border-neutral)',
           fontSize: '13px',
           color: 'var(--text-secondary)',
-          lineHeight: '1.6',
-          whiteSpace: 'pre-line'
+          lineHeight: '1.6'
         }}>
-          <strong>Patent Abstract / Description:</strong>
-          <p style={{ marginTop: '8px' }}>{patent.abstract || patent.patent_text}</p>
+          <div style={{ fontWeight: 600, color: '#fff', marginBottom: '6px' }}>Patent Abstract:</div>
+          <p style={{ margin: 0 }}>
+            {patent.abstract || patent.patent_text || 'No abstract text available in indexed record.'}
+          </p>
         </div>
-      ) : null}
+      )}
 
-      <div style={{ marginTop: '12px', display: 'flex', justifyContent: 'flex-end' }}>
+      {/* Action Footer */}
+      <div style={{ marginTop: '12px', display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+        {onDeepDive && (
+          <button 
+            className="btn-secondary" 
+            onClick={() => onDeepDive(patent)}
+            style={{ padding: '5px 10px', fontSize: '12px' }}
+          >
+            <Icon name="search" size={13} color="var(--primary)" />
+            Deep Dive
+          </button>
+        )}
         <button 
           className="btn-secondary" 
           onClick={() => setExpanded(!expanded)}
-          style={{ padding: '6px 12px', fontSize: '12px', height: 'auto' }}
+          style={{ padding: '5px 10px', fontSize: '12px' }}
         >
-          {expanded ? 'Collapse Details' : 'View Patent Details'}
+          {expanded ? 'Hide Details' : 'View Details'}
+          <Icon name={expanded ? 'chevron-down' : 'chevron-right'} size={13} />
         </button>
       </div>
     </div>

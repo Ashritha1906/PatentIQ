@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Icon } from '../components/Icons';
 
 const PALETTES = {
   indigo: { primary: '#6366f1', light: '#818cf8', glow: 'rgba(99, 102, 241, 0.08)' },
@@ -10,6 +11,7 @@ export default function SettingsPage({ userSettings, onUpdateSettings }) {
   const [apiKey, setApiKey] = useState(userSettings?.apiKey || '');
   const [mockLLM, setMockLLM] = useState(userSettings?.mockLLM !== false);
   const [activePalette, setActivePalette] = useState(userSettings?.palette || 'indigo');
+  const [themeMode, setThemeMode] = useState(() => localStorage.getItem('patentiq_theme') || 'dark');
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
@@ -30,6 +32,12 @@ export default function SettingsPage({ userSettings, onUpdateSettings }) {
     }
   };
 
+  const handleThemeChange = (newTheme) => {
+    setThemeMode(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('patentiq_theme', newTheme);
+  };
+
   const handleSave = (e) => {
     e.preventDefault();
     handleApplyPalette(activePalette);
@@ -43,16 +51,69 @@ export default function SettingsPage({ userSettings, onUpdateSettings }) {
   };
 
   return (
-    <div className="container" style={{ maxWidth: '800px', margin: '40px auto' }}>
+    <div className="container" style={{ maxWidth: '800px', margin: '30px auto 60px auto' }}>
       <div style={{ marginBottom: '24px' }}>
-        <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>
-          Configuration
+        <span style={{ fontSize: '11.5px', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+          Configuration & Preferences
         </span>
-        <h1 style={{ fontSize: '26px', fontWeight: 700, color: '#fff' }}>System Settings</h1>
+        <h1 style={{ fontSize: '26px', fontWeight: 700, color: 'var(--text-primary)', marginTop: '4px' }}>
+          System Settings
+        </h1>
       </div>
 
       <div className="panel panel-padding" style={{ background: 'var(--bg-surface)' }}>
         <form onSubmit={handleSave}>
+          {/* Theme Mode Toggle (Dark / Light) */}
+          <div style={{ marginBottom: '28px', paddingBottom: '24px', borderBottom: '1px solid var(--border-neutral)' }}>
+            <label className="input-label">Display Theme</label>
+            <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '14px' }}>
+              Select between the sleek enterprise Dark theme or clean high-contrast Light theme:
+            </p>
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <button
+                type="button"
+                onClick={() => handleThemeChange('dark')}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '10px 18px',
+                  borderRadius: 'var(--border-radius-md)',
+                  border: themeMode === 'dark' ? '2px solid var(--primary)' : '1px solid var(--border-neutral)',
+                  background: 'var(--bg-surface-secondary)',
+                  color: 'var(--text-primary)',
+                  cursor: 'pointer',
+                  fontSize: '13px',
+                  fontWeight: 600
+                }}
+              >
+                <Icon name="moon" size={15} color="var(--primary)" />
+                <span>Dark Slate Theme</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleThemeChange('light')}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '10px 18px',
+                  borderRadius: 'var(--border-radius-md)',
+                  border: themeMode === 'light' ? '2px solid var(--primary)' : '1px solid var(--border-neutral)',
+                  background: 'var(--bg-surface-secondary)',
+                  color: 'var(--text-primary)',
+                  cursor: 'pointer',
+                  fontSize: '13px',
+                  fontWeight: 600
+                }}
+              >
+                <Icon name="sun" size={15} color="var(--primary)" />
+                <span>Clean Light Theme</span>
+              </button>
+            </div>
+          </div>
+
           {/* Accent Color Section */}
           <div style={{ marginBottom: '28px' }}>
             <label className="input-label">Theme Accent Color</label>
@@ -73,7 +134,7 @@ export default function SettingsPage({ userSettings, onUpdateSettings }) {
                     borderRadius: 'var(--border-radius-md)',
                     border: activePalette === name ? '2px solid var(--primary)' : '1px solid var(--border-neutral)',
                     background: 'var(--bg-surface-secondary)',
-                    color: '#fff',
+                    color: 'var(--text-primary)',
                     cursor: 'pointer',
                     fontSize: '13px',
                     fontWeight: 500,
@@ -98,7 +159,7 @@ export default function SettingsPage({ userSettings, onUpdateSettings }) {
             <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '12px' }}>
               Toggle between live Gemini API invocations and simulated local RAG models to stay within free-tier quotas:
             </p>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', fontSize: '14px', color: '#fff' }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', fontSize: '14px', color: 'var(--text-primary)' }}>
               <input
                 type="checkbox"
                 checked={mockLLM}
@@ -130,8 +191,9 @@ export default function SettingsPage({ userSettings, onUpdateSettings }) {
           {/* Submit Button */}
           <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '16px', borderTop: '1px solid var(--border-neutral)', paddingTop: '20px' }}>
             {saved && (
-              <span style={{ color: 'var(--success)', fontSize: '13px', fontWeight: 500 }}>
-                ✓ Settings saved successfully
+              <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--success)', fontSize: '13px', fontWeight: 500 }}>
+                <Icon name="check" size={14} color="var(--success)" />
+                Settings saved successfully
               </span>
             )}
             <button type="submit" className="btn-primary">
