@@ -1,4 +1,5 @@
 import React from 'react';
+import Logo from './Logo';
 
 export default function Header({ systemHealth }) {
   const getStatusDetails = () => {
@@ -9,7 +10,7 @@ export default function Header({ systemHealth }) {
       return { text: `Online - DB ${systemHealth.database || 'connected'}`, className: 'online' };
     }
     if (systemHealth.status === 'degraded') {
-      return { text: 'Degraded', className: 'warning' }; // we can make standard class or style
+      return { text: 'Degraded', className: 'warning' };
     }
     return { text: 'Offline', className: 'offline' };
   };
@@ -20,8 +21,7 @@ export default function Header({ systemHealth }) {
     <header className="main-header">
       <div className="container header-container">
         <div className="logo-section">
-          <div className="logo-icon">πQ</div>
-          <span className="logo-text">PatentIQ</span>
+          <Logo size={28} />
         </div>
         
         <div className="status-badge" title={`Database Status: ${systemHealth?.database || 'Unknown'}\nLLM Mode: ${systemHealth?.llm_mode || 'Unknown'}`}>

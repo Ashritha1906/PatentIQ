@@ -10,6 +10,7 @@ import PatentComparison from './pages/PatentComparison';
 import InnovationRefinement from './pages/InnovationRefinement';
 import ReportWorkspace from './pages/ReportWorkspace';
 import { Icon } from './components/Icons';
+import Logo from './components/Logo';
 import { checkSystemHealth, analyzeIdea } from './services/api';
 
 function App() {
@@ -178,9 +179,13 @@ function App() {
         <div>
           {/* Sidebar Header & Brand */}
           <div className="sidebar-header">
-            <div className="sidebar-brand">
-              <div className="sidebar-logo-icon">IQ</div>
-              {!sidebarCollapsed && <span className="sidebar-logo-text">PatentIQ</span>}
+            <div 
+              className="sidebar-brand" 
+              onClick={() => setActiveTab('home')}
+              style={{ cursor: 'pointer' }}
+              title="Return to PatentIQ Overview"
+            >
+              <Logo size={28} showWordmark={!sidebarCollapsed} />
             </div>
             <button 
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}

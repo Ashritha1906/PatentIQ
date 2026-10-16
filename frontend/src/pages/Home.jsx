@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Icon } from '../components/Icons';
 import HeroVisualization from '../components/HeroVisualization';
+import Logo from '../components/Logo';
 
 export function Home({ onNavigate, theme, onToggleTheme }) {
   const [consoleTab, setConsoleTab] = useState('retrieval');
@@ -20,13 +21,11 @@ export function Home({ onNavigate, theme, onToggleTheme }) {
       {/* 1. REFINED COMPACT NAVIGATION BAR */}
       <nav className="landing-navbar" aria-label="Main Navigation">
         <div className="landing-nav-inner">
-          <div onClick={() => scrollToSection('hero')} style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-            <div className="sidebar-logo-icon" style={{ width: '32px', height: '32px', fontSize: '13px' }}>IQ</div>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
-              <span style={{ fontSize: '17px', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>PatentIQ</span>
-              <span style={{ fontSize: '10px', fontWeight: 700, color: 'var(--primary)', letterSpacing: '0.04em', textTransform: 'uppercase' }}>Enterprise AI</span>
-            </div>
-          </div>
+          <Logo 
+            size={34} 
+            tagline="Enterprise AI" 
+            onClick={() => scrollToSection('hero')} 
+          />
 
           <div className="landing-nav-links">
             <button onClick={() => scrollToSection('platform')} className="landing-nav-link">Platform</button>
@@ -869,9 +868,8 @@ export function Home({ onNavigate, theme, onToggleTheme }) {
       <footer style={{ background: 'var(--bg-surface)', borderTop: '1px solid var(--border-neutral)', padding: '48px 24px 36px 24px', marginTop: 'auto' }}>
         <div style={{ maxWidth: '1180px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '32px', marginBottom: '36px' }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
-              <div className="sidebar-logo-icon" style={{ width: '28px', height: '28px', fontSize: '12px' }}>IQ</div>
-              <span style={{ fontSize: '16px', fontWeight: 800, color: 'var(--text-primary)' }}>PatentIQ</span>
+            <div style={{ marginBottom: '14px' }}>
+              <Logo size={28} />
             </div>
             <p style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
               Federated AI patent intelligence platform for deep-tech innovators, R&D engineering teams, and patent counsel.
